@@ -1,0 +1,10 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* Import Icons */
+@import 'boxicons'; /*npm install boxicons --save  */
+
+/* Import Tailwind components */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
