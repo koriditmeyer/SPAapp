@@ -7,7 +7,7 @@ import { logo, logoText } from "../../assets";
 import { navLinks } from "../../constants";
 
 // import cartwidget
-import Cartwidget from "../CartWidget/cartwidget";
+import Cartwidget from "../CartWidget/Cartwidget";
 
 const Navbar = () => {
   return (
