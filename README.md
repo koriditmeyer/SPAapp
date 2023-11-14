@@ -2,6 +2,9 @@
 Welcome to the SPA app
 </h3>
 
+## 🌐 Live version
+https://koriditmeyer.github.io/SPAapp/
+
 ## 💻 Technologies Used
 
 !["React Router"](https://img.shields.io/badge/reactrouter-React_Router-brightgreen?logo=reactrouter&logoColor=CA4245&label=%20&labelColor=black&color=CA4245)
