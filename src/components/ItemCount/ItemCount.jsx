@@ -1,6 +1,6 @@
 import React,{ useState } from "react";
 
-const Itemcount = ({ initial, stock}) => {
+const ItemCount = ({ initial, stock}) => {
   const [counter, setCounter] = useState(initial);
   const increment = () => {
     if (counter < stock) {
@@ -33,4 +33,4 @@ const Itemcount = ({ initial, stock}) => {
   );
 };
 
-export default Itemcount;
+export default ItemCount;
