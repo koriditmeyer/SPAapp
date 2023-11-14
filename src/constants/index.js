@@ -1,22 +1,27 @@
 export const navLinks = [
     {
-      id: "home",
+      id: "",
       title: "Home",
       icon: 'bx bxs-home-smile bx-tada-hover',
     },
     {
-      id: "features",
-      title: "Features",
-      icon: "bx bxs-book-content",
+      id: "category/men's clothing",
+      title: "Men's Clothing",
+      icon: "bx bxs-t-shirt",
     },
     {
-      id: "about",
-      title: "About",
-      icon: "bx bx-group",
+      id: "category/electronics",
+      title: "Electronics",
+      icon: "bx bx-hdd",
     },
-    // {
-    //   id: "cart",
-    //   title: "Cart",
-    //   icon: "bx bxs-cart",
-    // },
+    {
+      id: "category/jewelery",
+      title: "Jewelry",
+      icon: "bx bxs-diamond",
+    },
+    {
+      id: "contact",
+      title: "Contact",
+      icon: "bx bxs-book-content",
+    },
   ];
