@@ -3,8 +3,7 @@ import { CartContext } from "../../context/CartContext";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { FR_CURRENCY } from "../../constants";
-import { CheckoutForm, ItemDetailInfo } from "..";
-import ItemCount from "../ItemCount/ItemCount";
+import { CheckoutForm, ItemDetailInfo,ItemCount } from "..";
 import {
   addDoc,
   collection,

@@ -1,5 +1,5 @@
 import React from "react";
-import ItemCount from "../ItemCount/ItemCount";
+import {ItemCount} from "..";
 
 const CartItem = ({ cartItem, removeItemsCart }) => {
   console.log(cartItem.product);

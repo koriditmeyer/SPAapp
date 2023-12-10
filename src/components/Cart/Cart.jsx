@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { FR_CURRENCY } from "../../constants";
-import { ItemDetailInfo } from "..";
-import ItemCount from "../ItemCount/ItemCount";
+import { ItemCount, ItemDetailInfo } from "..";
+
 
 const Cart = () => {
   document.title = "Amazon.com Cart"

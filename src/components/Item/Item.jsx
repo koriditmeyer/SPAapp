@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ItemDetailInfo from "../ItemDetailInfo/ItemDetailInfo";
+import {ItemDetailInfo} from "..";
 import { FR_CURRENCY } from "../../constants";
 
 const Item = ({ properties }) => {

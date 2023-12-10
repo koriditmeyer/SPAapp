@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import ItemList from "../ItemList/ItemList";
+import {ItemList} from "..";
 import { useParams } from "react-router-dom";
 import { db } from "../../services/config";
 import {

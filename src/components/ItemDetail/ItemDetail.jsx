@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
-import ItemCount from "../ItemCount/ItemCount";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
-import { ItemDetailInfo } from "..";
+import { ItemDetailInfo, ItemCount } from "..";
 import { FR_CURRENCY } from "../../constants";
 
 const ItemDetail = ({ properties }) => {

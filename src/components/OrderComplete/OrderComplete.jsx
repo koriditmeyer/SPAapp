@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { db } from "../../services/config";
 import { doc, getDoc } from "firebase/firestore";
-import { ItemList } from "..";
 
 const OrderComplete = () => {
   const { orderId } = useParams();

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../services/config";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query} from "firebase/firestore";
 import { ItemList } from "..";
 
 const SearchResults = () => {
