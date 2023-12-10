@@ -8,3 +8,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn{
+        @apply bg-yellow-400 hover:bg-yellow-500 w-full p-3 text-xs xl:text-sm rounded mt-3;
+    }
+
+    .formInput {
+        @apply pr-2
+    }
+    .formInput label{
+        @apply text-xs xl:text-sm pb-2
+    }
+    .formInput input{
+        @apply h-10 border-2 rounded pl-2
+    }
+    .formInput p{
+        @apply text-xs xl:text-sm text-amazon-yellow_dark h-3
+    }
+}

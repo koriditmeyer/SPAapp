@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import ItemDetail from '../ItemDetail/ItemDetail';
-import {useParams} from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import ItemDetail from "../ItemDetail/ItemDetail";
+import { useParams } from "react-router-dom";
+import { db } from "../../services/config";
+import { doc, getDoc } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
-    const [product, setProduct] = useState(null);
-    const  {id} = useParams(); // use to receive route params
-    useEffect(() => {
-      const fetchProduct = async () => {
-        try {
-          const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-          const data = await response.json();
-          console.log(!Object.keys(data).length)
-          if (!Object.keys(data).length) {
-            throw new Error("Empty json");
-          }
-          setProduct(data);
-        } catch (error) {
-          console.log(`${error.message} Product not found`);
+  const [product, setProduct] = useState(null);
+  const { id } = useParams(); // use to receive route params
+  const [loading, setLoading] = useState(true); // Conditional state
+  useEffect(() => {
+    setLoading(true);
+    const response = doc(db, "products", id);
+    getDoc(response)
+      .then((snapshot) => {
+        if (snapshot.empty) {
+          throw new Error("No results");
         }
-      };
-  
-      fetchProduct();
-    }, [id]); // add also this to use route params
-  
-    return (
-      <section className="">
-        {product ? <ItemDetail properties={product}/> : (
-          <p className="">Loading</p>
-        )}
-      </section>
-    );
-  };
-  
+        setProduct({ id: snapshot.id, ...snapshot.data() });
+      })
+      .catch((error) => {
+        console.log(`${error.message} Product not found`);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [id]); // add also this to use route params
+
+  return (
+    <section className="">
+      {loading ? (
+        <p className="text-white">Loading...</p>
+      ) : (
+        <ItemDetail properties={product} />
+      )}
+    </section>
+  );
+};
 
 export default ItemDetailContainer;

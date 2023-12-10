@@ -25,3 +25,5 @@ export const navLinks = [
       icon: "bx bxs-book-content",
     },
   ];
+
+  export const FR_CURRENCY = Intl.NumberFormat("en-FR", {style:"currency", currency:"EUR"})

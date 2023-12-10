@@ -1,43 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import ItemList from "../ItemList/ItemList";
 import { useParams } from "react-router-dom";
+import { db } from "../../services/config";
+import {
+  collection,
+  getDocs,
+  query,
+  where
+} from "firebase/firestore";
 
-const ItemListContainer = ({ limit }) => {
+const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
-  const { id } = useParams();
+  const [loading, setLoading] = useState(true) // Conditional state
+  const { categoryId } = useParams();
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
+      setLoading(true) // Need to set again to true at it can change over time
         let response
-        if (!id) {
-          response = await fetch(
-            `https://fakestoreapi.com/products?limit=${limit}`
-          );
+        if (!categoryId) {
+          response = collection(db, "products")
         } else {
-          response = await fetch(
-            `https://fakestoreapi.com/products/category/${id}`
-          );
+          response = query(collection(db, "products"), where("category", "==", categoryId))
         }
-          const data = await response.json();
-          if (!data.length) {
-            throw new Error("Empty json");
-          }
-          setProducts(data);
-      } catch (error) {
-        console.log(`${error.message} no products found`);
-      }
-    };
+        getDocs(response)
+          .then((snapshot) => {
+            if (snapshot.empty) {
+              throw new Error("No results");
+            }
+            setProducts(snapshot.docs.map((doc) => 
+              ({ id: doc.id, ...doc.data() })))
+          })
+      .catch (error => {
+        console.log(`${error.message} - no products found`);
+      })
+      .finally(() => {  // finally 
+        setLoading(false)
+      })
+  }, [categoryId]);
 
-    fetchProducts();
-  }, [id]);
 
   return (
-    <main className="bg-black overflow-hidden flex justify-center items-center">
+    <main className={"bg-gray-50 dark:bg-black overflow-hidden flex justify-center items-center"}>
       <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 justify-center">
-        {products.length ? (
-          <ItemList list={products} />
+        {loading ? (
+          <p className="text-white">Loading...</p>
         ) : (
-          <p className="text-white">No hay productos</p>
+          <ItemList list={products} />
         )}
       </section>
     </main>

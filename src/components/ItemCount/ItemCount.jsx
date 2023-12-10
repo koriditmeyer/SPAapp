@@ -1,34 +1,56 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 
-const ItemCount = ({ initial, stock}) => {
+const ItemCount = ({ id, min, initial, stock, onAdd, updateBehaviour }) => {
   const [counter, setCounter] = useState(initial);
   const increment = () => {
     if (counter < stock) {
       setCounter(counter + 1);
     }
+    updateBehaviour && onAdd(id,counter +1);
   };
   const decrement = () => {
-    if (counter > initial) {
+    if (counter > min) {
       setCounter(counter - 1);
     }
+    updateBehaviour && onAdd(id,counter -1);
+  };
+  const addToCart = () => {
+
+    onAdd(id,counter);
+    
   };
 
   return (
-    <div className="flex items-center ">
-      
-      <div className="flex-col">
-      <p className="text-red-600 px-4">Quantity: {counter}</p>
-      <p className="text-red-600 px-4">Stock: {stock}</p>
+    <div className="flex-col items-center ">
+      <div className="flex items-center"> 
+        <div className=" min-w-[90px]">Quantity: {counter}</div>
+        <div className="flex pl-2">
+          <button
+            className=" bg-gray-300 hover:bg-gray-400 w-full p-3 text-xs xl-text-sm my-1 border-r border-gray-200 rounded-l"
+            onClick={decrement}
+            disabled={counter == min}
+          >
+            -
+          </button>
+          <button
+            className=" bg-gray-300 hover:bg-gray-400 w-full p-3 text-xs xl-text-sm my-1 rounded-r"
+            onClick={increment}
+            disabled={counter == stock}
+          >
+            +
+          </button>
+        </div>
       </div>
-      <div className="inline-flex">
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-l" onClick={() => decrement()} disabled={counter == initial}>
-        -
+      {
+      !updateBehaviour && (
+      <button
+        className="bg-yellow-400 hover:bg-yellow-500 w-full p-3 text-xs xl-text-sm rounded mt-3"
+        onClick={addToCart}
+      >
+        Add to cart
       </button>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r" onClick={() => increment()} disabled={counter == stock}> + </button>
-      </div>
-      {/* <button onClick={() => onAdd(counter)} >
-        Agregar al carrito
-      </button> */}
+      )
+      }
     </div>
   );
 };

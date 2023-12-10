@@ -2,6 +2,7 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   mode: "jit",
+  darkMode: "class",
   theme: {
     extend: {
       // Updated with my colors
@@ -10,6 +11,14 @@ module.exports = {
         secondary: "#00f6ff",
         dimWhite: "rgba(255, 255, 255, 0.7)",
         dimBlue: "rgba(9, 151, 124, 0.1)",
+        amazon:{
+          background: "#EAEDED",
+          blue:"#485769",
+          ligh_blue: "#232F3A",
+          yellow: "#FEBD69",
+          yellow_dark:"#c7511f",
+          DEFAULT: "#131921"
+        }
       },
       // Updated font family
       fontFamily: {
