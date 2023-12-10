@@ -3,8 +3,6 @@
  */
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { logo } from "../../assets"; // import things from assets like logo, images...
-import { navLinks } from "../../constants"; // import navlinks
 import { CartWidget, Search, ThemeWidget } from "../";
 
 /*
@@ -31,7 +29,7 @@ const Navbar = () => {
         <div className="flex items-center m-4">
           {/* logo */}
           <Link to={`SPAapp/`} className="flex">
-            <img src={logo} alt="SPA-logo" className="w-auto h-[35px] m-2" />
+            <img src={"../images/logo.png"}  alt="SPA-logo" className="w-auto h-[35px] m-2" />
           </Link>
           <div className="px-4">
             <div className="text-xs xl:text-sm">Deliver to</div>
@@ -79,22 +77,4 @@ const Navbar = () => {
 
 export default Navbar;
 
-<div className="w-full flex py-6 justify-between items-center">
-  {/* Navbar for large devices */}
-  <ul className="list-none sm:flex hidden justify-center items-center flex-1">
-    {/* map over all navigation items */}
-    {/* {navLinks.map((nav, index) => (
-    <li
-      key={index}
-      className="text-white cursor-pointer text-[16px] 
-  mr-10"
-    >
-      <NavLink to={`SPAapp/${nav.id}`} className={classState()}>
-        <i className={`${nav.icon} px-2`}></i>
-        {nav.title}
-      </NavLink>
-    </li>
-  ))} */}
-  </ul>
-  {/* Navbar for mobile devices -- to be built */}
-</div>;
+
