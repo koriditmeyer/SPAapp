@@ -3,7 +3,7 @@ import { CartContext } from "../../context/CartContext";
 
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
-const Cartwidget = () => {
+const CartWidget = () => {
     const { totalQuantity } = useContext(CartContext);
   
     return (
@@ -26,4 +26,4 @@ const Cartwidget = () => {
   };
   
 
-export default Cartwidget;
+export default CartWidget;
