@@ -27,16 +27,16 @@ function App() {
             <Navbar />
             {/* Main section that change with the routes chosen*/}
             <Routes>
-              <Route path="SPAapp/" element={<HomePage />} />
-              <Route path="SPAapp/search" element={<SearchResults />} />
+              <Route path="spaapp/" element={<HomePage />} />
+              <Route path="spaapp/search" element={<SearchResults />} />
               <Route
-                path="SPAapp/category/:categoryId"
+                path="spaapp/category/:categoryId"
                 element={<ItemListContainer />}
               />
-              <Route path="SPAapp/item/:id" element={<ItemDetailContainer />} />
-              <Route path="SPAapp/cart" element={<Cart />} />
-              <Route path="SPAapp/checkout" element={<Checkout />} />
-              <Route path="SPAapp/order-complete/:orderId" element={<OrderComplete />} />
+              <Route path="spaapp/item/:id" element={<ItemDetailContainer />} />
+              <Route path="spaapp/cart" element={<Cart />} />
+              <Route path="spaapp/checkout" element={<Checkout />} />
+              <Route path="spaapp/order-complete/:orderId" element={<OrderComplete />} />
               <Route path="*" element={<Error />} /> {/* Always at the end */}
             </Routes>
             {/* Footer*/}
