@@ -101,7 +101,7 @@ const Checkout = () => {
             // Navigate to a success page
             navigate(
               {
-                pathname:`/SPAapp/order-complete/${docRef.id}`
+                pathname:`/order-complete/${docRef.id}`
               }
               );
           })
@@ -146,7 +146,7 @@ const Checkout = () => {
                     <div className="grid grid-cols-12 divide-y divide-gray-400 mr-4">
                       <div className="col-span-10 grid grid-cols-8 divide-y divide-gray-400">
                         <div className="col-span-2">
-                          <Link to={`/SPAapp/item/${item.product.id}`}>
+                          <Link to={`/item/${item.product.id}`}>
                             <img
                               className="p-4 m-auto"
                               src={item.product.img_small}
@@ -156,7 +156,7 @@ const Checkout = () => {
                         </div>
                         <div className="col-span-6">
                           <div className="font-medium text-black mt-2">
-                            <Link to={`/SPAapp/item/${item.product.id}`}>
+                            <Link to={`/item/${item.product.id}`}>
                               <ItemDetailInfo
                                 product={item.product}
                                 ratings={false}
@@ -193,12 +193,6 @@ const Checkout = () => {
                 {FR_CURRENCY.format(totalPrice)}
               </span>
             </div>
-            {orderId && (
-              <div>
-                {" "}
-                THANK YOU FOR YOUR ORDER. YOUR ORDER NUMBER IS {orderId}{" "}
-              </div>
-            )}
           </div>
           {/* Checkout */}
           <div className="border col-span-2 bg-white rounded min-h-[250px] p-7 divide-y divide-gray-400">

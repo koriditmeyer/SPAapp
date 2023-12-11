@@ -17,7 +17,7 @@ const CarouselProduct = () => {
       >
         {Array.from({ length: 9 }, (_, i) => (
           <SwiperSlide key={i}>
-            <Link to={`/SPAapp/item/${i}`}>
+            <Link to={`/item/${i}`}>
             <img src={`../images/product_${i}_small.jpg`} />
             </Link>
           </SwiperSlide>

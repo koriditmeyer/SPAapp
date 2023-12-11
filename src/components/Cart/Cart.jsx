@@ -49,7 +49,7 @@ const Cart = () => {
                     <div className="grid grid-cols-12 divide-y divide-gray-400 mr-4">
                       <div className="col-span-10 grid grid-cols-8 divide-y divide-gray-400">
                         <div className="col-span-2">
-                          <Link to={`/SPAapp/item/${item.product.id}`}>
+                          <Link to={`/item/${item.product.id}`}>
                             <img
                               className="p-4 m-auto"
                               src={item.product.img_small}
@@ -59,7 +59,7 @@ const Cart = () => {
                         </div>
                         <div className="col-span-6">
                           <div className="font-medium text-black mt-2">
-                            <Link to={`/SPAapp/item/${item.product.id}`}>
+                            <Link to={`/item/${item.product.id}`}>
                               <ItemDetailInfo
                                 product={item.product}
                                 ratings={false}
@@ -118,7 +118,7 @@ const Cart = () => {
                   {FR_CURRENCY.format(totalPrice)}
                 </span>
               </div>
-              <Link to={"/SPAapp/Checkout"}>
+              <Link to={"/Checkout"}>
                 <button className="btn">Proceed to Checkout</button>
               </Link>
             </div>

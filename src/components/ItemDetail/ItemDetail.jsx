@@ -75,7 +75,7 @@ const ItemDetail = ({ properties }) => {
                   updateBehaviour={false}
                 />
               ) : (
-                <Link to={"/SPAapp/cart"}>
+                <Link to={"/cart"}>
                   <button className="btn">Go to Cart</button>
                 </Link>
               ))}

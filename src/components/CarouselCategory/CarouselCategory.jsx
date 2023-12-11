@@ -10,7 +10,7 @@ const CarouselCategory = () => {
 
   const searchCategory = (category) => {
     navigate({
-      pathname: "/SPAapp/search",
+      pathname: "/search",
       search: `${createSearchParams({
         category: `${category}`,
         searchTerm: ``,

@@ -28,7 +28,7 @@ const Navbar = () => {
         {/* LEFT */}
         <div className="flex items-center m-4">
           {/* logo */}
-          <Link to={`SPAapp/`} className="flex">
+          <Link to={`/`} className="flex">
             <img src={"../images/logo.png"}  alt="SPA-logo" className="w-auto h-[35px] m-2" />
           </Link>
           <div className="px-4">
@@ -54,7 +54,7 @@ const Navbar = () => {
           </div>
           <div className="flex px-3 cursor-pointer ">
             {/* CART WIDGET */}
-            <NavLink to={"SPAapp/cart"} className={classState()}>
+            <NavLink to={"/cart"} className={classState()}>
               <CartWidget />
             </NavLink>
           </div>

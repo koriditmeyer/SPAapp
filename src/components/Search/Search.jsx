@@ -55,7 +55,7 @@ const Search = () => {
     e.preventDefault();
     if(searchTerm){
         navigate({
-          pathname: "SPAapp/search",
+          pathname: "/search",
           search: `${createSearchParams({
             category: `${category}`,
             searchTerm: `${searchTerm}`,
@@ -63,7 +63,7 @@ const Search = () => {
         });
     } else{
         navigate({
-            pathname: "/SPAapp"
+            pathname: "/"
           });
     }
     setSearchTerm("")

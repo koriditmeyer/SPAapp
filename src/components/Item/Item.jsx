@@ -5,7 +5,7 @@ import { FR_CURRENCY } from "../../constants";
 
 const Item = ({ properties }) => {
   return (
-    <Link to={`/SPAapp/item/${properties.id}`}>
+    <Link to={`/item/${properties.id}`}>
       <article className="flex-col border rounded-md mt-1 mb-1 ">
         <div className="p-4 bg-gray-200">
           <img className="m-auto" src={properties.img_small}></img>
