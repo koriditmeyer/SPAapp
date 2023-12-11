@@ -42,12 +42,12 @@ https://amazon-3n2hu2bnv-koriditmeyers-projects.vercel.app/
 
 14/11/23
 
-- Organise navbar, use of Ract Router DOM to display API data and go into detail, categories
+- Organise navbar, use of !["React Router"](https://img.shields.io/badge/reactrouter-React_Router-brightgreen?logo=reactrouter&logoColor=CA4245&label=%20&labelColor=black&color=CA4245) to display API data and go into detail, categories
 - Fetch data from API
 
 26/10/23:
 
-- Use of REACT with VITE to build the components, props
+- Use of !["React"](https://img.shields.io/badge/react-React-brightgreen?logo=react&logoColor=61DAFB&label=%20&labelColor=black&color=61DAFB) with !["Vite"](https://img.shields.io/badge/vite-Vite-brightgreen?logo=vite&logoColor=646CFF&label=%20&labelColor=black&color=646CFF) to build the components, props
 - Use of Tailwind CSS to build the SPA
 
 ----
