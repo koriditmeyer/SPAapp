@@ -18,6 +18,12 @@ export const CartProvider = ({ children }) => {
   };
   // ADD PRODUCTS TO CART
   const addToCart = (product, quantity) => {
+
+    if (quantity <= 0) {
+      console.warn("Cannot add zero or negative quantity to cart");
+      return;
+    }
+
     if (!isInCart(product.id)) {
       setCart((el) => [...el, { product, quantity }]);
       setTotalQuantity((el) => el + quantity);

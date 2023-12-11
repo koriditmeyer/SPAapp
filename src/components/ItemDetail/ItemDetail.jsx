@@ -5,11 +5,11 @@ import { ItemDetailInfo, ItemCount } from "..";
 import { FR_CURRENCY } from "../../constants";
 
 const ItemDetail = ({ properties }) => {
-  document.title = `Amazon.com : ${properties.title}`
+  document.title = `Amazon.com : ${properties.title}`;
   const [quantity, setQuanity] = useState(0);
   const { addToCart } = useContext(CartContext);
 
-  const onAdd = (id,quantity) => {
+  const onAdd = (id, quantity) => {
     setQuanity(quantity);
     addToCart(properties, quantity);
   };
@@ -60,18 +60,25 @@ const ItemDetail = ({ properties }) => {
               FREE Delivery
             </div>
             <div className="text-base xl:text-lg text-green-700  font-semibold mt-1">
-              In Stock <span>({properties.stock})</span>
+              {properties.stock === 0 ? <span className=" text-amazon-yellow_dark">Out of Stock</span> : "In Stock"}
+              {properties.stock !== 0 && <span> ({properties.stock})</span>}
             </div>
             <div className="text-base xl:text-lg mt-1 "></div>
-            {quantity == 0 ? (
-              <ItemCount id={properties.id} min={1} initial={1} stock={properties.stock} onAdd={onAdd} updateBehaviour={false}/>
-            ) : (
-              <Link to={"/SPAapp/cart"}>
-                <button className="btn">
-                  Go to Cart
-                </button>
-              </Link>
-            )}
+            {properties.stock !== 0 &&
+              (quantity == 0 ? (
+                <ItemCount
+                  id={properties.id}
+                  min={1}
+                  initial={1}
+                  stock={properties.stock}
+                  onAdd={onAdd}
+                  updateBehaviour={false}
+                />
+              ) : (
+                <Link to={"/SPAapp/cart"}>
+                  <button className="btn">Go to Cart</button>
+                </Link>
+              ))}
           </div>
         </div>
       </div>
