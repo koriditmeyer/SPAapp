@@ -60,14 +60,14 @@ const SearchResults = () => {
       <div className="border-b border-gray-200 p-2 shadow-xl">{`1-${
         products.length
       } of over 40,000 results for ${searchParams.get("searchTerm")}`}</div>
-      <div className="min-w-[1200px]  m-auto pt-4 px-4">
+      <div className="m-auto pt-4 px-4">
         {loading ? (
           <p className="text-white">Loading...</p>
         ) : (
           products && (
-            <div className="grid grid-cols-12">
-              <div className="col-span-3">Filter</div>
-              <div className="col-span-9">
+            <div className="grid grid-cols-12 gap-2">
+              <div className="hidden md:inline-block md:col-span-3 bg-amazon-lightText">Filter (to be build)</div>
+              <div className="col-span-12 md:col-span-9">
                 <h2 className="text-xl xl:text-3xl font-bold">Results</h2>
                 <div className=" gap-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 ">
                   <ItemList list={products} />

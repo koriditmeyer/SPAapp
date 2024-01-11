@@ -44,7 +44,7 @@ const ItemCount = ({ id, min, initial, stock, onAdd, updateBehaviour }) => {
       {
       !updateBehaviour && (
       <button
-        className="bg-yellow-400 hover:bg-yellow-500 w-full p-3 text-xs xl-text-sm rounded mt-3"
+        className="btn"
         onClick={addToCart}
       >
         Add to cart

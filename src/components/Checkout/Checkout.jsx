@@ -116,9 +116,9 @@ const Checkout = () => {
 
   return (
     <div className=" ">
-      <div className="grid grid-cols-12 place-items-center min-w-[1000px] max-w-[1500px] m-auto bg-amazon-background min-h[60px]">
-        <div className="col-span-2"></div>
-        <h2 className="col-span-8 text-3xl xl:text-5xl font-semibold py-4 ">
+      <div className="grid grid-cols-12 place-items-center max-w-constainer m-auto bg-amazon-background min-h[60px]">
+        <div className="md:col-span-2"></div>
+        <h2 className="col-span-9 md:col-span-8 text-3xl xl:text-5xl font-semibold py-4 ">
           Checkout (
           <span className=" text-amazon-yellow_dark">{`${totalQuantity} items`}</span>
           )
@@ -126,26 +126,26 @@ const Checkout = () => {
         <LockClosedIcon className="col-span-2 h-[40px] " />
       </div>
 
-      <div className="min-w-[1000px] max-w-[1500px] m-auto py-8">
-        <div className="grid grid-cols-8 gap-10">
+      <div className="max-w-constainer  m-auto py-8 ">
+        <div className="grid grid-cols-1 md:grid-cols-8 md:gap-10">
           {/* Personal info || Products */}
-          <div className="col-span-6 bg-white">
+          <div className="md:col-span-6 bg-white">
             <div>
               <div className="text-2xl xl:text-3xl m-4">
                 1. Insert your data
               </div>
               <CheckoutForm formData={formData} setFormData={setFormData} />
             </div>
-            <div>
+            <div className="divide-y divide-gray-400">
               <div className="text-2xl xl:text-3xl m-4">
                 2. Review items and shipping
               </div>
               {cart.map((item) => {
                 return (
                   <div key={item.product.id}>
-                    <div className="grid grid-cols-12 divide-y divide-gray-400 mr-4">
-                      <div className="col-span-10 grid grid-cols-8 divide-y divide-gray-400">
-                        <div className="col-span-2">
+                    <div className="grid grid-cols-1 md:grid-cols-12 mr-4">
+                      <div className="md:col-span-10 grid grid-cols-8">
+                        <div className="col-span-3 md:col-span-2">
                           <Link to={`/item/${item.product.id}`}>
                             <img
                               className="p-4 m-auto"
@@ -154,7 +154,7 @@ const Checkout = () => {
                             />
                           </Link>
                         </div>
-                        <div className="col-span-6">
+                        <div className="col-span-5 md:col-span-6">
                           <div className="font-medium text-black mt-2">
                             <Link to={`/item/${item.product.id}`}>
                               <ItemDetailInfo
@@ -173,7 +173,7 @@ const Checkout = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-span-2 ">
+                      <div className="md:col-span-2 ">
                         <div className="text-sm xl:text-lg mt-2   text-right">
                           Per product{" "}
                           <span className="text-lg xl:text-xl font-semibold">
@@ -195,7 +195,7 @@ const Checkout = () => {
             </div>
           </div>
           {/* Checkout */}
-          <div className="border col-span-2 bg-white rounded min-h-[250px] p-7 divide-y divide-gray-400">
+          <div className="border md:col-span-2 bg-white rounded min-h-[250px] p-7 divide-y divide-gray-400">
             <button className="btn" onClick={validateCheckout}>
               Place your order
             </button>

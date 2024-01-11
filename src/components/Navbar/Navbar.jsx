@@ -1,10 +1,11 @@
 /*
  * IMPORTS
  */
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { CartWidget, Search, ThemeWidget } from "../";
-
+import { CartWidget, HeaderBottom, Search, ThemeWidget } from "../";
+import { logo } from "../../assets/index";
+import { Bars3Icon, ChevronDownIcon, MapPinIcon } from "@heroicons/react/24/outline";
 /*
  * COMPONENT
  */
@@ -22,59 +23,65 @@ const Navbar = () => {
       ].join(" ");
   }
 
+  const [sidebar, setSidebar] = useState(false);
+
   return (
-    <nav className="min-w-[1000px]">
-      <div className="flex bg-amazon text-white h-[60px]">
+    <nav className="w-full bg-amazon-blue sticky top-0 z-50">
+      <div className="w-full mx-auto  text-white px-4 py-2 flex items-center gap-4">
         {/* LEFT */}
-        <div className="flex items-center m-4">
-          {/* logo */}
-          <Link to={`/`} className="flex">
-            <img src={"../images/logo.png"}  alt="SPA-logo" className="w-auto h-[35px] m-2" />
-          </Link>
-          <div className="px-4">
-            <div className="text-xs xl:text-sm">Deliver to</div>
-            <div className="text-xs xl:text-base font-bold">東京 151-0071</div>
-          </div>
+        <div className="headerHover md:hidden" onClick={() => setSidebar(true)}>
+          <Bars3Icon className="h-[30px] m-auto stroke-[2px] inline-block " />
         </div>
+        {/* logo */}
+        <Link to={`/`} className="headerHover flex-grow">
+          <img src={logo} alt="SPA-logo" className="w-24 mt-2" />
+        </Link>
+        <div className="headerHover items-end hidden md:flex ">
+          <MapPinIcon className="h-[27px] m-auto" />
+          <p className="text-sm text-amazon-lightText font-light flex flex-col">
+            Delivery address: Tokyo 151-0071
+            <span className="text-sm font-semibold -mt-1 text-amazon-whiteText">
+              Update location
+            </span>
+          </p>
+        </div>
+
         {/* MIDDLE */}
-        <div className="flex grow relative items-center">
+        <div className="hidden md:flex ">
           <Search />
         </div>
         {/* RIGHT */}
-        <div className="flex items-center m-4">
-          <div className="px-4">
-            <div className="text-xs xl:text-sm">Hello, sign in</div>
-            <div className="text-xs xl:text-base font-bold">
-              Accounts & Lists
-            </div>
-          </div>
-          <div className="px-4">
-            <div className="text-xs xl:text-sm">Returns</div>
-            <div className="text-xs xl:text-base font-bold">& Orders</div>
-          </div>
-          <div className="flex px-3 cursor-pointer ">
-            {/* CART WIDGET */}
-            <NavLink to={"/cart"} className={classState()}>
-              <CartWidget />
-            </NavLink>
-          </div>
-          <div>
-            <ThemeWidget />
-          </div>
+        <div className="headerHover flex-col items-center  md:flex md:items-start">
+          <p className="text-sm md:text-xs text-white md:text-amazon-lightText font-light">
+            Hello, sign in
+          </p>
+          <p className="text-sm font-semibold -mt-1 text-amazon-whiteText hidden md:inline-flex">
+            Accounts & Lists
+            <ChevronDownIcon className="h-[15px] m-auto stroke-[3px] pl-2 inline-block" />
+          </p>
+        </div>
+        <div className="headerHover flex-col items-start hidden md:flex">
+          <p className="text-sm text-amazon-lightText font-light">Returns</p>
+          <p className="text-sm font-semibold -mt-1 text-amazon-whiteText">
+            & Orders
+          </p>
+        </div>
+        <div className="headerHover px-3">
+          {/* CART WIDGET */}
+          <NavLink to={"/cart"} className={classState()}>
+            <CartWidget />
+          </NavLink>
+        </div>
+        <div className="hidden lgl:flex">
+          <ThemeWidget />
         </div>
       </div>
-      <div className="flex bg-amazon-ligh_blue text-white space-x-3 text-xs xl:text-sm p-2 pl-6">
-        <div>All</div>
-        <div>Today's Deals</div>
-        <div>Customer Service</div>
-        <div>Registry</div>
-        <div>Gift Cards</div>
-        <div>Sell</div>
+      <div className=" md:hidden p-2">
+        <Search />
       </div>
+      <HeaderBottom sidebar={sidebar} setSidebar={setSidebar}/>
     </nav>
   );
 };
 
 export default Navbar;
-
-

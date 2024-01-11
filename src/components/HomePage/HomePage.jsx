@@ -5,9 +5,9 @@ const HomePage = () => {
   document.title = `Amazon.com | Books, Apparels, Electronics & more`
   return (
     <div className="bg-amazon-background">
-      <div className="min-w-[1000px] max-w-[1500px] m-auto ">
+      <div className="max-w-[1500px] m-auto ">
         <Carousel />
-        <div className="grid grid-cols-3 xl:grid-cols-4 -mt-80">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 -mt-80">
           <HomePageCard
             title={"We have a surprise for you"}
             img={"../images/home_grid_1.jpg"}
@@ -48,13 +48,13 @@ const HomePage = () => {
             img={"../images/home_grid_8.jpg"}
             link={"Learn more"}
           />
-          <div className="m-3 pt-8">
-            <img className="xl:hidden" src="../images/banner_image_2.jpg" />
+          <div className="m-3 pt-8 hidden sm:inline-block xl:hidden">
+            <img className="" src="../images/banner_image_2.jpg" />
           </div>
         </div>
         <CarouselProduct />
         <CarouselCategory />
-        <div className="h-[200px]">
+        <div className="h-[100px] md:h-[200px]">
           <img className="h-[100%] m-auto" src="../images/banner_image.jpg" />
         </div>
       </div>

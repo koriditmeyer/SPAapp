@@ -38,9 +38,9 @@ const handleChange = (e) => {
   }, [formData.email, formData.confirmationEmail]);
 
   return (
-    <form className="ml-10">
+    <form className="ml-6 md:ml-10">
       {/* FIRST ROW */}
-      <div className="grid grid-cols-6 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-6 pt-4 gap-2">
         <div className="grid col-span-2 formInput">
           <label htmlFor="name">Name: </label>
           <input
@@ -78,7 +78,7 @@ const handleChange = (e) => {
         </div>
       </div>
       {/* SECOND ROW */}
-      <div className="grid grid-cols-6 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-6 pt-4 gap-2">
         <div className="grid col-span-3 formInput">
           <label htmlFor="email">Email: </label>
           <input
@@ -106,8 +106,8 @@ const handleChange = (e) => {
         </div>
       </div>
       {/* THIRD ROW */}
-      <div className="grid grid-cols-7 pt-4">
-        <div className="grid col-span-2 formInput">
+      <div className="grid grid-cols-1 md:grid-cols-7 pt-4 gap-2">
+        <div className="grid col-span-3 md:col-span-2 formInput">
           <label htmlFor="country_code">Country: </label>
           <input
             type="text"
@@ -129,7 +129,7 @@ const handleChange = (e) => {
           />
           <p>{!formData.city_locality && errorEmpty}</p>
         </div>
-        <div className="grid col-span-2 formInput">
+        <div className="grid col-span-3 md:col-span-2 formInput">
           <label htmlFor="postal_code">Postal Code: </label>
           <input
             type="number"

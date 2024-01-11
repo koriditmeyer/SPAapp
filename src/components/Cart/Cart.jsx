@@ -22,10 +22,10 @@ const Cart = () => {
     <div className=" bg-amazon-background">
       {cart.length == 0 ? (
         <div>
-          <div className="min-w-[1000px] max-w-[1500px] m-auto pt-8 h-screen">
-            <div className="grid grid-cols-8 gap-10 ">
+          <div className=" max-w-constainer m-auto pt-8 h-screen">
+            <div className="grid grid-cols-1 md:grid-cols-8 gap-10 ">
               {/* Products */}
-              <div className="col-span-6 bg-white">
+              <div className="md:col-span-6 bg-white">
                 <div className="text-3xl xl:text-4xl m-4">
                   Your Cart is empty.
                 </div>
@@ -37,18 +37,18 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="min-w-[1000px] max-w-[1500px] m-auto py-8">
-          <div className="grid grid-cols-8 gap-10 ">
+        <div className=" max-w-constainer m-auto pb-2 md:py-8">
+          <div className="grid grid-cols-1 md:grid-cols-8 gap-2 md:gap-10 ">
             {/* Products */}
-            <div className="col-span-6 bg-white">
+            <div className="md:col-span-6 bg-white divide-y divide-gray-400">
               <div className="text-2xl xl:text-3xl m-4">Shopping Cart</div>
 
               {cart.map((item) => {
                 return (
                   <div key={item.product.id}>
-                    <div className="grid grid-cols-12 divide-y divide-gray-400 mr-4">
-                      <div className="col-span-10 grid grid-cols-8 divide-y divide-gray-400">
-                        <div className="col-span-2">
+                    <div className="grid grid-cols-1 md:grid-cols-12 mx-4 ">
+                      <div className="md:col-span-10 grid grid-cols-8  ">
+                        <div className="col-span-4 md:col-span-2">
                           <Link to={`/item/${item.product.id}`}>
                             <img
                               className="p-4 m-auto"
@@ -57,7 +57,7 @@ const Cart = () => {
                             />
                           </Link>
                         </div>
-                        <div className="col-span-6">
+                        <div className="col-span-4 md:col-span-6">
                           <div className="font-medium text-black mt-2">
                             <Link to={`/item/${item.product.id}`}>
                               <ItemDetailInfo
@@ -86,8 +86,8 @@ const Cart = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-span-2 ">
-                        <div className="text-sm xl:text-lg mt-2   text-right">
+                      <div className=" md:col-span-2  ">
+                        <div className="text-sm xl:text-lg mt-2 text-right ">
                           Per product{" "}
                           <span className="text-lg xl:text-xl font-semibold">
                             {FR_CURRENCY.format(item.product.price)}
@@ -98,7 +98,7 @@ const Cart = () => {
                   </div>
                 );
               })}
-              <div className="text-lg xl:text-xl text-right mb-4 mr-4">
+              <div className="text-lg xl:text-xl text-right p-4 ">
                 Subtotal ({totalQuantity} items):{" "}
                 <span className="font-semibold">
                   {FR_CURRENCY.format(totalPrice)}
@@ -106,7 +106,7 @@ const Cart = () => {
               </div>
             </div>
             {/* Checkout */}
-            <div className="col-span-2 bg-white rounded  h-[250px] p-7">
+            <div className="md:col-span-2 bg-white rounded  md:h-[250px] p-7">
               <div className="text-xs xl:text-sm text-green-800 mb-2">
                 Your order qualifies for{" "}
                 <span className="font-bold">FREE DELIVERY</span>. Delivery

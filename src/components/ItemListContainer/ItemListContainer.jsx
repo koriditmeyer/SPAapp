@@ -40,7 +40,7 @@ const ItemListContainer = () => {
 
   return (
     <main className={"bg-gray-50 dark:bg-black overflow-hidden flex justify-center items-center"}>
-      <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 justify-center">
+      <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 justify-center items-stretch ">
         {loading ? (
           <p className="text-white">Loading...</p>
         ) : (

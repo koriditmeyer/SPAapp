@@ -1,8 +1,8 @@
 /* Import Font */
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap");
 
 /* Import Icons */
-@import 'boxicons'; /*npm install boxicons --save  */
+@import "boxicons"; /*npm install boxicons --save  */
 
 /* Import Tailwind components */
 @tailwind base;
@@ -10,20 +10,58 @@
 @tailwind utilities;
 
 @layer components {
-    .btn{
-        @apply bg-yellow-400 hover:bg-yellow-500 w-full p-3 text-xs xl:text-sm rounded mt-3;
-    }
+  .headerHover {
+    @apply px-2 h-[80%] flex items-center border border-transparent hover:border-white cursor-pointer duration-100;
+  }
+  .footerLink{
+    @apply text-sm font-titleFont tracking-wide hover:text-gray-100 cursor-pointer hover:underline duration-150
+  }
+  .btn {
+    @apply bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-700 w-full font-semibold py-3 text-xs xl:text-sm rounded  cursor-pointer;
+  }
 
-    .formInput {
-        @apply pr-2
-    }
-    .formInput label{
-        @apply text-xs xl:text-sm pb-2
-    }
-    .formInput input{
-        @apply h-10 border-2 rounded pl-2
-    }
-    .formInput p{
-        @apply text-xs xl:text-sm text-amazon-yellow_dark h-3
-    }
+  .formInput {
+    @apply pr-2;
+  }
+  .formInput label {
+    @apply text-xs xl:text-sm pb-2;
+  }
+  .formInput input {
+    @apply h-10 border-2 rounded pl-2;
+  }
+  .formInput p {
+    @apply text-xs xl:text-sm text-amazon-yellow_dark h-3;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f100;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+@layer utilities {
+  .hidden-scrollbar {
+    -ms-overflow-style: none; /* IE, Edge 対応 */
+    scrollbar-width: none; /* Firefox 対応 */
+  }
+  .hidden-scrollbar::-webkit-scrollbar {
+    /* Chrome, Safari 対応 */
+    display: none;
+  }
 }
