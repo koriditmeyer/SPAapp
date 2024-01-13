@@ -10,6 +10,8 @@ import {
   HomePage,
   SearchResults,
   OrderComplete,
+  Login,
+  Registration,
 } from "./components";
 import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailContainer";
 import {
@@ -36,15 +38,19 @@ function App() {
   // New vesion of react router
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="search" element={<SearchResults />} />
-        <Route path="category/:categoryId" element={<ItemListContainer />} />
-        <Route path="item/:id" element={<ItemDetailContainer />} />
-        <Route path="cart" element={<Cart />} />
+      <Route>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="search" element={<SearchResults />} />
+          <Route path="category/:categoryId" element={<ItemListContainer />} />
+          <Route path="item/:id" element={<ItemDetailContainer />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="order-complete/:orderId" element={<OrderComplete />} />
+          <Route path="*" element={<Error />} /> {/* Always at the end */}
+        </Route>
         <Route path="checkout" element={<Checkout />} />
-        <Route path="order-complete/:orderId" element={<OrderComplete />} />
-        <Route path="*" element={<Error />} /> {/* Always at the end */}
+        <Route path="register" element={<Registration />} />
+        <Route path="login" element={<Login />} />
       </Route>
     )
   );

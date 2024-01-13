@@ -29,3 +29,5 @@ export { default as OrderComplete } from "./OrderComplete/OrderComplete";
 export { default as HeaderBottom } from "./HeaderBottom/HeaderBottom";
 export { default as SideNav } from "./SideNav/SideNav";
 export { default as SideNavContent } from "./SideNavContent/SideNavContent";
+export { default as Registration } from "./Registration/Registration";
+export { default as Login } from "./Login/Login";

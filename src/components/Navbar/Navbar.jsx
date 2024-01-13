@@ -5,7 +5,11 @@ import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { CartWidget, HeaderBottom, Search, ThemeWidget } from "../";
 import { logo } from "../../assets/index";
-import { Bars3Icon, ChevronDownIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  ChevronDownIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
 /*
  * COMPONENT
  */
@@ -33,7 +37,7 @@ const Navbar = () => {
           <Bars3Icon className="h-[30px] m-auto stroke-[2px] inline-block " />
         </div>
         {/* logo */}
-        <Link to={`/`} className="headerHover flex-grow">
+        <Link to={`/`} className="headerHover flex-grow md:flex-grow-0">
           <img src={logo} alt="SPA-logo" className="w-24 mt-2" />
         </Link>
         <div className="headerHover items-end hidden md:flex ">
@@ -47,19 +51,22 @@ const Navbar = () => {
         </div>
 
         {/* MIDDLE */}
-        <div className="hidden md:flex ">
+        <div className="hidden md:flex md:flex-grow">
           <Search />
         </div>
         {/* RIGHT */}
-        <div className="headerHover flex-col items-center  md:flex md:items-start">
-          <p className="text-sm md:text-xs text-white md:text-amazon-lightText font-light">
+        <Link to={"/login"} className="headerHover flex-col items-center  md:flex md:items-start">
+          <p
+            
+            className="text-sm md:text-xs text-white md:text-amazon-lightText font-light"
+          >
             Hello, sign in
           </p>
           <p className="text-sm font-semibold -mt-1 text-amazon-whiteText hidden md:inline-flex">
             Accounts & Lists
             <ChevronDownIcon className="h-[15px] m-auto stroke-[3px] pl-2 inline-block" />
           </p>
-        </div>
+        </Link>
         <div className="headerHover flex-col items-start hidden md:flex">
           <p className="text-sm text-amazon-lightText font-light">Returns</p>
           <p className="text-sm font-semibold -mt-1 text-amazon-whiteText">
@@ -79,7 +86,7 @@ const Navbar = () => {
       <div className=" md:hidden p-2">
         <Search />
       </div>
-      <HeaderBottom sidebar={sidebar} setSidebar={setSidebar}/>
+      <HeaderBottom sidebar={sidebar} setSidebar={setSidebar} />
     </nav>
   );
 };
