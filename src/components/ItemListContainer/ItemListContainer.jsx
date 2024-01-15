@@ -8,6 +8,7 @@ import {
   query,
   where
 } from "firebase/firestore";
+import { motion } from "framer-motion";
 
 const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
@@ -39,7 +40,11 @@ const ItemListContainer = () => {
 
 
   return (
-    <main className={"bg-gray-50 dark:bg-black overflow-hidden flex justify-center items-center"}>
+    <motion.main
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className={"bg-gray-50 dark:bg-black overflow-hidden flex justify-center items-center"}>
       <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 justify-center items-stretch ">
         {loading ? (
           <p className="text-white">Loading...</p>
@@ -47,7 +52,7 @@ const ItemListContainer = () => {
           <ItemList list={products} />
         )}
       </section>
-    </main>
+    </motion.main>
   );
 };
 

@@ -23,9 +23,9 @@ const Cart = () => {
     <div className=" bg-amazon-background">
       {cart.length == 0 ? (
         <motion.div
-          initial={{ y: 70, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           className="flex flex-col md:flex-row justify-center items-center gap-4 py-10"
         >
           <div>

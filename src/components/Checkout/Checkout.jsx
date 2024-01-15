@@ -12,6 +12,7 @@ import {
   getFirestore,
   updateDoc,
 } from "firebase/firestore";
+import { motion } from "framer-motion";
 
 const Checkout = () => {
   document.title = "Amazon.com Checkout";
@@ -115,7 +116,11 @@ const Checkout = () => {
   };
 
   return (
-    <div className=" ">
+    <motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className=" ">
       <div className="grid grid-cols-12 place-items-center max-w-constainer m-auto bg-amazon-background min-h[60px]">
         <div className="md:col-span-2"></div>
         <h2 className="col-span-9 md:col-span-8 text-3xl xl:text-5xl font-semibold py-4 ">
@@ -230,7 +235,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

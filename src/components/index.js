@@ -1,4 +1,5 @@
 export { default as Navbar } from "./Navbar/Navbar";
+export { default as NavbarPopup } from "./NavbarPopup/NavbarPopup";
 export { default as Footer } from "./Footer/Footer";
 export { default as FooterTop } from "./FooterTop/FooterTop";
 export { default as FooterMiddle } from "./FooterMiddle/FooterMiddle";
@@ -10,6 +11,7 @@ export { default as ItemList } from "./ItemList/ItemList";
 export { default as ItemCount } from "./ItemCount/ItemCount";
 export { default as ItemDetail } from "./ItemDetail/ItemDetail";
 export { default as ItemDetailInfo } from "./ItemDetailInfo/ItemDetailInfo";
+export { default as ItemDetailContainer } from "./ItemDetailContainer/ItemDetailContainer";
 export { default as ItemBadge } from "./ItemBadge/ItemBadge";
 export { default as ItemRating } from "./ItemRating/ItemRating";
 export { default as Cart } from "./Cart/Cart";

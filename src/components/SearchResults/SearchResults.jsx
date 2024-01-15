@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../../services/config";
 import { collection, getDocs, query} from "firebase/firestore";
 import { ItemList } from "..";
+import { motion } from "framer-motion";
 
 const SearchResults = () => {
   const [searchParams] = useSearchParams();
@@ -57,9 +58,13 @@ const SearchResults = () => {
 
   return (
     <>
-      <div className="border-b border-gray-200 p-2 shadow-xl">{`1-${
+      <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+      className="border-b border-gray-200 p-2 shadow-xl">{`1-${
         products.length
-      } of over 40,000 results for ${searchParams.get("searchTerm")}`}</div>
+      } of over 40,000 results for ${searchParams.get("searchTerm")}`}</motion.div>
       <div className="m-auto pt-4 px-4">
         {loading ? (
           <p className="text-white">Loading...</p>

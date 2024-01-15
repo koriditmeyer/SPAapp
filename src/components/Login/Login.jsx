@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { logoDark } from "../../assets";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Login = () => {
   document.title = `Amazon.com | Log in`;
@@ -46,7 +47,11 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full">
+    <motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="w-full">
       <div className="w-full bg-gray-100 pb-10">
         <form className="w-[350px] mx-auto flex flex-col items-center">
           <img className="w-32 my-5" src={logoDark} alt="darkLogo" />
@@ -149,7 +154,7 @@ const Login = () => {
           &copy; 1996-2024, Amazon.com, Inc. or its affiliates
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

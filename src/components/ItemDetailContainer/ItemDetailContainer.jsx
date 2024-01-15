@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {ItemDetail} from "..";
+import { ItemDetail } from "..";
 import { useParams } from "react-router-dom";
 import { db } from "../../services/config";
 import { doc, getDoc } from "firebase/firestore";
+import { motion } from "framer-motion";
 
 const ItemDetailContainer = () => {
   const [product, setProduct] = useState(null);
@@ -27,13 +28,18 @@ const ItemDetailContainer = () => {
   }, [id]); // add also this to use route params
 
   return (
-    <section className="">
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className=""
+    >
       {loading ? (
         <p className="text-white">Loading...</p>
       ) : (
         <ItemDetail properties={product} />
       )}
-    </section>
+    </motion.section>
   );
 };
 

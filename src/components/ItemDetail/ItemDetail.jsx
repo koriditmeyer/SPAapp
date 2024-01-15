@@ -15,7 +15,12 @@ const ItemDetail = ({ properties }) => {
     addToCart(properties, quantity);
   };
   return (
-    <article className="bg-amazon-background min-h-screen ">
+    <motion.article
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="bg-amazon-background min-h-screen "
+    >
       <div className=" max-w-constainer m-auto md:p-4">
         <div className="grid grid-cols-1 md:grid-cols-10 gap-1 md:gap-2 ">
           {/* LEFT */}
@@ -92,7 +97,7 @@ const ItemDetail = ({ properties }) => {
           </div>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 };
 

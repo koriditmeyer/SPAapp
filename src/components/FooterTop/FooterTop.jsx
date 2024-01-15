@@ -12,7 +12,7 @@ const FooterTop = () => {
           </Link>
           <p className=" text-xs mt-1">
             New Customer ?
-            <span className=" text-[#007185] ml-1 cursor-pointer">Sign In</span>
+            <Link to={"/register"} className=" text-[#007185] ml-1 cursor-pointer">Register</Link>
           </p>
         </div>
       </div>

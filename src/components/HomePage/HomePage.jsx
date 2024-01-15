@@ -1,10 +1,16 @@
+import { motion } from "framer-motion";
 import { Carousel, CarouselCategory, CarouselProduct, HomePageCard } from "../";
 import React from "react";
 
 const HomePage = () => {
-  document.title = `Amazon.com | Books, Apparels, Electronics & more`
+  document.title = `Amazon.com | Books, Apparels, Electronics & more`;
   return (
-    <div className="bg-amazon-background">
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+      className="bg-amazon-background"
+    >
       <div className="max-w-[1500px] m-auto ">
         <Carousel />
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 -mt-80">
@@ -58,7 +64,7 @@ const HomePage = () => {
           <img className="h-[100%] m-auto" src="../images/banner_image.jpg" />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

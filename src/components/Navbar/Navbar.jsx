@@ -1,9 +1,9 @@
 /*
  * IMPORTS
  */
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { CartWidget, HeaderBottom, Search, ThemeWidget } from "../";
+import { CartWidget, HeaderBottom, NavbarPopup, Search, ThemeWidget } from "../";
 import { logo } from "../../assets/index";
 import {
   Bars3Icon,
@@ -28,6 +28,20 @@ const Navbar = () => {
   }
 
   const [sidebar, setSidebar] = useState(false);
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+    // -------- Disable the side menu on clic outside
+    const ref = useRef();
+
+    useEffect(() => {
+      function handleHoverOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setPopupVisible(false)
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mouseover", handleHoverOutside);
+    }, [ref]);
 
   return (
     <nav className="w-full bg-amazon-blue sticky top-0 z-50">
@@ -55,17 +69,22 @@ const Navbar = () => {
           <Search />
         </div>
         {/* RIGHT */}
-        <Link to={"/login"} className="headerHover flex-col items-center  md:flex md:items-start">
-          <p
-            
-            className="text-sm md:text-xs text-white md:text-amazon-lightText font-light"
-          >
+        <Link
+          to={"/login"}
+          className="headerHover flex-col items-center  md:flex md:items-start"
+          onMouseOver={() => setPopupVisible(true)}
+          ref={ref}
+        >
+          <p className="text-sm md:text-xs text-white md:text-amazon-lightText font-light">
             Hello, sign in
           </p>
           <p className="text-sm font-semibold -mt-1 text-amazon-whiteText hidden md:inline-flex">
             Accounts & Lists
             <ChevronDownIcon className="h-[15px] m-auto stroke-[3px] pl-2 inline-block" />
           </p>
+          {isPopupVisible && (
+            <NavbarPopup/>
+          )}
         </Link>
         <div className="headerHover flex-col items-start hidden md:flex">
           <p className="text-sm text-amazon-lightText font-light">Returns</p>
@@ -79,7 +98,7 @@ const Navbar = () => {
             <CartWidget />
           </NavLink>
         </div>
-        <div className="hidden lgl:flex">
+        <div className="hidden lg:flex">
           <ThemeWidget />
         </div>
       </div>
