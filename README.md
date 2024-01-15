@@ -26,6 +26,9 @@ https://amazon-3n2hu2bnv-koriditmeyers-projects.vercel.app/
 
 ## 💼 Technical Elements
 
+15/01/24
+- Add login and rgistration pages
+
 12/01/24
 -  Create left side menu
 - Implement responsiveness of the website for all the pages
@@ -55,7 +58,7 @@ https://amazon-3n2hu2bnv-koriditmeyers-projects.vercel.app/
 
 Future implementations (v1)
 - ~~Create left side menu~~
-- ~~Create log in and sign in page~~
+- ~~Create login and registration page~~
 - Modify checkout page
 - Create a user page and order page
 - add favorite
