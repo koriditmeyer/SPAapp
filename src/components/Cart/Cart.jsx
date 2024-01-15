@@ -3,15 +3,16 @@ import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { FR_CURRENCY } from "../../constants";
 import { ItemCount, ItemDetailInfo } from "..";
-
+import { motion } from "framer-motion";
+import { emptyCart } from "../../assets";
 
 const Cart = () => {
-  document.title = "Amazon.com Cart"
+  document.title = "Amazon.com Cart";
   const { updateCart } = useContext(CartContext);
   const onAdd = (id, quantity) => {
-    if(quantity===0){
-      removeItemsCart(id)
-    } else{
+    if (quantity === 0) {
+      removeItemsCart(id);
+    } else {
       updateCart(id, quantity);
     }
   };
@@ -21,21 +22,34 @@ const Cart = () => {
   return (
     <div className=" bg-amazon-background">
       {cart.length == 0 ? (
-        <div>
-          <div className=" max-w-constainer m-auto pt-8 h-screen">
-            <div className="grid grid-cols-1 md:grid-cols-8 gap-10 ">
-              {/* Products */}
-              <div className="md:col-span-6 bg-white">
-                <div className="text-3xl xl:text-4xl m-4">
-                  Your Cart is empty.
-                </div>
-                <div className="m-4">
-                  <Link to={"/SPAapp/"}>Go to Home Page</Link>
-                </div>
-              </div>
-            </div>
+        <motion.div
+          initial={{ y: 70, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="flex flex-col md:flex-row justify-center items-center gap-4 py-10"
+        >
+          <div>
+            <img
+              className="w-80 rounded-lg p-4 mx-auto"
+              src={emptyCart}
+              alt="emptyCart"
+            />
           </div>
-        </div>
+          <div className="md:w-96 m-2 md:m-0 p-4 bg-white flex  flex-col items-center rounded-md shadow-lg">
+            <h1 className="font-titleFont text-xl font-bold">
+              Your Cart feels lonely.
+            </h1>
+            <p className="text-sm text-center">
+              Your Shopping cart lives to serve. Give it purpose - fill it with
+              books, electronics, videos, etc. and make it happy.
+            </p>
+            <Link to="/">
+              <button className="mt-6 bg-yellow-400 rounded-md cursor-pointer hover:bg-yellow-500 active:bg-yellow-700 px-8 py-2 font-titleFont font-semibold text-lg">
+                Continue Shopping
+              </button>
+            </Link>
+          </div>
+        </motion.div>
       ) : (
         <div className=" max-w-constainer m-auto pb-2 md:py-8">
           <div className="grid grid-cols-1 md:grid-cols-8 gap-2 md:gap-10 ">

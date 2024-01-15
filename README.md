@@ -55,7 +55,7 @@ https://amazon-3n2hu2bnv-koriditmeyers-projects.vercel.app/
 
 Future implementations (v1)
 - ~~Create left side menu~~
-- Create log in and sign in page
+- ~~Create log in and sign in page~~
 - Modify checkout page
 - Create a user page and order page
 - add favorite

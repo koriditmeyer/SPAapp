@@ -14,17 +14,66 @@ const Signin = () => {
   const [errEmail, setErrEmail] = useState("");
   const [errPassword, setErrPassword] = useState("");
   const [errCPassword, setErrCPassword] = useState("");
+  const [errDB, setErrDB] = useState("");
   //Handle Functions
   const handleName = (e) => {
     setClientName(e.target.value);
     setErrClientName("");
   };
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+    setErrEmail("");
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+    setErrPassword("");
+  };
+
+  const handleCPassword = (e) => {
+    setCPassword(e.target.value);
+    setErrCPassword("");
+  };
+  // email validation
+  const emailValidation = (email) =>{
+    return String(email)
+    .toLowerCase()
+    .match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
+
+  }
+
+  //submit button action
   const handleRegistration = (e) => {
     e.preventDefault();
     if (!clientName) {
       setErrClientName("Enter your name");
     }
+    if (!email) {
+      setErrEmail("Enter your email");   
+    } else if (!emailValidation(email)){
+      setErrEmail("Enter a valid email")
+    }
+    if (!password) {
+      setErrPassword("Enter your password");
+    } else if(password.length<6){
+      setErrPassword("Password must be at least 6 characters");
+    }
+    if (!cPassword) {
+      setErrCPassword("Enter your confirmation password");
+    } else if(cPassword != password){
+      setErrCPassword("Passwords must match");
+    }
+
+    if (clientName && email && emailValidation(email) && password && password.length>=6 && cPassword && cPassword===password){
+      console.log(clientName, email, password, cPassword)
+      setClientName("")
+      setEmail("")
+      setPassword("")
+      setCPassword("")
+    }
   };
+
+
 
   return (
     <div className="w-full">
@@ -35,12 +84,17 @@ const Signin = () => {
             <h2 className=" font-titleFont text-3xl font-medium mb-4">
               Create account
             </h2>
+            {errDB && (
+                <p className=" w-full py-1 border border-red-400 px-2 rounded-sm text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
+                {errDB}
+                </p>)}
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-medium">Your name</p>
                 <input
-                  className="w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
+                  className="w-full py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                   type="email"
+                  value={clientName}
                   placeholder="First and last name"
                   onChange={handleName}
                 />
@@ -54,25 +108,44 @@ const Signin = () => {
                 <input
                   className="w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                   type="email"
+                  value={email}
+                  onChange={handleEmail}
                 />
+                {errEmail && (
+                <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
+                <span className="italic font-titleFont font-extrabold text-base">!</span>  {errEmail}
+                </p>)}
               </div>
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-medium">Password</p>
                 <input
-                  className="w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
+                  className="w-full py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                   type="password"
+                  value={password}
+                  onChange={handlePassword}
                   placeholder="At least 6 characters"
                 />
+                   {errPassword ? (
+                <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
+                <span className="italic font-titleFont font-extrabold text-base">!</span>  {errPassword}
+                </p>):                
                 <p className="text-xs text-gray-600">
                   Passwords must be at least 6 characters.
                 </p>
+                }
               </div>
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-medium">Re-enter password</p>
                 <input
-                  className="w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
+                  className="w-full py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                   type="password"
+                  value={cPassword}
+                  onChange={handleCPassword}
                 />
+                   {errCPassword && (
+                <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
+                <span className="italic font-titleFont font-extrabold text-base">!</span>  {errCPassword}
+                </p>)}
               </div>
               <button
                 onClick={handleRegistration}
