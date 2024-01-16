@@ -3,7 +3,7 @@ Welcome to the SPA app
 </h3>
 
 ## 🌐 Live version
-https://amazon-3n2hu2bnv-koriditmeyers-projects.vercel.app/
+https://amazon-oyczusm57-koriditmeyers-projects.vercel.app/
 
 ## 💻 Technologies Used
 
