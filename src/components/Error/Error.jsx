@@ -4,6 +4,7 @@ import { ErrorHome, ErrorDog } from "../../assets";
 import useTailwindBreakpoints from "../../hooks/useTailwindBreakpoints";
 
 const Error = () => {
+  document.title = "Amazon.com | Error 404";
   const breakpoints = useTailwindBreakpoints();
   return (
     <motion.div

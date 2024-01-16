@@ -1,24 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
 import { FR_CURRENCY } from "../../constants";
 import { ItemCount, ItemDetailInfo } from "..";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { emptyCart } from "../../assets";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTotalPrice, selectTotalQuantity,removeItemsCart, resetCart, updateCart } from "../../redux/amazonSlice";
 
 const Cart = () => {
-  document.title = "Amazon.com Cart";
-  const { updateCart } = useContext(CartContext);
+  document.title = "Amazon.com | Cart";
+
+  // const {cart, totalPrice ,totalQuantity,updateCart, clearCart, removeItemsCart } =   useContext(CartContext);
   const onAdd = (id, quantity) => {
     if (quantity === 0) {
-      removeItemsCart(id);
+      // removeItemsCart(id);
+      dispatch(removeItemsCart(id))
     } else {
-      updateCart(id, quantity);
+      // updateCart(id, quantity);
+      dispatch(updateCart({id,quantity}))
     }
   };
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.amazonReducer.products);
 
-  const { cart, totalPrice, totalQuantity, clearCart, removeItemsCart } =
-    useContext(CartContext);
+  const totalPrice = useSelector(selectTotalPrice);
+  const totalQuantity = useSelector(selectTotalQuantity);
+
   return (
     <div className=" bg-amazon-background">
       {cart.length == 0 ? (
@@ -56,67 +64,86 @@ const Cart = () => {
             {/* Products */}
             <div className="md:col-span-6 bg-white divide-y divide-gray-400">
               <div className="text-2xl xl:text-3xl m-4">Shopping Cart</div>
-
-              {cart.map((item) => {
-                return (
-                  <div key={item.product.id}>
-                    <div className="grid grid-cols-1 md:grid-cols-12 mx-4 ">
-                      <div className="md:col-span-10 grid grid-cols-8  ">
-                        <div className="col-span-4 md:col-span-2">
-                          <Link to={`/item/${item.product.id}`}>
-                            <img
-                              className="p-4 m-auto"
-                              src={item.product.img_small}
-                              alt="Checkout product"
-                            />
-                          </Link>
-                        </div>
-                        <div className="col-span-4 md:col-span-6">
-                          <div className="font-medium text-black mt-2">
-                            <Link to={`/item/${item.product.id}`}>
-                              <ItemDetailInfo
-                                product={item.product}
-                                ratings={false}
+              <AnimatePresence mode={"popLayout"}>
+                {cart.map((item) => {
+                  return (
+                    <motion.div
+                      // key={item.properties.id}
+                      key={item.properties.id}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      transition={{ type: "spring" }}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-12 mx-4 ">
+                        <div className="md:col-span-10 grid grid-cols-8  ">
+                          <div className="col-span-4 md:col-span-2">
+                            <Link to={`/item/${item.properties.id}`}>
+                              <img
+                                className="p-4 m-auto"
+                                src={item.properties.img_small}
+                                alt="Checkout product"
                               />
                             </Link>
                           </div>
-                          <div>
-                            <button
-                              className="text-sm xl:text-base font-semibold rounded text-blue-500 mt-2 mb-1 cursor-pointer"
-                              onClick={() => {
-                                removeItemsCart(item.product.id);
-                              }}
-                            >
-                              Delete
-                            </button>
+                          <div className="col-span-4 md:col-span-6">
+                            <div className="font-medium text-black mt-2">
+                              <Link to={`/item/${item.properties.id}`}>
+                                <ItemDetailInfo
+                                  product={item.properties}
+                                  ratings={false}
+                                />
+                              </Link>
+                            </div>
+                            <div>
+                              <button
+                                className="text-sm xl:text-base font-semibold rounded text-blue-500 mt-2 mb-1 cursor-pointer"
+                                onClick={() => {
+                                  // removeItemsCart(item.properties.id);
+                                  dispatch(removeItemsCart(item.properties.id));
+                                }}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                            <ItemCount
+                              id={item.properties.id}
+                              min={0}
+                              initial={item.quantity}
+                              stock={item.properties.stock}
+                              onAdd={onAdd}
+                              updateBehaviour={true}
+                            />
                           </div>
-                          <ItemCount
-                            id={item.product.id}
-                            min={0}
-                            initial={item.quantity}
-                            stock={item.product.stock}
-                            onAdd={onAdd}
-                            updateBehaviour={true}
-                          />
+                        </div>
+                        <div className=" md:col-span-2  ">
+                          <div className="text-sm xl:text-lg mt-2 text-right ">
+                            Per product{" "}
+                            <span className="text-lg xl:text-xl font-semibold">
+                              {FR_CURRENCY.format(item.properties.price)}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                      <div className=" md:col-span-2  ">
-                        <div className="text-sm xl:text-lg mt-2 text-right ">
-                          Per product{" "}
-                          <span className="text-lg xl:text-xl font-semibold">
-                            {FR_CURRENCY.format(item.product.price)}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-              <div className="text-lg xl:text-xl text-right p-4 ">
-                Subtotal ({totalQuantity} items):{" "}
-                <span className="font-semibold">
-                  {FR_CURRENCY.format(totalPrice)}
-                </span>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+              <div className="flex justify-between">
+                <div className="px-8 py-2">
+                  <button className="h-full px-10 py-2 bg-red-500 hover:bg-red-600 active:bg-red-500 text-white rounded-lg font-titleFont font-semibold text-lg tracking-wide"
+                   onClick={() => {
+                    dispatch(resetCart());
+                  }}
+                  >
+                    Clear Cart
+                  </button>
+                </div>
+                <div className="text-lg xl:text-xl text-right p-4 ">
+                  Subtotal ({totalQuantity} items):{" "}
+                  <span className="font-semibold">
+                    {FR_CURRENCY.format(totalPrice)}
+                  </span>
+                </div>
               </div>
             </div>
             {/* Checkout */}

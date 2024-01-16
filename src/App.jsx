@@ -1,12 +1,9 @@
 import React from "react";
 import "./App.css";
-import {
-  BrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter, ScrollRestoration } from "react-router-dom";
 import ThemeProvider from "./context/ThemeProvider";
 import { CartProvider } from "./context/CartContext";
 import AnimatedRoutes from "./components/AnimatedRoutes/AnimatedRoutes";
-
 
 function App() {
   // New vesion of react router
@@ -15,7 +12,7 @@ function App() {
       <ThemeProvider>
         <CartProvider>
           <BrowserRouter>
-            <AnimatedRoutes/>
+            <AnimatedRoutes />
           </BrowserRouter>
         </CartProvider>
       </ThemeProvider>

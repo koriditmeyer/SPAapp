@@ -4,15 +4,19 @@ import { CartContext } from "../../context/CartContext";
 import { ItemDetailInfo, ItemCount } from "..";
 import { FR_CURRENCY } from "../../constants";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/amazonSlice";
 
 const ItemDetail = ({ properties }) => {
   document.title = `Amazon.com : ${properties.title}`;
   const [quantity, setQuanity] = useState(0);
-  const { addToCart } = useContext(CartContext);
+  // const { addToCart } = useContext(CartContext);
+  const dispatch = useDispatch()
 
   const onAdd = (id, quantity) => {
     setQuanity(quantity);
-    addToCart(properties, quantity);
+    // addToCart(properties, quantity);
+    dispatch(addToCart({properties, quantity}))
   };
   return (
     <motion.article

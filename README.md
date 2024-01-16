@@ -14,9 +14,12 @@ https://amazon-3n2hu2bnv-koriditmeyers-projects.vercel.app/
 ![tailwindcss](https://img.shields.io/badge/tailwindcss-Tailwind_CSS-brightgreen?logo=tailwindcss&logoColor=06B6D4&label=%20&labelColor=black&color=06B6D4)
 
 !["React Router"](https://img.shields.io/badge/reactrouter-React_Router-brightgreen?logo=reactrouter&logoColor=CA4245&label=%20&labelColor=black&color=CA4245)
+![React Redux](https://img.shields.io/badge/redux-React_Redux-brightgreen?logo=redux&logoColor=764ABC&label=%20&labelColor=black&color=764ABC)
+![React Redux Persist](https://img.shields.io/badge/Redux_Persist-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
 ![swiper](https://img.shields.io/badge/swiper-Swiper-brightgreen?logo=swiper&logoColor=6332F6&label=%20&labelColor=black&color=6332F6)
 ![heroicons](https://img.shields.io/badge/Heroicons-brightgreen?logo=hero&logoColor=6332F6&label=%20&labelColor=black&color=black)
 ![React Scroll](https://img.shields.io/badge/React_Scroll-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
+![Framer Motion](https://img.shields.io/badge/framer-Framer_Motion-brightgreen?logo=framer&logoColor=0055FF&label=%20&labelColor=black&color=0055FF)
 
 ![firebase](https://img.shields.io/badge/firebase-Firebase-brightgreen?logo=firebase&logoColor=FFCA28&label=%20&labelColor=black&color=FFCA28)
 
@@ -26,11 +29,14 @@ https://amazon-3n2hu2bnv-koriditmeyers-projects.vercel.app/
 
 ## 💼 Technical Elements
 
-15/01/24
+15-16/01/24
 - Add login and rgistration pages
+- Change context implementation of the store from React to ![React Redux](https://img.shields.io/badge/redux-React_Redux-brightgreen?logo=redux&logoColor=764ABC&label=%20&labelColor=black&color=764ABC)
+- Implement the context persistance with Redux Persist library
+- Add pages and left side menu transition with ![Framer Motion](https://img.shields.io/badge/framer-Framer_Motion-brightgreen?logo=framer&logoColor=0055FF&label=%20&labelColor=black&color=0055FF)
 
 12/01/24
--  Create left side menu
+- Create left side menu
 - Implement responsiveness of the website for all the pages
 
 10/12/23
@@ -64,7 +70,7 @@ Future implementations (v1)
 - add favorite
 
 Future implementations (v2)
-- Use Redux to implement the context
+- ~~Use Redux to implement the context~~
 - Use Axios to fetch API and loading bar
 - Use Mongo DB as DB and fetch API from Mongo DB
 - Use Node and Mongo DB to manage users and log in

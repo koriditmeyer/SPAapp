@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
-
+import React
+// , { useContext } 
+from "react";
+// import { CartContext } from "../../context/CartContext";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
+import { selectTotalQuantity } from "../../redux/amazonSlice";
 
 const CartWidget = () => {
-    const { totalQuantity } = useContext(CartContext);
+    // const { totalQuantity } = useContext(CartContext);
+   const totalQuantity = useSelector(selectTotalQuantity);
   
     return (
       <div className="flex justify-center items-center">
