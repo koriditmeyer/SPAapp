@@ -3,7 +3,7 @@ import { CartContext } from "../../context/CartContext";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { FR_CURRENCY } from "../../constants";
-import { CheckoutForm, ItemDetailInfo,ItemCount } from "..";
+import { CheckoutForm, ItemDetailInfo, ItemCount } from "..";
 import {
   addDoc,
   collection,
@@ -13,10 +13,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTotalPrice, selectTotalQuantity, clearCart, updateCart } from "../../redux/amazonSlice";
+
 
 const Checkout = () => {
   document.title = "Amazon.com Checkout";
-
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -30,12 +33,17 @@ const Checkout = () => {
   });
 
   const onAdd = (id, quantity) => {
-    updateCart(id, quantity);
+    // updateCart(id, quantity);
+    dispatch(updateCart({id,quantity}))
   };
 
   const [orderId, setOrderId] = useState();
-  const { cart, totalPrice, totalQuantity, clearCart, updateCart } =
-    useContext(CartContext);
+  // const { cart, totalPrice, totalQuantity, clearCart, updateCart } =
+  //   useContext(CartContext);
+  const cart = useSelector((state) => state.amazonReducer.products);
+  const totalPrice = useSelector(selectTotalPrice);
+  const totalQuantity = useSelector(selectTotalQuantity);
+
   const navigate = useNavigate();
 
   const validateCheckout = (event) => {
@@ -43,9 +51,9 @@ const Checkout = () => {
     const db = getFirestore();
     const order = {
       products: cart.map((cart) => ({
-        id: cart.product.id,
-        title: cart.product.title,
-        price: cart.product.price,
+        id: cart.properties.id,
+        title: cart.properties.title,
+        price: cart.properties.price,
         quantity: cart.quantity,
       })),
       total: totalPrice,
@@ -86,7 +94,7 @@ const Checkout = () => {
         addDoc(collection(db, "orders"), order)
           .then((docRef) => {
             setOrderId(docRef.id);
-            clearCart();
+            dispatch(clearCart());
             // Reset form data after successful order creation
             setFormData({
               name: "",
@@ -100,11 +108,9 @@ const Checkout = () => {
               country_code: "",
             });
             // Navigate to a success page
-            navigate(
-              {
-                pathname:`/order-complete/${docRef.id}`
-              }
-              );
+            navigate({
+              pathname: `/order-complete/${docRef.id}`,
+            });
           })
           .catch((error) => {
             console.log(`${error.message} - Error while creating order`);
@@ -116,11 +122,12 @@ const Checkout = () => {
   };
 
   return (
-    <motion.div 
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className=" ">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className=" "
+    >
       <div className="grid grid-cols-12 place-items-center max-w-constainer m-auto bg-amazon-background min-h[60px]">
         <div className="md:col-span-2"></div>
         <h2 className="col-span-9 md:col-span-8 text-3xl xl:text-5xl font-semibold py-4 ">
@@ -147,32 +154,32 @@ const Checkout = () => {
               </div>
               {cart.map((item) => {
                 return (
-                  <div key={item.product.id}>
+                  <div key={item.properties.id}>
                     <div className="grid grid-cols-1 md:grid-cols-12 mr-4">
                       <div className="md:col-span-10 grid grid-cols-8">
                         <div className="col-span-3 md:col-span-2">
-                          <Link to={`/item/${item.product.id}`}>
+                          <Link to={`/item/${item.properties.id}`}>
                             <img
                               className="p-4 m-auto"
-                              src={item.product.img_small}
+                              src={item.properties.img_small}
                               alt="Checkout product"
                             />
                           </Link>
                         </div>
                         <div className="col-span-5 md:col-span-6">
                           <div className="font-medium text-black mt-2">
-                            <Link to={`/item/${item.product.id}`}>
+                            <Link to={`/item/${item.properties.id}`}>
                               <ItemDetailInfo
-                                product={item.product}
+                                product={item.properties}
                                 ratings={false}
                               />
                             </Link>
                           </div>
                           <ItemCount
-                            id={item.product.id}
+                            id={item.properties.id}
                             min={0}
                             initial={item.quantity}
-                            stock={item.product.stock}
+                            stock={item.properties.stock}
                             onAdd={onAdd}
                             updateBehaviour={true}
                           />
@@ -182,7 +189,7 @@ const Checkout = () => {
                         <div className="text-sm xl:text-lg mt-2   text-right">
                           Per product{" "}
                           <span className="text-lg xl:text-xl font-semibold">
-                            {FR_CURRENCY.format(item.product.price)}
+                            {FR_CURRENCY.format(item.properties.price)}
                           </span>
                         </div>
                       </div>
@@ -222,8 +229,8 @@ const Checkout = () => {
               <p className=" text-xl xl:text-2xl ">Order Summary</p>
               <div className=" text-xs xl:text-sm mb-4">
                 {cart.map((cartItem) => (
-                  <p key={cartItem.product.id}>
-                    {cartItem.product.title} x {cartItem.quantity}
+                  <p key={cartItem.properties.id}>
+                    {cartItem.properties.title} x {cartItem.quantity}
                   </p>
                 ))}
               </div>

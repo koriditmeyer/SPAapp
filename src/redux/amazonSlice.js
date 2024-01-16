@@ -31,7 +31,7 @@ export const amazonSlice = createSlice({
       );
     },
     // Reset cart to initial state
-    resetCart: (state) => {
+    clearCart: (state) => {
       state.products = [];
     },
     // Update Cart
@@ -70,9 +70,7 @@ export const selectTotalQuantity = createSelector(
 export const {
   addToCart,
   removeItemsCart,
-  resetCart,
+  clearCart,
   updateCart
-  //   increaseQuantity,
-  //   decreaseQuantity,
 } = amazonSlice.actions;
 export default amazonSlice.reducer;

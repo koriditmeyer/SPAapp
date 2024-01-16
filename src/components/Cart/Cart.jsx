@@ -6,7 +6,7 @@ import { ItemCount, ItemDetailInfo } from "..";
 import { AnimatePresence, motion } from "framer-motion";
 import { emptyCart } from "../../assets";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTotalPrice, selectTotalQuantity,removeItemsCart, resetCart, updateCart } from "../../redux/amazonSlice";
+import { selectTotalPrice, selectTotalQuantity,removeItemsCart, clearCart, updateCart } from "../../redux/amazonSlice";
 
 const Cart = () => {
   document.title = "Amazon.com | Cart";
@@ -132,7 +132,7 @@ const Cart = () => {
                 <div className="px-8 py-2">
                   <button className="h-full px-10 py-2 bg-red-500 hover:bg-red-600 active:bg-red-500 text-white rounded-lg font-titleFont font-semibold text-lg tracking-wide"
                    onClick={() => {
-                    dispatch(resetCart());
+                    dispatch(clearCart());
                   }}
                   >
                     Clear Cart

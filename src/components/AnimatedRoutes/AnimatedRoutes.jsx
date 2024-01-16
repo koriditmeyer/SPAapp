@@ -45,9 +45,9 @@ const AnimatedRoutes = () => {
             <Route path="item/:id" element={<ItemDetailContainer />} />
             <Route path="cart" element={<Cart />} />
             <Route path="order-complete/:orderId" element={<OrderComplete />} />
+            <Route path="checkout" element={<Checkout />} />
             <Route path="*" element={<Error />} /> {/* Always at the end */}
           </Route>
-          <Route path="checkout" element={<Checkout />} />
           <Route path="register" element={<Registration />} />
           <Route path="login" element={<Login />} />
         </Route>
