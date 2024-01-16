@@ -30,7 +30,7 @@ https://amazon-3n2hu2bnv-koriditmeyers-projects.vercel.app/
 ## 💼 Technical Elements
 
 15-16/01/24
-- Add login and rgistration pages
+- Add login and registration pages
 - Change context implementation of the store from React to ![React Redux](https://img.shields.io/badge/redux-React_Redux-brightgreen?logo=redux&logoColor=764ABC&label=%20&labelColor=black&color=764ABC)
 - Implement the context persistance with Redux Persist library
 - Add pages and left side menu transition with ![Framer Motion](https://img.shields.io/badge/framer-Framer_Motion-brightgreen?logo=framer&logoColor=0055FF&label=%20&labelColor=black&color=0055FF)
