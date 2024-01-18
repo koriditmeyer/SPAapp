@@ -1,6 +1,8 @@
 export { default as Navbar } from "./Navbar/Navbar";
+export { default as Navbar2 } from "./Navbar2/Navbar2";
 export { default as NavbarPopup } from "./NavbarPopup/NavbarPopup";
 export { default as Footer } from "./Footer/Footer";
+export { default as Footer2 } from "./Footer2/Footer2";
 export { default as FooterTop } from "./FooterTop/FooterTop";
 export { default as FooterMiddle } from "./FooterMiddle/FooterMiddle";
 export { default as FooterMiddleList } from "./FooterMiddleList/FooterMiddleList";

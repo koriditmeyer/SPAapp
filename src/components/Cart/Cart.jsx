@@ -6,7 +6,13 @@ import { ItemCount, ItemDetailInfo } from "..";
 import { AnimatePresence, motion } from "framer-motion";
 import { emptyCart } from "../../assets";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTotalPrice, selectTotalQuantity,removeItemsCart, clearCart, updateCart } from "../../redux/amazonSlice";
+import {
+  selectTotalPrice,
+  selectTotalQuantity,
+  removeItemsCart,
+  clearCart,
+  updateCart,
+} from "../../redux/amazonSlice";
 
 const Cart = () => {
   document.title = "Amazon.com | Cart";
@@ -15,10 +21,10 @@ const Cart = () => {
   const onAdd = (id, quantity) => {
     if (quantity === 0) {
       // removeItemsCart(id);
-      dispatch(removeItemsCart(id))
+      dispatch(removeItemsCart(id));
     } else {
       // updateCart(id, quantity);
-      dispatch(updateCart({id,quantity}))
+      dispatch(updateCart({ id, quantity }));
     }
   };
   const dispatch = useDispatch();
@@ -130,10 +136,11 @@ const Cart = () => {
               </AnimatePresence>
               <div className="flex justify-between">
                 <div className="px-8 py-2">
-                  <button className="h-full px-10 py-2 bg-red-500 hover:bg-red-600 active:bg-red-500 text-white rounded-lg font-titleFont font-semibold text-lg tracking-wide"
-                   onClick={() => {
-                    dispatch(clearCart());
-                  }}
+                  <button
+                    className="h-full px-10 py-2 bg-red-500 hover:bg-red-600 active:bg-red-500 text-white rounded-lg font-titleFont font-semibold text-lg tracking-wide"
+                    onClick={() => {
+                      dispatch(clearCart());
+                    }}
                   >
                     Clear Cart
                   </button>

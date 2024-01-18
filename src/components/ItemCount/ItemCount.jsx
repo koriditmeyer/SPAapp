@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const ItemCount = ({ id, min, initial, stock, onAdd, updateBehaviour }) => {
+
   const [counter, setCounter] = useState(initial);
   const increment = () => {
     if (counter < stock) {
@@ -14,11 +16,14 @@ const ItemCount = ({ id, min, initial, stock, onAdd, updateBehaviour }) => {
     }
     updateBehaviour && onAdd(id,counter -1);
   };
+  // Initialize loading toast here
   const addToCart = () => {
-
     onAdd(id,counter);
-    
-  };
+    // toast.success(`${counter} Items added to cart`,
+    // {position: "bottom-right"}
+    // );
+    };
+
 
   return (
     <div className="flex-col items-center ">

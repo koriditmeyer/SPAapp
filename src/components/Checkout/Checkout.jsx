@@ -128,7 +128,7 @@ const Checkout = () => {
       exit={{ opacity: 0 }}
       className=" "
     >
-      <div className="grid grid-cols-12 place-items-center max-w-constainer m-auto bg-amazon-background min-h[60px]">
+      <div className="grid grid-cols-12 place-items-center max-w-constainer m-auto bg-[#F3F4F6] min-h[60px]">
         <div className="md:col-span-2"></div>
         <h2 className="col-span-9 md:col-span-8 text-3xl xl:text-5xl font-semibold py-4 ">
           Checkout (

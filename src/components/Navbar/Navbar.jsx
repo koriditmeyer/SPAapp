@@ -3,13 +3,20 @@
  */
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { CartWidget, HeaderBottom, NavbarPopup, Search, ThemeWidget } from "../";
+import {
+  CartWidget,
+  HeaderBottom,
+  NavbarPopup,
+  Search,
+  ThemeWidget,
+} from "../";
 import { logo } from "../../assets/index";
 import {
   Bars3Icon,
   ChevronDownIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 /*
  * COMPONENT
  */
@@ -30,18 +37,21 @@ const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
   const [isPopupVisible, setPopupVisible] = useState(false);
 
-    // -------- Disable the side menu on clic outside
-    const ref = useRef();
+  // -------- Disable the side menu on clic outside
+  const ref = useRef();
 
-    useEffect(() => {
-      function handleHoverOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setPopupVisible(false)
-        }
+  useEffect(() => {
+    function handleHoverOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setPopupVisible(false);
       }
-      // Bind the event listener
-      document.addEventListener("mouseover", handleHoverOutside);
-    }, [ref]);
+    }
+    // Bind the event listener
+    document.addEventListener("mouseover", handleHoverOutside);
+  }, [ref]);
+
+  const userInfo = useSelector((state) => state.amazonReducer.userInfo);
+  // console.log(userInfo);
 
   return (
     <nav className="w-full bg-amazon-blue sticky top-0 z-50">
@@ -69,23 +79,22 @@ const Navbar = () => {
           <Search />
         </div>
         {/* RIGHT */}
-        <Link
-          to={"/login"}
+        <div
           className="headerHover flex-col items-center  md:flex md:items-start"
           onMouseOver={() => setPopupVisible(true)}
           ref={ref}
         >
+          <Link to={userInfo ? "/profile" : "/login"}>
           <p className="text-sm md:text-xs text-white md:text-amazon-lightText font-light">
-            Hello, sign in
+            {userInfo ? `Hi ${userInfo.userName}` : "Hello, Log in"}
           </p>
           <p className="text-sm font-semibold -mt-1 text-amazon-whiteText hidden md:inline-flex">
             Accounts & Lists
             <ChevronDownIcon className="h-[15px] m-auto stroke-[3px] pl-2 inline-block" />
           </p>
-          {isPopupVisible && (
-            <NavbarPopup/>
-          )}
-        </Link>
+          </Link>
+          {isPopupVisible && <NavbarPopup />}
+        </div>
         <div className="headerHover flex-col items-start hidden md:flex">
           <p className="text-sm text-amazon-lightText font-light">Returns</p>
           <p className="text-sm font-semibold -mt-1 text-amazon-whiteText">

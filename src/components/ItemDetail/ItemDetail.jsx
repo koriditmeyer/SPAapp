@@ -101,6 +101,7 @@ const ItemDetail = ({ properties }) => {
           </div>
         </div>
       </div>
+      
     </motion.article>
   );
 };

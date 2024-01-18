@@ -13,6 +13,8 @@ import {
   ItemDetailContainer,
   Login,
   Registration,
+  Navbar2,
+  Footer2,
 } from "..";
 import ScrollToTop from "../ScrollRestauration/ScrollRestauration";
 import { AnimatePresence } from "framer-motion";
@@ -27,32 +29,52 @@ const Layout = () => {
   );
 };
 
+const Layout2 = () => {
+  return (
+    <div>
+      <Navbar2 />
+      <Outlet />
+      <Footer2 />
+    </div>
+  );
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait">
-      <ScrollToTop />
-      <Routes location={location} key={location.pathname}>
-        <Route>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="search" element={<SearchResults />} />
-            <Route
-              path="category/:categoryId"
-              element={<ItemListContainer />}
-            />
-            <Route path="item/:id" element={<ItemDetailContainer />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="order-complete/:orderId" element={<OrderComplete />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="*" element={<Error />} /> {/* Always at the end */}
+    <>
+      <AnimatePresence 
+      initial={false}
+      mode="wait"
+      >
+        <ScrollToTop />
+        <Routes location={location} key={location.pathname}>
+          <Route>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="search" element={<SearchResults />} />
+              <Route
+                path="category/:categoryId"
+                element={<ItemListContainer />}
+              />
+              <Route path="item/:id" element={<ItemDetailContainer />} />
+              <Route path="cart" element={<Cart />} />
+              <Route
+                path="order-complete/:orderId"
+                element={<OrderComplete />}
+              />
+              <Route path="*" element={<Error />} /> {/* Always at the end */}
+            </Route>
+            <Route element={<Layout2 />}>
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="register" element={<Registration />} />
+              <Route path="login" element={<Login />} />
+            </Route>
           </Route>
-          <Route path="register" element={<Registration />} />
-          <Route path="login" element={<Login />} />
-        </Route>
-      </Routes>
-    </AnimatePresence>
+        </Routes>
+      </AnimatePresence>
+    </>
   );
 };
 export default AnimatedRoutes;

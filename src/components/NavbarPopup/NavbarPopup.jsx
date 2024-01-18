@@ -1,8 +1,40 @@
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { getAuth, signOut } from "firebase/auth";
 import { motion } from "framer-motion";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { userSignOut } from "../../redux/amazonSlice";
 
 const NavbarPopup = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.amazonReducer.userInfo);
+
+  //sign out
+  const auth = getAuth();
+  const handleLogout = () => {
+    let id = toast.loading("Please wait...");
+    signOut(auth)
+      .then(() => {
+        dispatch(userSignOut());
+        toast.update(id, {
+          render: "Log out Successfully! See you soon",
+          type: "success"
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+      })
+      .catch((error) => {
+        toast.update(id, {
+          render: error.message,
+          type: "error"
+        });
+      });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -18,19 +50,48 @@ const NavbarPopup = () => {
       </div>
       <div className="text-sm text-gray-800 absolute  mt-2  -right-44 bg-white border border-gray-300 rounded-sm shadow-lg  p-3 flex flex-col gap-2">
         <div className="flex flex-col justify-center items-center gap-2 border-b  border-zinc-300 ">
-          <Link to="/login">
-            <button className="btn w-[150px]">Sign in</button>
-          </Link>
-          <p className="text-xs">
-            New customer?
+          {userInfo ? (
             <Link
-              to={"/register"}
-              className="text-xs text-blue-600 hover:text-orange-700 hover:underline underline-offset-1 cursor-pointer duration-100"
+              to={"/profile"}
+              className="p-2 w-full bg-[#E7F4F5] rounded-md flex justify-between items-center"
             >
-              {" "}
-              Start here.
-            </Link>{" "}
-          </p>
+              <div className="flex items-center gap-2">
+                <div className=" rounded-full h-10 w-10">
+                  <img src={userInfo.image}></img>
+                </div>
+                <div className="flex flex-col">
+                  <span className=" font-semibold text-base">
+                    {userInfo.userName}
+                  </span>
+                  <span className=" text-xs text-slate-500 font-semibold">
+                    Main User
+                  </span>
+                </div>
+              </div>
+              <div className="">
+                <span className=" text-[#177E8F]  hover:text-orange-700 hover:underline">
+                  Manage your profile
+                </span>
+                <ChevronRightIcon className="h-[15px] m-auto stroke-[3px]  stroke-[#177E8F] pl-2 inline-block" />
+              </div>
+            </Link>
+          ) : (
+            <>
+              <Link to="/login">
+                <button className="btn w-[150px]">Log in</button>
+              </Link>
+              <p className="text-xs">
+                New customer?
+                <Link
+                  to={"/register"}
+                  className="text-xs text-blue-600 hover:text-orange-700 hover:underline underline-offset-1 cursor-pointer duration-100"
+                >
+                  {" "}
+                  Start here.
+                </Link>{" "}
+              </p>
+            </>
+          )}
           <span className="w-full h-[1px] inline-flex"></span>
         </div>
         <div className="flex flex-row gap-6 ">
@@ -51,12 +112,12 @@ const NavbarPopup = () => {
           </div>
           <div className="p-2">
             <div className="font-bold py-2 border-gray-300">Your Account</div>
-            <a
-              href="#"
+            <Link
+              to={"/profile"}
               className="text-xs block py-1  hover:text-orange-700 hover:underline"
             >
               Account
-            </a>
+            </Link>
             <a
               href="#"
               className="text-xs block py-1 hover:text-orange-700 hover:underline"
@@ -113,10 +174,18 @@ const NavbarPopup = () => {
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              className="text-xs block py-1 hover:text-orange-700 hover:underline whitespace-nowrap"
             >
               Music Library
             </a>
+            {userInfo && (
+              <div
+                onClick={handleLogout}
+                className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              >
+                Log out
+              </div>
+            )}
           </div>
         </div>
       </div>

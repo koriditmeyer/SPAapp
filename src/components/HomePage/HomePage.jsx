@@ -6,9 +6,9 @@ const HomePage = () => {
   document.title = `Amazon.com | Books, Apparels, Electronics & more`;
   return (
     <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className="bg-amazon-background"
     >
       <div className="max-w-[1500px] m-auto ">
