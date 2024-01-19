@@ -11,7 +11,7 @@ const HomePage = () => {
       exit={{ opacity: 0 }}
       className="bg-amazon-background"
     >
-      <div className="max-w-[1500px] m-auto ">
+      <div className=" max-w-constainer m-auto ">
         <Carousel />
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 -mt-80">
           <HomePageCard

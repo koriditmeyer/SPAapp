@@ -35,3 +35,7 @@ export { default as SideNav } from "./SideNav/SideNav";
 export { default as SideNavContent } from "./SideNavContent/SideNavContent";
 export { default as Registration } from "./Registration/Registration";
 export { default as Login } from "./Login/Login";
+export { default as Profile } from "./Profile/Profile";
+export { default as ProfileComponent } from "./ProfileComponent/ProfileComponent";
+export { default as ProfileAccount } from "./ProfileAccount/ProfileAccount";
+export { default as BreadCrumbs } from "./BreadCrumbs/BreadCrumbs";

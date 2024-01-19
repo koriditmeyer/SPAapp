@@ -15,6 +15,8 @@ import {
   Registration,
   Navbar2,
   Footer2,
+  Profile,
+  ProfileAccount,
 } from "..";
 import ScrollToTop from "../ScrollRestauration/ScrollRestauration";
 import { AnimatePresence } from "framer-motion";
@@ -63,6 +65,14 @@ const AnimatedRoutes = () => {
               <Route
                 path="order-complete/:orderId"
                 element={<OrderComplete />}
+              />
+              <Route
+                path="profile"
+                element={<Profile />}
+              />
+              <Route
+                path="profile/account"
+                element={<ProfileAccount />}
               />
               <Route path="*" element={<Error />} /> {/* Always at the end */}
             </Route>
