@@ -61,7 +61,7 @@ const Navbar = () => {
           <Bars3Icon className="h-[30px] m-auto stroke-[2px] inline-block " />
         </div>
         {/* logo */}
-        <Link to={`/`} className="headerHover flex-grow md:flex-grow-0">
+        <Link to={""} className="headerHover flex-grow md:flex-grow-0">
           <img src={logo} alt="SPA-logo" className="w-24 mt-2" />
         </Link>
         <div className="headerHover items-end hidden md:flex ">

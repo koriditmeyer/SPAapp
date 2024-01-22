@@ -1,5 +1,4 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 //create categories at initial state
@@ -26,7 +25,7 @@ export const amazonSlice = createSlice({
         state.products.push(action.payload);
       }
       toast.success(`${action.payload.quantity} Items added to cart`, {
-        position: "bottom-right",
+        // position: "bottom-right",
       });
     },
     // Delete item from cart
@@ -37,7 +36,7 @@ export const amazonSlice = createSlice({
         (item) => item.properties.id !== action.payload
       );
       toast.success(`${product.quantity} Item removed from cart`, {
-        position: "bottom-right",
+        // position: "bottom-right",
       });
     },
     // Reset cart to initial state
@@ -46,7 +45,7 @@ export const amazonSlice = createSlice({
 
       state.products = [];
       toast.success(`${totalQuantity} Items removed from cart`, {
-        position: "bottom-right",
+        // position: "bottom-right",
       });
     },
     // Update Cart

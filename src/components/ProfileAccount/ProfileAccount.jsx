@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import BreadCrumbs from "../BreadCrumbs/BreadCrumbs";
+import BreadCrumbs from "../common/BreadCrumbs/BreadCrumbs";
 
 const ProfileAccount = () => {
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
   return (
-    <div className="max-w-constainer p-2 m-auto">
+    <div className="max-w-constainer py-2 px-4 xl:px-2 m-auto">
       <BreadCrumbs />
       <h3 className=" text-2xl font-semibold">Your Account Details</h3>
       <div className=" grid grid-cols-1  py-2 gap-4">
@@ -29,6 +29,14 @@ const ProfileAccount = () => {
           <div className="text-sm  pt-1">Provider</div>
           <h5 className="text-sm  font-bold pt-3">Last Name</h5>
           <div className="text-sm  pt-1">Provider</div>
+          <h5 className="text-sm  font-bold pt-3">Address</h5>
+          <div className="text-sm  pt-1">Provider</div>
+          <h5 className="text-sm  font-bold pt-3">City</h5>
+          <div className="text-sm  pt-1">Provider</div>
+          <h5 className="text-sm  font-bold pt-3">Postal Code</h5>
+          <div className="text-sm  pt-1">Provider</div>
+          <h5 className="text-sm  font-bold pt-3">Country</h5>
+          <div className="text-sm  pt-1">Provider</div>
           <h5 className="text-sm  font-bold pt-3">Role</h5>
           <div className="text-sm  pt-1">Provider</div>
           <h5 className="text-sm  font-bold pt-3">Registration Date</h5>
@@ -50,6 +58,10 @@ const ProfileAccount = () => {
           <h5 className="text-sm  font-bold pt-3">Email</h5>
           <div className="text-sm  pt-1">Provider</div>
           <h5 className="text-sm  font-bold pt-3">Name</h5>
+          <div className="text-sm  pt-1">Provider</div>
+          <h5 className="text-sm  font-bold pt-3">City</h5>
+          <div className="text-sm  pt-1">Provider</div>
+          <h5 className="text-sm  font-bold pt-3">Country</h5>
           <div className="text-sm  pt-1">Provider</div>
           <h5 className="text-sm  font-bold pt-3">Role</h5>
           <div className="text-sm  pt-1">Provider</div>

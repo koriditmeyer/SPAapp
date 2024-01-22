@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { account, addProduct, contact, order, security } from "../../assets";
 import {  ProfileComponent } from "..";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 const Profile = () => {
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Set a timeout to simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000); // 3000 milliseconds = 3 seconds
+
+    // Clean up the timer
+    return () => clearTimeout(timer);
+  }, []);
+
+
+
   return (
-    <div className="max-w-constainer p-2 m-auto">
+    <motion.div 
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="max-w-constainer p-2 m-auto">
       <h3 className=" text-2xl font-semibold">Your Profile</h3>
       <div className=" grid grid-cols-2 sm:grid-cols-3 gap-4 py-2 ">
         <ProfileComponent
@@ -51,7 +71,7 @@ const Profile = () => {
           }
         />)}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

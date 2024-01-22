@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { getAuth, signOut } from "firebase/auth";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,16 +10,19 @@ import { userSignOut } from "../../redux/amazonSlice";
 const NavbarPopup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toastId = useRef(null);
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
 
   //sign out
   const auth = getAuth();
   const handleLogout = () => {
-    let id = toast.loading("Please wait...");
+    toastId.current = toast("Please wait...",{
+      type: "loading"
+    });
     signOut(auth)
       .then(() => {
         dispatch(userSignOut());
-        toast.update(id, {
+        toast.update(toastId.current , {
           render: "Log out Successfully! See you soon",
           type: "success"
         });
@@ -28,7 +31,7 @@ const NavbarPopup = () => {
         }, 500);
       })
       .catch((error) => {
-        toast.update(id, {
+        toast.update(toastId.current , {
           render: error.message,
           type: "error"
         });
@@ -111,9 +114,9 @@ const NavbarPopup = () => {
             </a>
           </div>
           <div className="p-2">
-            <div className="font-bold py-2 border-gray-300">Your Account</div>
+            <Link to={"/profile"} className="font-bold py-2 border-gray-300">Your Profile</Link>
             <Link
-              to={"/profile"}
+              to={"/profile/account"}
               className="text-xs block py-1  hover:text-orange-700 hover:underline"
             >
               Account

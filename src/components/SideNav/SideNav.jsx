@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 const SideNav = ({ closeMenu }) => {
   // -------- Disable the side menu on clic outside
   const ref = useRef();
+  const toastId = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -30,11 +31,14 @@ const SideNav = ({ closeMenu }) => {
   //sign out
   const auth = getAuth();
   const handleLogout = () => {
-    let id = toast.loading("Please wait...");
+    toastId.current = toast("Please wait...",{
+      type: "loading"
+    });
+
     signOut(auth)
       .then(() => {
         dispatch(userSignOut());
-        toast.update(id, {
+        toast.update(toastId.current, {
           render: "Log out Successfully! See you soon",
           type: "success"
         });
@@ -43,7 +47,7 @@ const SideNav = ({ closeMenu }) => {
         }, 500);
       })
       .catch((error) => {
-        toast.update(id, {
+        toast.update(toastId.current, {
           render: error.message,
           type: "error"
         });

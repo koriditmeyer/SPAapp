@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -9,7 +9,6 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
 import { setUserInfo } from "../../redux/amazonSlice";
 import { useDispatch } from "react-redux";
 
@@ -18,6 +17,7 @@ const Signin = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const toastId = useRef(null);
 
   const auth = getAuth();
 
@@ -91,7 +91,9 @@ const Signin = () => {
     ) {
       // console.log(clientName, email, password, cPassword);
       // Initialize loading toast here
-      let id = toast.loading("Please wait...");
+      toastId.current = toast("Please wait...",{
+        type: "loading"
+      });
 
       // Create from FireBase
       const createUserDB = createUserWithEmailAndPassword(auth, email, password)
@@ -102,7 +104,7 @@ const Signin = () => {
           })
             .then(() => {
               // Profile updated
-              toast.update(id, {
+              toast.update(toastId.current, {
                 render: "Account successfully created!",
                 type: "success"
               });
@@ -111,7 +113,8 @@ const Signin = () => {
                 _id:user.uid,
                 userName:user.displayName,
                 email:user.email,
-                image:user.photoURL
+                image:user.photoURL,
+                roles:["user"]
               }))
               // console.log(user);
               setTimeout(() => {
@@ -120,7 +123,7 @@ const Signin = () => {
             })
             .catch((error) => {
               // Error in updateProfile
-              toast.update(id, {
+              toast.update(toastId.current, {
                 render: error.message,
                 type: "error"
               });

@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../../redux/amazonSlice";
 
 const Login = () => {
   document.title = `Amazon.com | Log in`;
+  const toastId = useRef(null);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const auth = getAuth();
 
@@ -52,25 +53,35 @@ const Login = () => {
     if (email && emailValidation(email) && password) {
       // console.log(email, password);
       // Initialize loading toast here
-      let id = toast.loading("Please wait...");
+      toastId.current = toast("Please wait...",{
+        type: "loading"
+      });
       // Create from FireBase
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          dispatch(setUserInfo({
-            _id:user.uid,
-            userName:user.displayName,
-            email:user.email,
-            image:user.photoURL
-          }))
+          dispatch(
+            setUserInfo({
+              _id: user.uid,
+              userName: user.displayName,
+              email: user.email,
+              image: user.photoURL,
+              roles: ["user"],
+            })
+          );
           // console.log(user);
-          toast.update(id, {
-            render: "Logged in Successfully! Welcome you back!",
-            type: "success"
+          toast.update(toastId.current, {
+            render: "Logged in Successfully! Welcome back!",
+            type: "success",
           });
+
+          // navigate("/");
+          // Navigate to the previous page or home if not available
+          const from = location.state?.from?.pathname || "/";
+          // console.log(from)
           setTimeout(() => {
-            navigate("/");
+            navigate(from);
           }, 500);
           // ...
         })
@@ -81,16 +92,16 @@ const Login = () => {
           if (errorCode.includes("auth/invalid-login-credentials")) {
             // setErrDB("Email Already in use, Try another one");
             // notifyError("Email Already in use, Try another one");
-            toast.update(id, {
+            toast.update(toastId.current, {
               render: "Invalid Login Credentials. Try again.",
-              type: "error"
+              type: "error",
             });
           } else {
             // setErrDB(errorMessage);
             // notifyError(errorMessage);
-            toast.update(id, {
+            toast.update(toastId.current, {
               render: errorMessage,
-              type: "error"
+              type: "error",
             });
           }
         });
