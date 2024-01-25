@@ -20,6 +20,7 @@ https://amazon-oyczusm57-koriditmeyers-projects.vercel.app/
 ![heroicons](https://img.shields.io/badge/Heroicons-brightgreen?logo=hero&logoColor=6332F6&label=%20&labelColor=black&color=black)
 ![React Scroll](https://img.shields.io/badge/React_Scroll-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
 ![Framer Motion](https://img.shields.io/badge/framer-Framer_Motion-brightgreen?logo=framer&logoColor=0055FF&label=%20&labelColor=black&color=0055FF)
+![React Toastify](https://img.shields.io/badge/React_Toastify-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
 
 ![firebase](https://img.shields.io/badge/firebase-Firebase-brightgreen?logo=firebase&logoColor=FFCA28&label=%20&labelColor=black&color=FFCA28)
 
@@ -28,6 +29,12 @@ https://amazon-oyczusm57-koriditmeyers-projects.vercel.app/
 ![GitHub](https://img.shields.io/badge/github-GitHub-brightgreen?logo=github&logoColor=white&label=%20&labelColor=black&color=181717)
 
 ## 💼 Technical Elements
+
+23/01/24
+- Refactor the router to use React-Router-DOM v6.4. For each route who need it: Implement the data fetch with loader function / Implment the error component in case of incorrect fetch or other errors.
+- With the new version of React-Router-DOM, implement page transition with Framer-Motion and a global spinner icon.
+- Implement the navigation with protected routes and role base authorization wth a router middleware
+- Implement toast to inform user of action with React-toastify
 
 15-16/01/24
 - Add login and registration pages

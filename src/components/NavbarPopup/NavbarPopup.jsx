@@ -26,9 +26,9 @@ const NavbarPopup = () => {
           render: "Log out Successfully! See you soon",
           type: "success"
         });
-        setTimeout(() => {
-          navigate("/");
-        }, 500);
+        // setTimeout(() => {
+        //   navigate("/");
+        // }, 500);
       })
       .catch((error) => {
         toast.update(toastId.current , {
