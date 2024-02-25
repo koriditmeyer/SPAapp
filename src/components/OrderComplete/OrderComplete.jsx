@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams} from "react-router-dom";
-import { db } from "../../services/config";
+import { db } from "../../services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const OrderComplete = () => {

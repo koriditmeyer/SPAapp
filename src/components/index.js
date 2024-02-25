@@ -58,3 +58,4 @@ export { default as GlobalSpinner } from "./common/GlobalSpinner/GlobalSpinner";
 export { default as ErrorElement } from "./common/ErrorElement/ErrorElement";
 export { default as ScrollToTop } from "./common/ScrollRestauration/ScrollRestauration";
 export { default as Unauthorized } from "./common/Unauthorized/Unauthorized";
+export { default as Verify } from "./common/Verify/Verify";

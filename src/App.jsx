@@ -39,6 +39,7 @@ import {
   ItemList,
   SearchResultsError,
   Unauthorized,
+  Verify,
 } from "./components";
 import RequireAuth from "./services/RequireAuth";
 
@@ -107,11 +108,12 @@ function App() {
               <Route path="profile/addProducts" element={<Profile />} />
             </Route>
             <Route path="unauthorized" element={<Unauthorized />} />
+            <Route path="verify" element={<Verify />} />
             <Route path="*" element={<Error />} /> {/* Always at the end */}
           </Route>
         </Route>
         <Route element={<Layout2 />}>
-          <Route path="register" element={<Registration />} />
+          <Route path="register" element={<Registration />}/>
           <Route path="login" element={<Login />} />
         </Route>
       </Route>

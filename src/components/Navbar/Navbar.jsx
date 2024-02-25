@@ -50,6 +50,10 @@ const Navbar = () => {
     document.addEventListener("mouseover", handleHoverOutside);
   }, [ref]);
 
+  const closePopup = () =>{
+    setPopupVisible(false);
+  }
+
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
   // console.log(userInfo);
 
@@ -84,16 +88,16 @@ const Navbar = () => {
           onMouseOver={() => setPopupVisible(true)}
           ref={ref}
         >
-          <Link to={userInfo ? "/profile" : "/login"}>
+          <Link to={ userInfo?.verified? "/profile":"/login"}>
           <p className="text-sm md:text-xs text-white md:text-amazon-lightText font-light">
-            {userInfo ? `Hi ${userInfo.userName}` : "Hello, Log in"}
+            { userInfo?.verified ? `Hi ${userInfo.first_name}` : "Hello, Log in"}
           </p>
           <p className="text-sm font-semibold -mt-1 text-amazon-whiteText hidden md:inline-flex">
             Accounts & Lists
             <ChevronDownIcon className="h-[15px] m-auto stroke-[3px] pl-2 inline-block" />
           </p>
           </Link>
-          {isPopupVisible && <NavbarPopup />}
+          {isPopupVisible && <NavbarPopup closePopup={closePopup} />}
         </div>
         <div className="headerHover flex-col items-start hidden md:flex">
           <p className="text-sm text-amazon-lightText font-light">Returns</p>

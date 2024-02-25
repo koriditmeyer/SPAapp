@@ -1,4 +1,4 @@
-import { db } from "../../services/config";
+import { db } from "../../services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const ItemDetailContainerLoader = async ({params}) => {

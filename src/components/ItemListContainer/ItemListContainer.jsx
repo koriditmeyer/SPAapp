@@ -1,39 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ItemList } from "..";
 import { useLoaderData, useParams } from "react-router-dom";
-import { db } from "../../services/config";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { motion } from "framer-motion";
 
 const ItemListContainer = () => {
   const products = useLoaderData();
   const {categoryId} = useParams();
-  // const [products, setProducts] = useState([]);
-  // const [loading, setLoading] = useState(true) // Conditional state
-  // const { categoryId } = useParams();
-  // useEffect(() => {
-  //     setLoading(true) // Need to set again to true at it can change over time
-  //       let response
-  //       if (!categoryId) {
-  //         response = collection(db, "products")
-  //       } else {
-  //         response = query(collection(db, "products"), where("category", "==", categoryId))
-  //       }
-  //       getDocs(response)
-  //         .then((snapshot) => {
-  //           if (snapshot.empty) {
-  //             throw new Error("No results");
-  //           }
-  //           setProducts(snapshot.docs.map((doc) =>
-  //             ({ id: doc.id, ...doc.data() })))
-  //         })
-  //     .catch (error => {
-  //       console.log(`${error.message} - no products found`);
-  //     })
-  //     .finally(() => {  // finally
-  //       setLoading(false)
-  //     })
-  // }, [categoryId]);
 
   return (
     <motion.main

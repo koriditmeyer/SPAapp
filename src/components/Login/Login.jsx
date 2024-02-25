@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../../redux/amazonSlice";
+import { postAPI } from "../../services/API";
 
 const Login = () => {
   document.title = `Amazon.com | Log in`;
@@ -40,7 +41,7 @@ const Login = () => {
   };
 
   //submit button action
-  const handleRegistration = (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault();
     if (!email) {
       setErrEmail("Enter your email");
@@ -50,64 +51,92 @@ const Login = () => {
     if (!password) {
       setErrPassword("Enter your password");
     }
+
     if (email && emailValidation(email) && password) {
       // console.log(email, password);
       // Initialize loading toast here
-      toastId.current = toast("Please wait...",{
-        type: "loading"
+      toastId.current = toast("Please wait...", {
+        type: "loading",
       });
-      // Create from FireBase
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          dispatch(
-            setUserInfo({
-              _id: user.uid,
-              userName: user.displayName,
-              email: user.email,
-              image: user.photoURL,
-              roles: ["user"],
-            })
-          );
-          // console.log(user);
-          toast.update(toastId.current, {
-            render: "Logged in Successfully! Welcome back!",
-            type: "success",
-          });
-
-          // navigate("/");
-          // Navigate to the previous page or home if not available
-          const from = location.state?.from?.pathname || "/";
-          // console.log(from)
-          setTimeout(() => {
-            navigate(from);
-          }, 500);
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // console.log(errorCode);
-          if (errorCode.includes("auth/invalid-login-credentials")) {
-            // setErrDB("Email Already in use, Try another one");
-            // notifyError("Email Already in use, Try another one");
-            toast.update(toastId.current, {
-              render: "Invalid Login Credentials. Try again.",
-              type: "error",
-            });
-          } else {
-            // setErrDB(errorMessage);
-            // notifyError(errorMessage);
-            toast.update(toastId.current, {
-              render: errorMessage,
-              type: "error",
-            });
-          }
+      // Collect form data
+      const formData = {
+        email: email,
+        password: password,
+      };
+      try {
+        const user = await postAPI("api/sessions/login", formData);
+        toast.update(toastId.current, {
+          render: `Logged in Successfully! Welcome back ${user.payload.first_name}!`,
+          type: "success",
         });
+        dispatch(setUserInfo(user.payload));
+        // Navigate to the previous page or home if not available
+        const from = location.state?.from?.pathname || "/";
+        // console.log(from)
+        setTimeout(() => {
+          navigate(from);
+        }, 500);
+        setEmail("");
+        setPassword("");
+      } catch (error) {
+        toast.update(toastId.current, {
+          render: error.response.data.message,
+          type: "error",
+        });
+      }
 
-      setEmail("");
-      setPassword("");
+      // // Create from FireBase
+      // signInWithEmailAndPassword(auth, email, password)
+      //   .then((userCredential) => {
+      //     // Signed in
+      //     const user = userCredential.user;
+      //     dispatch(
+      //       setUserInfo({
+      //         _id: user.uid,
+      //         userName: user.displayName,
+      //         email: user.email,
+      //         image: user.photoURL,
+      //         roles: ["user"],
+      //       })
+      //     );
+      //     // console.log(user);
+      //     toast.update(toastId.current, {
+      //       render: "Logged in Successfully! Welcome back!",
+      //       type: "success",
+      //     });
+
+      //     // navigate("/");
+      //     // Navigate to the previous page or home if not available
+      //     const from = location.state?.from?.pathname || "/";
+      //     // console.log(from)
+      //     setTimeout(() => {
+      //       navigate(from);
+      //     }, 500);
+      //     // ...
+      //   })
+      //   .catch((error) => {
+      //     const errorCode = error.code;
+      //     const errorMessage = error.message;
+      //     // console.log(errorCode);
+      //     if (errorCode.includes("auth/invalid-login-credentials")) {
+      //       // setErrDB("Email Already in use, Try another one");
+      //       // notifyError("Email Already in use, Try another one");
+      //       toast.update(toastId.current, {
+      //         render: "Invalid Login Credentials. Try again.",
+      //         type: "error",
+      //       });
+      //     } else {
+      //       // setErrDB(errorMessage);
+      //       // notifyError(errorMessage);
+      //       toast.update(toastId.current, {
+      //         render: errorMessage,
+      //         type: "error",
+      //       });
+      //     }
+      //   });
+
+      // setEmail("");
+      // setPassword("");
     }
   };
 

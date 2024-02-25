@@ -2,31 +2,26 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
 import { toast } from "react-toastify";
 
 import { setUserInfo } from "../../redux/amazonSlice";
 import { useDispatch } from "react-redux";
+import { postAPI } from "../../services/API";
+import useRegistration from "../../services/handleRegistration";
 
 const Signin = () => {
   document.title = `Amazon.com | Registration`;
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate();
-  const toastId = useRef(null);
-
-  const auth = getAuth();
+  const handleRegistration = useRegistration();
 
   const [clientName, setClientName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   //Error Messages
   const [errClientName, setErrClientName] = useState("");
+  const [errLastName, setErrLastName] = useState("");
   const [errEmail, setErrEmail] = useState("");
   const [errPassword, setErrPassword] = useState("");
   const [errCPassword, setErrCPassword] = useState("");
@@ -35,6 +30,10 @@ const Signin = () => {
   const handleName = (e) => {
     setClientName(e.target.value);
     setErrClientName("");
+  };
+  const handleLastName = (e) => {
+    setLastName(e.target.value);
+    setErrLastName("");
   };
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -58,10 +57,13 @@ const Signin = () => {
   };
 
   //submit button action
-  const handleRegistration = (e) => {
+  const handleRegistrationClick = async (e) => {
     e.preventDefault();
     if (!clientName) {
-      setErrClientName("Enter your name");
+      setErrClientName("Enter your first name");
+    }
+    if (!lastName) {
+      setErrLastName("Enter your last name");
     }
     if (!email) {
       setErrEmail("Enter your email");
@@ -89,78 +91,46 @@ const Signin = () => {
       cPassword &&
       cPassword === password
     ) {
-      // console.log(clientName, email, password, cPassword);
-      // Initialize loading toast here
-      toastId.current = toast("Please wait...",{
-        type: "loading"
-      });
-
-      // Create from FireBase
-      const createUserDB = createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          updateProfile(auth.currentUser, {
-            displayName: clientName,
-            photoURL: "../profiles/Default.png",
-          })
-            .then(() => {
-              // Profile updated
-              toast.update(toastId.current, {
-                render: "Account successfully created!",
-                type: "success"
-              });
-              const user = userCredential.user;
-              dispatch(setUserInfo({
-                _id:user.uid,
-                userName:user.displayName,
-                email:user.email,
-                image:user.photoURL,
-                roles:["user"]
-              }))
-              // console.log(user);
-              setTimeout(() => {
-                navigate("/");
-              }, 500);
-            })
-            .catch((error) => {
-              // Error in updateProfile
-              toast.update(toastId.current, {
-                render: error.message,
-                type: "error"
-              });
-            });
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(error.code);
-          if (errorCode.includes("auth/email-already-in-use")) {
-            // setErrDB("Email Already in use, Try another one");
-            // notifyError("Email Already in use, Try another one");
-            toast.update(id, {
-              render: "Email Already in use, Try another one",
-              type: "error"
-            });
-          } else {
-            // setErrDB(errorMessage);
-            // notifyError(errorMessage);
-            toast.update(id, {
-              render: errorMessage,
-              type: "error"
-            });
-          }
-          // ..
-        });
-
-      setClientName("");
-      setEmail("");
-      setPassword("");
-      setCPassword("");
+      // toastId.current = toast("Please wait...", {
+      //   type: "loading",
+      // });
+      // Collect form data
+      const formData = {
+        first_name:clientName,
+        last_name:lastName,
+        email:email,
+        password:password
+      };
+      await handleRegistration({formData})
+      // try {
+      //   // Register
+      //   const user = await postAPI("api/sessions/register", formData);
+      //   toast.update(toastId.current, {
+      //     render: "An Email was send to you to verify your address.",
+      //     type: "success",
+      //   });
+      //   dispatch(
+      //     setUserInfo(user.payload)
+      //   );
+      //   setTimeout(() => {
+      //     navigate("/verify");
+      //   }, 500);
+        setClientName("");
+        setEmail("");
+        setPassword("");
+        setCPassword("");
+      // } catch (error) {
+      //   toast.update(toastId.current, {
+      //     render: error.response.data.message,
+      //     type: "error",
+      //   });
+      // }
     }
   };
 
   return (
     <motion.div
-      initial={{opacity: 0.7 }}
+      initial={{ opacity: 0.7 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0.7 }}
       className="w-full"
@@ -178,13 +148,13 @@ const Signin = () => {
             )} */}
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2">
-                <p className="text-sm font-medium">Your name</p>
+                <p className="text-sm font-medium">Your First name</p>
                 <input
                   className="w-full py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                   type="text"
-                  autoComplete="username"
+                  autoComplete="first name"
                   value={clientName}
-                  placeholder="First and last name"
+                  placeholder="First name"
                   onChange={handleName}
                 />
                 {errClientName && (
@@ -197,11 +167,31 @@ const Signin = () => {
                 )}
               </div>
               <div className="flex flex-col gap-2">
+                <p className="text-sm font-medium">Your Last name</p>
+                <input
+                  className="w-full py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
+                  type="text"
+                  autoComplete="Last name"
+                  value={lastName}
+                  placeholder="Last name"
+                  onChange={handleLastName}
+                />
+                {errLastName && (
+                  <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
+                    <span className="italic font-titleFont font-extrabold text-base">
+                      !
+                    </span>{" "}
+                    {errLastName}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
                 <p className="text-sm font-medium">Email</p>
                 <input
                   className="w-full lowercase py-1 border border-zinc-400 px-2 text-base rounded-sm outline-none focus-within:border-[#e77600] focus-within:shadow-amazonInput duration-100"
                   type="email"
                   autoComplete="email"
+                  placeholder="email"
                   value={email}
                   onChange={handleEmail}
                 />
@@ -256,7 +246,7 @@ const Signin = () => {
                 )}
               </div>
               <button
-                onClick={handleRegistration}
+                onClick={handleRegistrationClick}
                 className="w-full py-1.5 text-sm font-normal rounded-none bg-gradient-to-t from-[#f7dfa5] to-[#f0c14b] hover:bg-gradient-to-b border border-zinc-400 active:border-yellow-800 active:shadow-amazonInput"
               >
                 Continue

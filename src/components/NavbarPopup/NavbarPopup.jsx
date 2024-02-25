@@ -1,41 +1,18 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { getAuth, signOut } from "firebase/auth";
 import { motion } from "framer-motion";
-import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { userSignOut } from "../../redux/amazonSlice";
+import React from "react";
+import {  useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import useLogout from "../../services/handleLogout";
 
-const NavbarPopup = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const toastId = useRef(null);
+const NavbarPopup = ({closePopup}) => {
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
 
   //sign out
-  const auth = getAuth();
-  const handleLogout = () => {
-    toastId.current = toast("Please wait...",{
-      type: "loading"
-    });
-    signOut(auth)
-      .then(() => {
-        dispatch(userSignOut());
-        toast.update(toastId.current , {
-          render: "Log out Successfully! See you soon",
-          type: "success"
-        });
-        // setTimeout(() => {
-        //   navigate("/");
-        // }, 500);
-      })
-      .catch((error) => {
-        toast.update(toastId.current , {
-          render: error.message,
-          type: "error"
-        });
-      });
+  const handleLogout = useLogout();
+  const handleLogoutClick = () => {
+    handleLogout()
+    closePopup()
   };
 
   return (
@@ -53,18 +30,18 @@ const NavbarPopup = () => {
       </div>
       <div className="text-sm text-gray-800 absolute  mt-2  -right-44 bg-white border border-gray-300 rounded-sm shadow-lg  p-3 flex flex-col gap-2">
         <div className="flex flex-col justify-center items-center gap-2 border-b  border-zinc-300 ">
-          {userInfo ? (
+          {userInfo?.verified ? (
             <Link
               to={"/profile"}
               className="p-2 w-full bg-[#E7F4F5] rounded-md flex justify-between items-center"
             >
               <div className="flex items-center gap-2">
                 <div className=" rounded-full h-10 w-10">
-                  <img src={userInfo.image}></img>
+                  <img src={userInfo.profilePhoto}></img>
                 </div>
                 <div className="flex flex-col">
                   <span className=" font-semibold text-base">
-                    {userInfo.userName}
+                    {userInfo.first_name}
                   </span>
                   <span className=" text-xs text-slate-500 font-semibold">
                     Main User
@@ -181,9 +158,9 @@ const NavbarPopup = () => {
             >
               Music Library
             </a>
-            {userInfo && (
+            {userInfo?.verified && (
               <div
-                onClick={handleLogout}
+                onClick={handleLogoutClick}
                 className="text-xs block py-1 hover:text-orange-700 hover:underline"
               >
                 Log out

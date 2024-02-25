@@ -1,62 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Outlet, useLoaderData, useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../services/config";
-import { collection, getDocs, query } from "firebase/firestore";
 import { ItemList } from "..";
 import { motion } from "framer-motion";
 
 const SearchResults = () => {
   const products = useLoaderData();
   const [searchParams] = useSearchParams();
-  // const [loading, setLoading] = useState(true);
-  // const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
-  // const getSearchResults = () => {
-  //   const searchTerm = searchParams.get("searchTerm");
-  //   const category = searchParams.get("category");
-  //   document.title = `Amazon.com : ${searchTerm}`;
-  //   setLoading(true); // Need to set again to true at it can change over time
-  //   let response;
-  //   response = query(collection(db, "products"));
-  //   getDocs(response)
-  //     .then((snapshot) => {
-  //       if (snapshot.empty) {
-  //         throw new Error("No results");
-  //       }
-  //       const searchResults = snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       }));
-  //       let categoryResults;
-  //       if (category === "All") {
-  //         categoryResults = searchResults;
-  //       } else {
-  //         categoryResults = searchResults.filter(
-  //           (item) => item.category === category
-  //         );
-  //       }
-  //       if (searchTerm) {
-  //         const results = categoryResults.filter((product) =>
-  //           product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  //         );
-  //         setProducts(results);
-  //       } else {
-  //         setProducts(categoryResults);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(`${error.message} - no products found`);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   getSearchResults();
-  // }, [searchParams]);
-
+ 
   return (
     <motion.div
       initial={{ opacity: 0 }}
