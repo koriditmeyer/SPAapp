@@ -96,12 +96,12 @@ const Signin = () => {
       // });
       // Collect form data
       const formData = {
-        first_name:clientName,
-        last_name:lastName,
-        email:email,
-        password:password
+        first_name: clientName,
+        last_name: lastName,
+        email: email,
+        password: password,
       };
-      await handleRegistration({formData})
+      await handleRegistration({ formData });
       // try {
       //   // Register
       //   const user = await postAPI("api/sessions/register", formData);
@@ -115,10 +115,10 @@ const Signin = () => {
       //   setTimeout(() => {
       //     navigate("/verify");
       //   }, 500);
-        setClientName("");
-        setEmail("");
-        setPassword("");
-        setCPassword("");
+      setClientName("");
+      setEmail("");
+      setPassword("");
+      setCPassword("");
       // } catch (error) {
       //   toast.update(toastId.current, {
       //     render: error.response.data.message,

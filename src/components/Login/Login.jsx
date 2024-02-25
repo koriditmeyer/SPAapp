@@ -8,9 +8,13 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../../redux/amazonSlice";
 import { postAPI } from "../../services/API";
+import useLogin from "../../services/handleLogin";
 
 const Login = () => {
   document.title = `Amazon.com | Log in`;
+
+  const handleLogin = useLogin();
+
   const toastId = useRef(null);
 
   const dispatch = useDispatch();
@@ -55,34 +59,34 @@ const Login = () => {
     if (email && emailValidation(email) && password) {
       // console.log(email, password);
       // Initialize loading toast here
-      toastId.current = toast("Please wait...", {
-        type: "loading",
-      });
+      // toastId.current = toast("Please wait...", {
+      //   type: "loading",
+      // });
       // Collect form data
       const formData = {
         email: email,
         password: password,
       };
-      try {
-        const user = await postAPI("api/sessions/login", formData);
-        toast.update(toastId.current, {
-          render: `Logged in Successfully! Welcome back ${user.payload.first_name}!`,
-          type: "success",
-        });
-        dispatch(setUserInfo(user.payload));
-        // Navigate to the previous page or home if not available
-        const from = location.state?.from?.pathname || "/";
-        // console.log(from)
-        setTimeout(() => {
-          navigate(from);
-        }, 500);
+      // try {
+         await handleLogin({formData});
+        // toast.update(toastId.current, {
+        //   render: `Logged in Successfully! Welcome back ${user.payload.first_name}!`,
+        //   type: "success",
+        // });
+        // dispatch(setUserInfo(user.payload));
+        // // Navigate to the previous page or home if not available
+        // const from = location.state?.from?.pathname || "/";
+        // // console.log(from)
+        // setTimeout(() => {
+        //   navigate(from);
+        // }, 500);
         setEmail("");
         setPassword("");
-      } catch (error) {
-        toast.update(toastId.current, {
-          render: error.response.data.message,
-          type: "error",
-        });
+      // } catch (error) {
+      //   toast.update(toastId.current, {
+      //     render: error.response.data.message,
+      //     type: "error",
+      //   });
       }
 
       // // Create from FireBase
