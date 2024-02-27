@@ -40,6 +40,7 @@ import {
   SearchResultsError,
   Unauthorized,
   Verify,
+  ProfileAccountLoader,
 } from "./components";
 import RequireAuth from "./services/RequireAuth";
 
@@ -102,7 +103,11 @@ function App() {
                 element={<OrderComplete />}
               />
               <Route path="profile" element={<Profile />} />
-              <Route path="profile/account" element={<ProfileAccount />} />
+              <Route
+                path="profile/account"
+                element={<ProfileAccount />}
+                loader={ProfileAccountLoader}
+              />
             </Route>
             <Route element={<RequireAuth allowedRoles={["admin"]} />}>
               <Route path="profile/addProducts" element={<Profile />} />
@@ -113,7 +118,7 @@ function App() {
           </Route>
         </Route>
         <Route element={<Layout2 />}>
-          <Route path="register" element={<Registration />}/>
+          <Route path="register" element={<Registration />} />
           <Route path="login" element={<Login />} />
         </Route>
       </Route>
@@ -125,20 +130,20 @@ function App() {
       <ThemeProvider>
         <CartProvider>
           <RouterProvider router={router} />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        stacked 
-        transition={Bounce}
-      />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            stacked
+            transition={Bounce}
+          />
         </CartProvider>
       </ThemeProvider>
     </div>

@@ -2,7 +2,7 @@ import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useRef } from "react";
 import SideNavContent from "../SideNavContent/SideNavContent";
 import { motion } from "framer-motion";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import useLogout from "../../services/handleLogout";
@@ -25,8 +25,8 @@ const SideNav = ({ closeMenu }) => {
   //sign out
   const handleLogout = useLogout();
   const handleLogoutClick = () => {
-    handleLogout()
-    closeMenu()
+    handleLogout();
+    closeMenu();
   };
 
   return (
@@ -53,7 +53,7 @@ const SideNav = ({ closeMenu }) => {
                     {userInfo.first_name}
                   </span>
                   <span className=" text-xs text-slate-500 font-semibold">
-                    Main User
+                    {userInfo.roles}
                   </span>
                 </div>
               </Link>

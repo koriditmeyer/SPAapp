@@ -30,8 +30,10 @@ export const amazonSlice = createSlice({
     },
     // Delete item from cart
     removeItemsCart: (state, action) => {
-      const product = state.products.find((item) => item.properties.id === action.payload)
-    
+      const product = state.products.find(
+        (item) => item.properties.id === action.payload
+      );
+
       state.products = state.products.filter(
         (item) => item.properties.id !== action.payload
       );
@@ -41,7 +43,10 @@ export const amazonSlice = createSlice({
     },
     // Reset cart to initial state
     clearCart: (state) => {
-      const totalQuantity = state.products.reduce((total, product) => total + product.quantity, 0);
+      const totalQuantity = state.products.reduce(
+        (total, product) => total + product.quantity,
+        0
+      );
 
       state.products = [];
       toast.success(`${totalQuantity} Items removed from cart`, {
@@ -67,6 +72,24 @@ export const amazonSlice = createSlice({
     // User Logout
     userSignOut: (state) => {
       state.userInfo = null;
+    },
+    // update the userInfo in Redux adding/replacing with all values in payload
+    forceUpdateUserInfo: (state, action) => {
+      state.userInfo = { ...state.userInfo, ...action.payload };
+    },
+    // update the userInfo in Redux only with values that don't already exist in the state
+    updateUserInfo: (state, action) => {
+      if (!state.userInfo) {
+        state.userInfo = action.payload;
+      } else {
+        // if userInfo is not null Loop over each key in action.payload
+        Object.keys(action.payload).forEach((key) => {
+          // If the key does not exist in state.userInfo, add it
+          if (!(key in state.userInfo)) {
+            state.userInfo[key] = action.payload[key];
+          }
+        });
+      }
     },
   },
 });
@@ -95,5 +118,7 @@ export const {
   updateCart,
   setUserInfo,
   userSignOut,
+  forceUpdateUserInfo,
+  updateUserInfo,
 } = amazonSlice.actions;
 export default amazonSlice.reducer;

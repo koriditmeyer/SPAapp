@@ -1,18 +1,18 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import React from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import useLogout from "../../services/handleLogout";
 
-const NavbarPopup = ({closePopup}) => {
+const NavbarPopup = ({ closePopup }) => {
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
 
   //sign out
   const handleLogout = useLogout();
   const handleLogoutClick = () => {
-    handleLogout()
-    closePopup()
+    handleLogout();
+    closePopup();
   };
 
   return (
@@ -44,7 +44,7 @@ const NavbarPopup = ({closePopup}) => {
                     {userInfo.first_name}
                   </span>
                   <span className=" text-xs text-slate-500 font-semibold">
-                    Main User
+                    {userInfo.roles}
                   </span>
                 </div>
               </div>
@@ -91,7 +91,9 @@ const NavbarPopup = ({closePopup}) => {
             </a>
           </div>
           <div className="p-2">
-            <Link to={"/profile"} className="font-bold py-2 border-gray-300">Your Profile</Link>
+            <Link to={"/profile"} className="font-bold py-2 border-gray-300">
+              Your Profile
+            </Link>
             <Link
               to={"/profile/account"}
               className="text-xs block py-1  hover:text-orange-700 hover:underline"

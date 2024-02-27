@@ -50,7 +50,9 @@ export { default as Registration } from "./Registration/Registration";
 export { default as Login } from "./Login/Login";
 export { default as Profile } from "./Profile/Profile";
 export { default as ProfileComponent } from "./ProfileComponent/ProfileComponent";
+
 export { default as ProfileAccount } from "./ProfileAccount/ProfileAccount";
+export { default as ProfileAccountLoader } from "./ProfileAccount/ProfileAccountLoader";
 
 // Common
 export { default as BreadCrumbs } from "./common/BreadCrumbs/BreadCrumbs";
@@ -59,3 +61,4 @@ export { default as ErrorElement } from "./common/ErrorElement/ErrorElement";
 export { default as ScrollToTop } from "./common/ScrollRestauration/ScrollRestauration";
 export { default as Unauthorized } from "./common/Unauthorized/Unauthorized";
 export { default as Verify } from "./common/Verify/Verify";
+export { default as EditableField } from "./common/EditableField/EditableField";

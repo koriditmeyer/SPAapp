@@ -17,6 +17,7 @@ import {
   MapPinIcon,
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
+import HandleIpGeoInfo from "../../services/handleIpGeoInfo";
 /*
  * COMPONENT
  */
@@ -36,7 +37,6 @@ const Navbar = () => {
 
   const [sidebar, setSidebar] = useState(false);
   const [isPopupVisible, setPopupVisible] = useState(false);
-
   // -------- Disable the side menu on clic outside
   const ref = useRef();
 
@@ -50,16 +50,19 @@ const Navbar = () => {
     document.addEventListener("mouseover", handleHoverOutside);
   }, [ref]);
 
-  const closePopup = () =>{
+  const closePopup = () => {
     setPopupVisible(false);
-  }
+  };
 
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
   // console.log(userInfo);
+  if (!userInfo){
+    HandleIpGeoInfo()
+  }
 
   return (
-    <nav className="w-full bg-amazon-blue sticky top-0 z-50">
-      <div className="w-full mx-auto  text-white px-4 py-2 flex items-center gap-4">
+    <nav className="w-full bg-amazon-blue sticky top-0 z-50 ">
+      <div className="w-full mx-auto  text-white px-4 py-2 flex items-center gap-2 ">
         {/* LEFT */}
         <div className="headerHover md:hidden" onClick={() => setSidebar(true)}>
           <Bars3Icon className="h-[30px] m-auto stroke-[2px] inline-block " />
@@ -68,15 +71,23 @@ const Navbar = () => {
         <Link to={""} className="headerHover flex-grow md:flex-grow-0">
           <img src={logo} alt="SPA-logo" className="w-24 mt-2" />
         </Link>
-        <div className="headerHover items-end hidden md:flex ">
-          <MapPinIcon className="h-[27px] m-auto" />
-          <p className="text-sm text-amazon-lightText font-light flex flex-col">
-            Delivery address: Tokyo 151-0071
-            <span className="text-sm font-semibold -mt-1 text-amazon-whiteText">
-              Update location
-            </span>
-          </p>
-        </div>
+        <Link to={userInfo?.verified ? "/profile" : "/login"}>
+          <div className="headerHover items-end hidden md:flex max-w-[200px] max-h-[70px] ">
+            <MapPinIcon className="h-[27px] my-auto mr-1" />
+            <p className="text-sm text-amazon-lightText font-light flex flex-col  ">
+              {userInfo ? (
+                `Delivery address: ${userInfo.postal_code}, ${userInfo.city_locality}, ${userInfo.country_code}`
+              ) : (
+                <>
+                  <span>Delivery address:</span>
+                  <span className="text-sm font-semibold -mt-1 text-amazon-whiteText">
+                    Update your location
+                  </span>
+                </>
+              )}
+            </p>
+          </div>
+        </Link>
 
         {/* MIDDLE */}
         <div className="hidden md:flex md:flex-grow">
@@ -88,14 +99,16 @@ const Navbar = () => {
           onMouseOver={() => setPopupVisible(true)}
           ref={ref}
         >
-          <Link to={ userInfo?.verified? "/profile":"/login"}>
-          <p className="text-sm md:text-xs text-white md:text-amazon-lightText font-light">
-            { userInfo?.verified ? `Hi ${userInfo.first_name}` : "Hello, Log in"}
-          </p>
-          <p className="text-sm font-semibold -mt-1 text-amazon-whiteText hidden md:inline-flex">
-            Accounts & Lists
-            <ChevronDownIcon className="h-[15px] m-auto stroke-[3px] pl-2 inline-block" />
-          </p>
+          <Link to={userInfo?.verified ? "/profile" : "/login"}>
+            <p className="text-sm md:text-xs text-white md:text-amazon-lightText font-light">
+              {userInfo?.verified
+                ? `Hi ${userInfo.first_name}`
+                : "Hello, Log in"}
+            </p>
+            <p className="text-sm font-semibold -mt-1 text-amazon-whiteText hidden md:inline-flex">
+              Accounts & Lists
+              <ChevronDownIcon className="h-[15px] m-auto stroke-[3px] pl-2 inline-block" />
+            </p>
           </Link>
           {isPopupVisible && <NavbarPopup closePopup={closePopup} />}
         </div>
