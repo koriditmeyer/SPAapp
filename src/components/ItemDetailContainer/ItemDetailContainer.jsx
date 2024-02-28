@@ -1,9 +1,9 @@
 import { ItemDetail } from "..";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const ItemDetailContainer = () => {
-  const product = useLoaderData()
+  const product = useLoaderData().payload
    return (
     <motion.section
       initial={{ opacity: 0 }}

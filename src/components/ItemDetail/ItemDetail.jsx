@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../../context/CartContext";
-import { ItemDetailInfo, ItemCount } from "..";
+
+import { ItemDetailInfo, ItemCount, ImageThumbsGallery, ImageSlider } from "..";
 import { FR_CURRENCY } from "../../constants";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
@@ -18,6 +18,7 @@ const ItemDetail = ({ properties }) => {
     // addToCart(properties, quantity);
     dispatch(addToCart({properties, quantity}))
   };
+
   return (
     <motion.article
       initial={{ opacity: 0 }}
@@ -28,13 +29,8 @@ const ItemDetail = ({ properties }) => {
       <div className=" max-w-constainer m-auto md:p-4">
         <div className="grid grid-cols-1 md:grid-cols-10 gap-1 md:gap-2 ">
           {/* LEFT */}
-          <div className="md:col-span-3 p-4 bg-white m-auto">
-            <motion.img
-              className=""
-              src={properties.img}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            ></motion.img>
+          <div className="md:col-span-3 p-4 bg-white ">
+            <ImageThumbsGallery images={properties.thumbnail}/>
           </div>
           {/* MIDDLE */}
           <div className="md:col-span-5 p-4 md:rounded bg-white divide-y divide-gray-400">

@@ -1,16 +1,32 @@
-import { db } from "../../services/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { getAPI } from "../../services/API";
+import { ASSET_BASE_URL } from "../../services/config";
 
-const ItemDetailContainerLoader = async ({params}) => {
-    const {id} = params
-    const response = doc(db, "products", id);
-    const snapshot = await getDoc(response);
-    
-    if (!snapshot.exists()) {
-      throw Error("We couldn't find that Product");
-    }
-  
-    return ({ id: snapshot.id, ...snapshot.data() });
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const ItemDetailContainerLoader = async ({ params }) => {
+  const { id } = params;
+  let response;
+  try {
+    response = await getAPI(`api/products/${id}`, false);
+    console.log(response)
+    // Integrate the modified products back into the original response structure
+    const modifiedResponse = {
+      ...response,
+      payload: {
+        ...response.payload,
+          thumbnail: response.payload.thumbnail.map((imgPath) => ASSET_BASE_URL + imgPath)
+        },
+    };
+
+    console.log(modifiedResponse);
+    return modifiedResponse;
+  } catch (error) {
+    console.log(error);
+    throw Error("We couldn't find that Product");
   }
+  return response;
+};
 
-  export default ItemDetailContainerLoader
+export default ItemDetailContainerLoader;

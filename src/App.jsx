@@ -89,7 +89,7 @@ function App() {
               loader={ItemListContainerLoader}
             />
             <Route
-              path="item/:id"
+              path="products/:id"
               element={<ItemDetailContainer />}
               loader={ItemDetailContainerLoader}
             />

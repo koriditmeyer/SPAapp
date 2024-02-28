@@ -4,9 +4,10 @@ import { useLoaderData, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const ItemListContainer = () => {
-  const products = useLoaderData();
+  const data = useLoaderData().payload;
+  const products = data.products
   const {categoryId} = useParams();
-
+  // console.log(products)
   return (
     <motion.main
       initial={{ opacity: 0 }}

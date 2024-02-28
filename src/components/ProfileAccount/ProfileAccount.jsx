@@ -26,9 +26,17 @@ const ProfileAccount = () => {
           <h5 className="text-sm  font-bold pt-3">Email</h5>
           <div className="text-sm  pt-1">{userInfoDB.email}</div>
           <h5 className="text-sm  font-bold pt-3">First Name</h5>
-          <div className="text-sm  pt-1">{userInfoDB.first_name}</div>
+          <EditableField
+            initialValue={userInfoDB.first_name ? userInfoDB.first_name : "-"}
+            fieldName="first_name"
+            onUpdate={handleFieldUpdate}
+          />
           <h5 className="text-sm  font-bold pt-3">Last Name</h5>
-          <div className="text-sm  pt-1">{userInfoDB.last_name}</div>
+          <EditableField
+            initialValue={userInfoDB.last_name ? userInfoDB.last_name : "-"}
+            fieldName="last_name"
+            onUpdate={handleFieldUpdate}
+          />
           <h5 className="text-sm  font-bold pt-3">Phone Number / Whatsapp</h5>
           <EditableField
             initialValue={userInfoDB.phone ? userInfoDB.phone : "-"}
