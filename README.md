@@ -73,7 +73,7 @@ Future implementations (v1)
 - ~~Create left side menu~~
 - ~~Create login and registration page~~
 - Modify checkout page
-- Create a user page and order page
+- ~~ Create a user page ~~ and order page
 - add favorite
 
 Future implementations (v2)
@@ -81,5 +81,6 @@ Future implementations (v2)
 - Use Axios to fetch API and loading bar
 - Use Mongo DB as DB and fetch API from Mongo DB
 - Use Node and Mongo DB to manage users and log in
-- Add gallery to products
+- Create a filter bar for queries
+- ~~ Add gallery to products ~~
 - Add stripe connectivity

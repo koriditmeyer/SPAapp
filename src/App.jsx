@@ -84,7 +84,7 @@ function App() {
               errorElement={<SearchResultsError />}
             ></Route>
             <Route
-              path="category/:categoryId"
+              path="category/"
               element={<ItemListContainer />}
               loader={ItemListContainerLoader}
             />

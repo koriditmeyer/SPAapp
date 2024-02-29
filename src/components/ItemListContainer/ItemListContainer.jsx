@@ -1,13 +1,14 @@
 import React from "react";
-import { ItemList } from "..";
-import { useLoaderData, useParams } from "react-router-dom";
+import { ItemList, Pagination } from "..";
+import { useLoaderData, useParams, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const ItemListContainer = () => {
   const data = useLoaderData().payload;
-  const products = data.products
   const {categoryId} = useParams();
-  // console.log(products)
+  const [searchParams] = useSearchParams();
+
+  console.log(data)
   return (
     <motion.main
       initial={{ opacity: 0 }}
@@ -23,7 +24,8 @@ const ItemListContainer = () => {
           <div className="col-span-12 md:col-span-9">
             {/* <Outlet/> */}
             <h2 className="text-xl xl:text-3xl font-bold uppercase">{categoryId}</h2>
-            <ItemList list={products} />
+            <ItemList list={data.products} />
+            <Pagination data={data.pagination}/>
           </div>
         </div>
       </div>

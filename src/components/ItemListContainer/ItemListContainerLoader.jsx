@@ -5,11 +5,18 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const ItemListContainerLoader = async ({ params }) => {
-  const { categoryId } = params;
+const ItemListContainerLoader = async ({ request }) => {
+  // Create a URL object from the request URL
+  let url = new URL(request.url);
+  console.log(url);
+
+  // query DB
   let response;
   try {
-    response = await getAPI(`api/products/?category=${categoryId}`, false);
+    response = await getAPI(
+      `api/products/${url.search}`,
+      false
+    );
     // Modify each product's thumbnail paths to include the base URL
     const modifiedProducts = response.payload.products.map((product) => ({
       ...product,
