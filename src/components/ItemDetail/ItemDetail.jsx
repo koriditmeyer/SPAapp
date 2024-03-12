@@ -1,22 +1,40 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link,  useParams } from "react-router-dom";
 
-import { ItemDetailInfo, ItemCount, ImageThumbsGallery, ImageSlider } from "..";
+import {
+  ItemDetailInfo,
+  ItemCount,
+  ImageThumbsGallery,
+} from "..";
 import { FR_CURRENCY } from "../../constants";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/amazonSlice";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import ItemDetailContainerQuery from "../ItemDetailContainer/ItemDetailContainerLoader";
 
-const ItemDetail = ({ properties }) => {
-  document.title = `Amazon.com : ${properties.title}`;
-  const [quantity, setQuanity] = useState(0);
-  // const { addToCart } = useContext(CartContext);
-  const dispatch = useDispatch()
+const ItemDetail = () => {
+  const { id: productId } = useParams();
+
+  const { data, isLoading } = ItemDetailContainerQuery(productId);
+  const product = data?.payload;
+  // console.log(product);
+
+  // const properties = useLoaderData().payload
+  useEffect(() => {
+    if (product?.title) {
+      document.title = `Amazon.com : ${product.title}`;
+    }
+  }, [product?.title]);
+
+  const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
 
   const onAdd = (id, quantity) => {
-    setQuanity(quantity);
-    // addToCart(properties, quantity);
-    dispatch(addToCart({properties, quantity}))
+    setQuantity(quantity);
+    console.log(product,quantity)
+    dispatch(addToCart({ properties: product, quantity }));
   };
 
   return (
@@ -30,74 +48,82 @@ const ItemDetail = ({ properties }) => {
         <div className="grid grid-cols-1 md:grid-cols-10 gap-1 md:gap-2 ">
           {/* LEFT */}
           <div className="md:col-span-3 p-4 bg-white ">
-            <ImageThumbsGallery images={properties.thumbnail}/>
+            {isLoading ? (
+              <Skeleton className="h-80" />
+            ) : (
+              <ImageThumbsGallery images={product?.thumbnail} />
+            )}
           </div>
           {/* MIDDLE */}
           <div className="md:col-span-5 p-4 md:rounded bg-white divide-y divide-gray-400">
             <div className="mb-3">
-              <ItemDetailInfo product={properties} ratings={true} />
+              {<ItemDetailInfo product={product} ratings={true} isLoading={isLoading} />}
             </div>
             <div className="text-base xl:text-lg mt-3">
-              {properties.description}
+              {isLoading ? <Skeleton count={5} /> : product?.description}
             </div>
           </div>
           {/* RIGHT */}
           <div className="md:col-span-2 p-4 md:rounded bg-white">
-            <div className="text-xl xl:text-2xl text-black-700 text-right font-semibold">
-              {properties.oldPrice ? (
-                <span className="text-red-700 mr-2">
-                  {Math.round(
-                    ((properties.price - properties.oldPrice) /
-                      properties.oldPrice) *
-                      100
+            {isLoading ? (
+              <>
+                <Skeleton className="w-20 mb-4" />
+                <Skeleton count={3} />
+              </>
+            ) : (
+              <>
+                <div className="text-xl xl:text-2xl text-black-700 text-right font-semibold">
+                  {product?.oldPrice && (
+                    <span className="text-red-700 mr-2">
+                      {Math.round(
+                        ((product.price - product.oldPrice) /
+                          product.oldPrice) *
+                          100
+                      )}
+                      %
+                    </span>
                   )}
-                  %
-                </span>
-              ) : (
-                ""
-              )}
-              {FR_CURRENCY.format(properties.price)}
-            </div>
-            <div className="text-base xl:text-lg text-gray-500 text-right  marker:font-semibold">
-              List Price:{" "}
-              <span className="line-through">
-                {FR_CURRENCY.format(properties.oldPrice)}
-              </span>
-            </div>
-            <div className="text-sm xl:text-base text-blue-500 font-semibold mt-3">
-              FREE Returns
-            </div>
-            <div className="text-sm xl:text-base text-blue-500 font-semibold mt-1">
-              FREE Delivery
-            </div>
-            <div className="text-base xl:text-lg text-green-700  font-semibold mt-1">
-              {properties.stock === 0 ? (
-                <span className=" text-amazon-yellow_dark">Out of Stock</span>
-              ) : (
-                "In Stock"
-              )}
-              {properties.stock !== 0 && <span> ({properties.stock})</span>}
-            </div>
-            <div className="text-base xl:text-lg mt-1 "></div>
-            {properties.stock !== 0 &&
-              (quantity == 0 ? (
-                <ItemCount
-                  id={properties.id}
-                  min={1}
-                  initial={1}
-                  stock={properties.stock}
-                  onAdd={onAdd}
-                  updateBehaviour={false}
-                />
-              ) : (
-                <Link to={"/cart"}>
-                  <button className="btn">Go to Cart</button>
-                </Link>
-              ))}
+                  {FR_CURRENCY.format(product.price)}
+                </div>
+                {product.oldPrice && (
+                  <div className="text-base xl:text-lg text-gray-500 text-right marker:font-semibold">
+                    List Price:{" "}
+                    <span className="line-through">
+                      {FR_CURRENCY.format(product.oldPrice)}
+                    </span>
+                  </div>
+                )}
+                <div className="text-sm xl:text-base text-blue-500 font-semibold mt-3">
+                  FREE Returns
+                </div>
+                <div className="text-sm xl:text-base text-blue-500 font-semibold mt-1">
+                  FREE Delivery
+                </div>
+                <div className="text-base xl:text-lg text-green-700 font-semibold mt-1">
+                  {product.stock === 0
+                    ? "Out of Stock"
+                    : `In Stock (${product.stock})`}
+                </div>
+                {product.stock !== 0 && quantity === 0 && (
+                  <ItemCount
+                    id={product.id}
+                    min={1}
+                    initial={1}
+                    stock={product.stock}
+                    onAdd={onAdd}
+                    updateBehaviour={false}
+                  />
+                )}
+                {product.stock !== 0 && quantity > 0 && (
+                  <Link to={"/cart"}>
+                    <button className="btn">Go to Cart</button>
+                  </Link>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>
-      
     </motion.article>
   );
 };

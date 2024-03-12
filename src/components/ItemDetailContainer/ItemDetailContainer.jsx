@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const ItemDetailContainer = () => {
-  const product = useLoaderData().payload
+  
    return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -11,7 +11,7 @@ const ItemDetailContainer = () => {
       exit={{ opacity: 0 }}
       className=""
     >
-      {product && <ItemDetail properties={product} />}
+      {<ItemDetail  />}
       
     </motion.section>
   );

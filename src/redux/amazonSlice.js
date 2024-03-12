@@ -15,9 +15,10 @@ export const amazonSlice = createSlice({
     // ============= Product Reducers here ===============
     // Add to cart
     addToCart: (state, action) => {
+      console.log(action.payload)
       //  state.products.push(action.payload)
       const item = state.products.find(
-        (item) => item.properties.id === action.payload.properties.id
+        (item) => item.properties._id === action.payload.properties._id
       );
       if (item) {
         item.quantity += action.payload.quantity;
@@ -31,11 +32,11 @@ export const amazonSlice = createSlice({
     // Delete item from cart
     removeItemsCart: (state, action) => {
       const product = state.products.find(
-        (item) => item.properties.id === action.payload
+        (item) => item.properties._id === action.payload
       );
 
       state.products = state.products.filter(
-        (item) => item.properties.id !== action.payload
+        (item) => item.properties._id !== action.payload
       );
       toast.success(`${product.quantity} Item removed from cart`, {
         // position: "bottom-right",
@@ -55,9 +56,10 @@ export const amazonSlice = createSlice({
     },
     // Update Cart
     updateCart: (state, action) => {
+      console.log(action.payload)
       //  state.products.push(action.payload)
       const item = state.products.find(
-        (item) => item.properties.id === action.payload.id
+        (item) => item.properties._id === action.payload._id
       );
       if (item) {
         item.quantity = action.payload.quantity;

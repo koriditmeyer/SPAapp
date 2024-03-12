@@ -19,9 +19,6 @@ const ItemCount = ({ id, min, initial, stock, onAdd, updateBehaviour }) => {
   // Initialize loading toast here
   const addToCart = () => {
     onAdd(id,counter);
-    // toast.success(`${counter} Items added to cart`,
-    // {position: "bottom-right"}
-    // );
     };
 
 

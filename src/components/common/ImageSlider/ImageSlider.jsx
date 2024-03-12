@@ -29,8 +29,8 @@ const ImageSlider = ({ images }) => {
       spaceBetween={30}
       loop={false}
       modules={[Pagination, Autoplay]}
-      Autoplay={{
-        delay:1000
+      autoplay={{
+        delay:500
       }}
 
       // Add more Swiper configurations as needed

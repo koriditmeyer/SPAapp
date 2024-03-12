@@ -18,13 +18,13 @@ const Cart = () => {
   document.title = "Amazon.com | Cart";
 
   // const {cart, totalPrice ,totalQuantity,updateCart, clearCart, removeItemsCart } =   useContext(CartContext);
-  const onAdd = (id, quantity) => {
+  const onAdd = (_id, quantity) => {
     if (quantity === 0) {
       // removeItemsCart(id);
-      dispatch(removeItemsCart(id));
+      dispatch(removeItemsCart(_id));
     } else {
       // updateCart(id, quantity);
-      dispatch(updateCart({ id, quantity }));
+      dispatch(updateCart({ _id, quantity }));
     }
   };
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ const Cart = () => {
                   return (
                     <motion.div
                       // key={item.properties.id}
-                      key={item.properties.id}
+                      key={item.properties._id}
                       animate={{ scale: 1, opacity: 1 }}
                       exit={{ scale: 0.8, opacity: 0 }}
                       transition={{ type: "spring" }}
@@ -83,7 +83,7 @@ const Cart = () => {
                       <div className="grid grid-cols-1 md:grid-cols-12 mx-4 ">
                         <div className="md:col-span-10 grid grid-cols-8  ">
                           <div className="col-span-4 md:col-span-2">
-                            <Link to={`/item/${item.properties.id}`}>
+                            <Link to={`/item/${item.properties._id}`}>
                               <img
                                 className="p-4 m-auto"
                                 src={item.properties.img_small}
@@ -93,10 +93,11 @@ const Cart = () => {
                           </div>
                           <div className="col-span-4 md:col-span-6">
                             <div className="font-medium text-black mt-2">
-                              <Link to={`/item/${item.properties.id}`}>
+                              <Link to={`/item/${item.properties._id}`}>
                                 <ItemDetailInfo
                                   product={item.properties}
                                   ratings={false}
+                                  isLoading={false}
                                 />
                               </Link>
                             </div>
@@ -105,14 +106,14 @@ const Cart = () => {
                                 className="text-sm xl:text-base font-semibold rounded text-blue-500 mt-2 mb-1 cursor-pointer"
                                 onClick={() => {
                                   // removeItemsCart(item.properties.id);
-                                  dispatch(removeItemsCart(item.properties.id));
+                                  dispatch(removeItemsCart(item.properties._id));
                                 }}
                               >
                                 Delete
                               </button>
                             </div>
                             <ItemCount
-                              id={item.properties.id}
+                              id={item.properties._id}
                               min={0}
                               initial={item.quantity}
                               stock={item.properties.stock}

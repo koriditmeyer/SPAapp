@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ImageSlider, ItemDetailInfo } from "..";
 import { FR_CURRENCY } from "../../constants";
 
+
 const Item = ({ properties }) => {
  
   return (
@@ -11,7 +12,7 @@ const Item = ({ properties }) => {
           className="flex-col border rounded-md mt-1 mb-1 h-full overflow-hidden hover:shadow-testShadow hover:border-transparent duration-200"
         >
           <div className=" bg-gray-200 ">
-            <ImageSlider  images={properties.thumbnail} />
+            <ImageSlider  images={properties.thumbnail} /> 
           </div>
           <div
             className="z-10 flex justify-left bg-white  border border-gray-100  hover:bg-gray-100 h-full "
@@ -33,12 +34,12 @@ const Item = ({ properties }) => {
                 )}
                 {FR_CURRENCY.format(properties.price)}
               </div>
-              <div className="text-base xl:text-lg text-gray-500 marker:font-semibold">
+              {properties.oldPrice && <div className="text-base xl:text-lg text-gray-500 marker:font-semibold">
                 List Price:{" "}
                 <span className="line-through">
                   {FR_CURRENCY.format(properties.oldPrice)}
                 </span>
-              </div>
+              </div>}
               <div className="text-sm xl:text-base text-blue-500 font-semibold mt-1">
                 FREE Delivery
               </div>

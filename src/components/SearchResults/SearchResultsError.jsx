@@ -4,7 +4,7 @@ import { useRouteError } from "react-router-dom";
 
 const SearchResultsError = () => {
     const error = useRouteError();
-  
+   console.log(error)
     return (
       <motion.article
         initial={{ opacity: 0 }}

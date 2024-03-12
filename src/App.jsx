@@ -41,15 +41,17 @@ import {
   Unauthorized,
   Verify,
   ProfileAccountLoader,
+  ItemListQuery,
 } from "./components";
 import RequireAuth from "./services/RequireAuth";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 function App() {
   const Layout = () => {
     const navigation = useNavigation(); // Enable useNavigation
     return (
       <>
-        {navigation.state === "loading" && <GlobalSpinner />}
+        {/* {navigation.state === "loading" && <GlobalSpinner />} */}
         <ScrollToTop />
         <Navbar />
         <AnimatePresence mode="wait">
@@ -80,18 +82,28 @@ function App() {
             <Route
               path="search"
               element={<SearchResults />}
-              loader={SearchResultsLoader}
               errorElement={<SearchResultsError />}
-            ></Route>
+            >
+              <Route
+                path=""
+                element={<ItemListQuery />}
+                errorElement={<SearchResultsError />}
+              />
+            </Route>
             <Route
-              path="category/"
+              path="category"
               element={<ItemListContainer />}
-              loader={ItemListContainerLoader}
-            />
+            >
+              <Route
+                path=""
+                element={<ItemListQuery />}
+                errorElement={<SearchResultsError />}
+              />
+            </Route>
             <Route
               path="products/:id"
               element={<ItemDetailContainer />}
-              loader={ItemDetailContainerLoader}
+              // loader={ItemDetailContainerLoader}
             />
             <Route path="cart" element={<Cart />} />
             <Route element={<RequireAuth allowedRoles={["user"]} />}>
@@ -129,21 +141,23 @@ function App() {
     <div className="font-bodyfont">
       <ThemeProvider>
         <CartProvider>
-          <RouterProvider router={router} />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            stacked
-            transition={Bounce}
-          />
+          <SkeletonTheme baseColor="#E5E7EB" highlightColor="#CACACA">
+            <RouterProvider router={router} />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              stacked
+              transition={Bounce}
+            />
+          </SkeletonTheme>
         </CartProvider>
       </ThemeProvider>
     </div>

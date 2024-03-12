@@ -1,58 +1,52 @@
 import React, { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/20/solid";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { SelectComponent } from "../..";
+import Skeleton from "react-loading-skeleton";
 
-const Pagination = ({ data }) => {
+const Pagination = ({ data, isLoading }) => {
+  // console.log(data);
   // Update URL with Page Number
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const updateSearchParams = (page) => {
+  const updateSearchParams = (page, limit) => {
     // Clone the current search parameters
     const newSearchParams = new URLSearchParams(searchParams);
-    console.log(newSearchParams);
-    newSearchParams.set("page", page);
-    // Navigate to the new URL with updated search parameters
-    navigate(`/category?${newSearchParams.toString()}`);
+    page && newSearchParams.set("page", page);
+    limit && newSearchParams.set("limit", limit);
+    const pathName = window.location.pathname;
+    navigate(`${pathName}?${newSearchParams.toString()}`);
   };
 
-  // sanitizing and validating input before navigating
-  const [inputPage, setInputPage] = useState("");
-  const handleInputChange = (e) => {
-    let value = parseInt(e.target.value, 10);
-    value = isNaN(value) ? "" : Math.min(data.totalPages, e.target.value);
-    setInputPage(value);
-    if (e.key === "Enter" && value !== "") {
-      updateSearchParams(value);
-    }
+  // Handling input change for the select dropdown.
+  const handleSelectPageChange = (e) => {
+    updateSearchParams(e);
   };
 
-  const maxVisiblePages = 4;
-  const visiblePages = () => {
-    let pages = [];
-    // Show all pages if total pages <= maxVisiblePages
-    if (data.totalPages <= maxVisiblePages) {
-      for (let p = 1; p <= data.totalPages; p++) {
-        pages.push(p);
-      }
-    } else {
-      // Dynamic range calculation
-      pages.push(1); // Always show the first page
-      let startPage = Math.max(data.page - 1, 2);
-      let endPage = Math.min(data.page + 1, data.totalPages - 1);
-
-      if (data.page - 1 <= 2) {
-        endPage = startPage + 2;
-      } else if (data.totalPages - data.page <= 2) {
-        startPage = data.totalPages - 3;
-      }
-
-      for (let p = startPage; p <= endPage; p++) {
-        pages.push(p);
-      }
-      pages.push(data.totalPages); // Always show the last page
-    }
-    return pages;
+  // Handling input change for the select dropdown.
+  const handleSelectLimitChange = (e) => {
+    updateSearchParams(1, e.key);
   };
+
+  // Generating limit options for the select limit dropdown.
+  // Define your limit options
+  const possibleLimitOptions = [10, 25, 50, 100];
+
+  const limitOptions = possibleLimitOptions.map((i) => (
+    <option key={i} value={i} selected={i === data?.limit}>
+      {i}
+    </option>
+  ));
+
+  // Generating page options for the select pages dropdown.
+  const pageOptions = [];
+  for (let i = 1; i <= data?.totalPages; i++) {
+    pageOptions.push(i);
+  }
 
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
@@ -70,71 +64,87 @@ const Pagination = ({ data }) => {
           Next
         </a>
       </div>
-      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-        <div>
-          <p className="text-sm text-gray-700">
+      <div className="hidden sm:flex sm:flex-1  sm:items-center sm:justify-between">
+        <div className="flex items-center">
+          <p className="text-sm text-gray-700 pr-1">Items per Page</p>
+          {isLoading ? (
+            <Skeleton className="w-8" />
+          ) : (
+            <SelectComponent
+              currentValue={data?.limit}
+              data={limitOptions}
+              onSelectChange={handleSelectLimitChange}
+            />
+          )}
+        </div>
+        <div className="flex items-center">
+          <p className="text-sm text-gray-700 inline-flex gap-1">
             Showing{" "}
             <span className="font-medium">
-              {(data.page - 1) * data.limit + 1}
+              {isLoading ? (
+                <Skeleton className="w-4" />
+              ) : (
+                (data?.page - 1) * data?.limit + 1
+              )}
             </span>{" "}
-            to <span className="font-medium">{data.limit * data.page}</span> of{" "}
-            <span className="font-medium">{data.totalDocs}</span> results
+            -{" "}
+            <span className="font-medium">
+              {isLoading ? (
+                <Skeleton className="w-4" />
+              ) : (
+                Math.min(data?.limit * data?.page, data?.totalDocs)
+              )}
+            </span>{" "}
+            of{" "}
+            <span className="font-medium">
+              {isLoading ? <Skeleton className="w-4" /> : data?.totalDocs}
+            </span>{" "}
+            results
           </p>
         </div>
         <div>
           <nav
-            className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+            className="isolate inline-flex -space-x-px "
             aria-label="Pagination"
           >
-            {data.hasPrevPage && (
-              <button
-                onClick={() => updateSearchParams(data.page - 1)}
-                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              >
-                <span className="sr-only">Previous</span>
-                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            )}
-
-            {visiblePages().map((page, index) => {
-              if (page === data.page && data.totalPages > maxVisiblePages) {
-                return (
-                  <input
-                    type="number"
-                    key="input"
-                    value={inputPage}
-                    onChange={(e) => setInputPage(e.target.value)}
-                    onKeyDown={handleInputChange}
-                    className="w-12 text-center text-sm font-medium text-gray-400 bg-white border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                    placeholder={data.page}
-                  />
-                );
-              } else {
-                return (
-                  <button
-                    key={page}
-                    aria-current={page === data.page ? "page" : undefined}
-                    onClick={() => updateSearchParams(page)}
-                    className={`relative inline-flex items-center px-4 py-2 text-sm font-medium ${
-                      page === data.page
-                        ? "bg-amazon-yellow text-white"
-                        : "text-gray-700 bg-white hover:bg-gray-50"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                );
-              }
-            })}
-            {data.hasNextPage && (
-              <button
-                onClick={() => updateSearchParams(data.page + 1)}
-                className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              >
-                <span className="sr-only">Next</span>
-                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            )}
+            <div className="flex items-center   ">
+              {isLoading ? (
+                <Skeleton className="w-8" />
+              ) : (
+                <SelectComponent
+                  currentValue={data?.page}
+                  data={pageOptions}
+                  onSelectChange={handleSelectPageChange}
+                />
+              )}
+              <p className="px-2 text-sm text-gray-700 inline-flex gap-1">
+                of{" "}
+                <span className="font-medium">
+                  {isLoading ? <Skeleton className="w-4" /> : data?.totalPages}
+                </span>{" "}
+                pages
+              </p>
+            </div>
+            <button
+              onClick={() => updateSearchParams(data?.page - 1)}
+              className="cursor-pointer relative inline-flex items-center rounded-l-md px-2 py-2
+                 text-gray-400 ring-1 ring-inset ring-gray-300
+                  hover:bg-gray-50 disabled:bg-gray-50 disabled:ring-gray-200 disabled:cursor-default focus:z-20 focus:outline-offset-0"
+              disabled={data?.hasPrevPage ? false : true}
+            >
+              <span className="sr-only">Previous</span>
+              <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              onClick={() => updateSearchParams(data?.page + 1)}
+              className="cursor-pointer relative inline-flex items-center rounded-r-md px-2 py-2 
+                  text-gray-400 ring-1 ring-inset ring-gray-300
+                 hover:bg-gray-50 disabled:bg-gray-50 disabled:ring-gray-200  disabled:cursor-default focus:z-20 focus:outline-offset-0"
+              disabled={data?.hasNextPage ? false : true}
+            >
+              <span className="sr-only">Next</span>
+              <ChevronRightIcon className="h-5 w-5 " aria-hidden="true" />
+            </button>
           </nav>
         </div>
       </div>
