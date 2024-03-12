@@ -3,7 +3,7 @@ import { Outlet, useSearchParams } from "react-router-dom";
 
 import { motion } from "framer-motion";
 import ItemListContainerQuery from "../ItemListContainer/ItemListContainerLoader";
-import { ProgressBar } from "..";
+import { ProgressBar, SearchFilter } from "..";
 import Skeleton from "react-loading-skeleton";
 
 const SearchResults = () => {
@@ -41,8 +41,7 @@ const SearchResults = () => {
       <div className="m-auto pt-4 px-4">
         <div className="grid grid-cols-12 gap-2">
           <div className="hidden md:inline-block md:col-span-3 bg-amazon-lightText">
-            Filter (to be build)
-            <button className="btn">cloc</button>
+            <SearchFilter/>
           </div>
           <div className="col-span-12 md:col-span-9">
             <Outlet />

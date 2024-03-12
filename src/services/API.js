@@ -12,14 +12,15 @@ const config2={
 }
 
 export const getAPI = async (resource, credentials=true) => {
-    let result 
+    let data 
     if (credentials){
-        result = await axios.get(`${BACK_END_URL}/${resource}`,config)
+        const result = await axios.get(`${BACK_END_URL}/${resource}`,config)
+        data =result.data
     } else{
-        result = await axios.get(`${BACK_END_URL}/${resource}`,config2)
+        const result = await axios.get(`${BACK_END_URL}/${resource}`,config2)
+        data = {...result.data,percentage:percentComplete}
     }
-    result = {...result,percentage:percentComplete}
-    return result
+    return data
 }
 
 export const postAPI = async (resource,formData) => {

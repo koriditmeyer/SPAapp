@@ -37,6 +37,7 @@ export { default as HomePageCard } from "./HomePageCard/HomePageCard";
 export { default as Search } from "./Search/Search";
 
 export { default as SearchResults } from "./SearchResults/SearchResults";
+export { default as SearchFilter } from "./SearchFilter/SearchFilter";
 export { default as SearchResultsLoader } from "./SearchResults/SearchResultsLoader";
 export { default as SearchResultsError } from "./SearchResults/SearchResultsError";
 

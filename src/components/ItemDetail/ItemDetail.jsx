@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link,  useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import {
-  ItemDetailInfo,
-  ItemCount,
-  ImageThumbsGallery,
-} from "..";
+import { ItemDetailInfo, ItemCount, ImageThumbsGallery, ProgressBar } from "..";
 import { FR_CURRENCY } from "../../constants";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
@@ -33,7 +29,7 @@ const ItemDetail = () => {
 
   const onAdd = (id, quantity) => {
     setQuantity(quantity);
-    console.log(product,quantity)
+    console.log(product, quantity);
     dispatch(addToCart({ properties: product, quantity }));
   };
 
@@ -44,6 +40,7 @@ const ItemDetail = () => {
       exit={{ opacity: 0 }}
       className="bg-amazon-background min-h-screen "
     >
+      <ProgressBar isLoading={isLoading} />
       <div className=" max-w-constainer m-auto md:p-4">
         <div className="grid grid-cols-1 md:grid-cols-10 gap-1 md:gap-2 ">
           {/* LEFT */}
@@ -57,7 +54,13 @@ const ItemDetail = () => {
           {/* MIDDLE */}
           <div className="md:col-span-5 p-4 md:rounded bg-white divide-y divide-gray-400">
             <div className="mb-3">
-              {<ItemDetailInfo product={product} ratings={true} isLoading={isLoading} />}
+              {
+                <ItemDetailInfo
+                  product={product}
+                  ratings={true}
+                  isLoading={isLoading}
+                />
+              }
             </div>
             <div className="text-base xl:text-lg mt-3">
               {isLoading ? <Skeleton count={5} /> : product?.description}

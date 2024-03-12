@@ -1,5 +1,5 @@
 import React from "react";
-import { ItemList, Pagination, SortComponent } from "..";
+import { ItemList, Pagination, ProgressBar, SortComponent } from "..";
 import { useSearchParams } from "react-router-dom";
 import ItemListContainerQuery from "../ItemListContainer/ItemListContainerLoader";
 
@@ -13,7 +13,7 @@ const ItemListQuery = () => {
 
   return (
       <div className="col-span-12 md:col-span-9 relative">
-        
+
             <div className="flex justify-between">
               <h2 className="text-xl xl:text-3xl font-bold capitalize">
               Results for: "{searchParams.get("category")}"
