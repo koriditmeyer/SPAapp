@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import SearchFilterQuery from "./SearchFilterLoader";
 import Skeleton from "react-loading-skeleton";
 import { XMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const SearchFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,25 +26,38 @@ const SearchFilter = () => {
   };
 
   // Ensure data.payload exists and prepend "All" if necessary
-  const categories = data && data.payload ? ["All", ...data.payload.filter(item => item !== "All")] : [];
+  const categories =
+    data && data.payload
+      ? ["All", ...data.payload.filter((item) => item !== "All")]
+      : [];
 
   return (
-    <div className="p-2">
-      <div className="w-full bg-white rounded-md p-2 flex gap-2 ">
+    <div className="px-2">
+      <h3 className=" font-bold py-2">Categories</h3>
+      <div
+        className="w-full max-h-24 overflow-hidden overflow-y-scroll  bg-amazon-background rounded-md p-2 flex flex-wrap gap-2 "
+      >
         {isLoading ? (
           <Skeleton className="w-12" />
         ) : (
           categories.map((item, index) => (
-            <button key={index} onClick={() => updateCategory(item)}
-              className="btn p-2 flex items-center gap-2 w-auto"
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              key={index}
+              onClick={() => updateCategory(item)}
+              className={`btn p-2 flex items-center gap-2 w-auto 
+              ${
+                item != category && "bg-orange-100"
+              }`}
             >
               <p>{item}</p>
               {item === category ? (
-                <CheckIcon className="w-4 stroke-lime-600 stroke-2"/>
+                <CheckIcon className="w-4 stroke-lime-600 stroke-2" />
               ) : (
-                <XMarkIcon className="w-4 stroke-red-600 stroke-2"/>
+                <XMarkIcon className="w-4 stroke-red-600 stroke-2" />
               )}
-            </button>
+            </motion.button>
           ))
         )}
       </div>
