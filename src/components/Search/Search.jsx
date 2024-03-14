@@ -66,6 +66,7 @@ const Search = () => {
     setSearchTerm("");
     setCategory("All");
     setShowAll(false);
+    setEnableSearch(false);
   };
 
   // -------- Press enter to search
