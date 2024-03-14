@@ -25,11 +25,7 @@ const SearchFilter = () => {
     navigate(`?${newSearchParams.toString()}`);
   };
 
-  // Ensure data.payload exists and prepend "All" if necessary
-  const categories =
-    data && data.payload
-      ? ["All", ...data.payload.filter((item) => item !== "All")]
-      : [];
+
 
   return (
     <div className="px-2">
@@ -40,7 +36,7 @@ const SearchFilter = () => {
         {isLoading ? (
           <Skeleton className="w-12" />
         ) : (
-          categories.map((item, index) => (
+          data?.payload.map((item, index) => (
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

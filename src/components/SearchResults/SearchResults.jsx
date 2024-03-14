@@ -24,7 +24,7 @@ const SearchResults = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="border-b border-gray-200 p-2 shadow-xl inline-flex gap-2">
+      <div className="border-b border-gray-200 p-2 shadow-xl inline-flex gap-2 truncate">
         {isLoading ? (
           <Skeleton className=" w-24" />
         ) : data ? (

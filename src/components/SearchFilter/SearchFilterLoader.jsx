@@ -12,7 +12,17 @@ const SearchFilterLoader = async (request) => {
   let response;
   try {
     // console.log(request)
-    return response = await getAPI(`api/products/distinct/${request}`, false);
+    response = await getAPI(`api/products/distinct/${request}`, false);
+
+    // Ensure response.payload exists and prepend "All" if necessary
+    let payload = response && response.payload
+    ? ["All", ...response.payload.filter((item) => item !== "All")]
+    : [];
+    response = {
+      ...response,
+      payload: payload
+    }
+    return response;
   } catch (error) {
     // console.log(error);
     if (error.request?.statusText == "Not Found") {
@@ -25,7 +35,7 @@ const SearchFilterLoader = async (request) => {
 
 const SearchFilterQuery = (attribute, throwOnError) => {
   return useQuery({
-    queryKey: ["SearchQuery",  attribute ],
+    queryKey: ["SearchQuery", attribute],
     queryFn: async () => await SearchFilterLoader(attribute),
     throwOnError: throwOnError,
   });

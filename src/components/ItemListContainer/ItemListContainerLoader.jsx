@@ -19,7 +19,6 @@ const ItemListContainerLoader = async (request) => {
       ...product,
       thumbnail: product.thumbnail.map((imgPath) => ASSET_BASE_URL + imgPath),
     }));
-
     // Integrate the modified products back into the original response structure
     const modifiedResponse = {
       ...response,
@@ -41,13 +40,15 @@ const ItemListContainerLoader = async (request) => {
   }
 };
 
-const ItemListContainerQuery = (searchParams, throwOnError) => {
+const ItemListContainerQuery = (searchParams, throwOnError, enable=true) => {
   let { category, page, limit, sort, searchTerm } = Object.fromEntries([
     ...searchParams,
   ]);
+  // console.log(searchParams.toString(),category,searchTerm)
   return useQuery({
     queryKey: ["SearchQuery", { category, page, limit, sort, searchTerm }],
     queryFn: async () => await ItemListContainerLoader(searchParams.toString()),
+    enabled: enable, // Dependent Queries if need to query on a condition
     throwOnError: throwOnError,
   });
 };

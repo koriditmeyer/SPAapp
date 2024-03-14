@@ -15,7 +15,7 @@ const ItemListQuery = () => {
       <div className="col-span-12 md:col-span-9 relative">
 
             <div className="flex justify-between">
-              <h2 className="text-xl xl:text-3xl font-bold capitalize">
+              <h2 className=" text-xl xl:text-3xl font-bold capitalize">
               Results for: "{searchParams.get("category")}"
               </h2>
               <SortComponent sortCategory={"price"} />

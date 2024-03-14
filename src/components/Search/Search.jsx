@@ -5,71 +5,58 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import { useNavigate, createSearchParams } from "react-router-dom";
-import { db } from "../../services/firebase";
-import { collection, getDocs, query } from "firebase/firestore";
-import { allCategories } from "../../constants";
+import SearchFilterQuery from "../SearchFilter/SearchFilterLoader";
+import { ItemListContainerLoader } from "..";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const Search = () => {
-  const truncateLength = 12;
-  const maxInputSearchResults = 5
-  const [searchResults, setSearchResults] = useState([]);
+  const truncateLengthCategory = 12;
+  const truncateLengthTitle = 23;
+  const maxInputSearchResults = 5;
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState("All");
+  const [EnableSearch, setEnableSearch] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
+
+  // -------- Query category data
+  const { data: categoriesData, isLoading: isLoadingCategories } =
+    SearchFilterQuery("category", false);
 
   // -------- Automaticaly renew search term when typing
   const handleOnChange = (e) => {
     setSearchTerm(e.target.value);
+    // console.log(e.target.value);
+    if (searchTerm === "" || searchTerm.length <= 3) {
+      // console.log(searchTerm.length<= 3)
+      // console.log("hi")
+      setEnableSearch(false);
+    } else {
+      // console.log("hello")
+      setEnableSearch(true);
+    }
   };
+  const searchParams = createSearchParams({
+    category: `${category != "All" ? category: ""}`,
+    searchTerm: `${searchTerm}`,
+    limit:`${maxInputSearchResults}`
+  })
+  // console.log(EnableSearch)
+  // console.log(searchParams.toString());
+  let { data: searchResults, isLoading, isError } = ItemListContainerLoader(
+    searchParams,
+    false,
+    EnableSearch
+  );
 
-  // -------- retreive al collection as can not filter by name in firebase
-  useEffect(() => {
-    setLoading(true); // Need to set again to true at it can change over time
-    let response;
-    response = query(collection(db, "products"));
-    getDocs(response)
-      .then((snapshot) => {
-        if (snapshot.empty) {
-          throw new Error("No results");
-        }
-        setSearchResults(
-          snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-      })
-      .catch((error) => {
-        console.log(`${error.message} - no products found`);
-      })
-      .finally(() => {
-        // finally
-        setLoading(false);
-      });
-  }, [searchTerm]); // Depend on searchTerm
-
-  // -------- filter retreived info and return first 5 elements
-  let filteredSearchResults = searchResults
-    .filter((item) => {
-      const currentSearchTerm = searchTerm.toLowerCase();
-      const title = item.title.toLowerCase();
-      return (
-        currentSearchTerm &&
-        title.startsWith(currentSearchTerm) &&
-        title !== currentSearchTerm
-      );
-    })
-    .slice(0,maxInputSearchResults );
-
-  // -------- Set the search params and navitage to new search page 
+  // console.log(searchResults)
+  // -------- Set the search params and navitage to new search page
   const onHandleSubmit = (e) => {
     e.preventDefault();
     if (searchTerm) {
       navigate({
         pathname: "/search",
-        search: `${createSearchParams({
-          category: `${category}`,
-          searchTerm: `${searchTerm}`,
-        })}`,
+        search: `${searchParams}`,
       });
     } else {
       navigate({
@@ -78,9 +65,17 @@ const Search = () => {
     }
     setSearchTerm("");
     setCategory("All");
+    setShowAll(false);
   };
 
-  // -------- Disable the category list on clic outside 
+  // -------- Press enter to search
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      onHandleSubmit(e);
+    }
+  };
+
+  // -------- Disable the category list on clic outside
   const ref = useRef();
 
   useEffect(() => {
@@ -89,7 +84,6 @@ const Search = () => {
         setShowAll(false);
       }
     }
-
     // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -98,91 +92,86 @@ const Search = () => {
     };
   }, [ref]);
 
-  // -------- Press enter to search
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      onHandleSubmit(e);
-    }
-  };
-
-
   return (
-    <div className=" h-10 rounded-md flex grow relative">
+    <div className=" h-10 rounded-md flex grow relative bg-white">
       <span
         onClick={() => setShowAll(!showAll)}
-        className="max-w-32 h-full pl-2 bg-gray-200 hover:bg-gray-300 border-2 cursor-pointer duration-300 text-sm text-amazon-blue font-titleFont flex items-center justify-ccenter rounded-tl-md rounded-bl-md"
+        className="truncate h-full pl-2 bg-gray-200 hover:bg-gray-300 border-2 cursor-pointer duration-300 text-sm text-amazon-blue font-titleFont flex items-center justify-ccenter rounded-tl-md rounded-bl-md"
       >
-        {category.slice(0, truncateLength)}
-        {category.length > truncateLength && "..."}
+        {category.slice(0, truncateLengthCategory)}
+        {category.length > truncateLengthCategory && "..."}
         <ChevronDownIcon className="h-[15px] m-auto stroke-[3px] pl-2" />
       </span>
       {showAll && (
         <div ref={ref}>
-          <ul className="absolute w-56 h-80 top-10 left-0 overflow-y-scroll overflow-x-hidden bg-white border-[1px] border-amazon-blue text-black p-2 flex-col gap-1 z-50">
-            {allCategories.map((item) => (
+          <ul className="absolute max-w-[224px] max-h-80 top-10 left-0 overflow-y-scroll overflow-x-hidden border-[1px] bg-white border-amazon-blue text-black p-2 flex-col gap-1 z-50">
+            {categoriesData?.payload.map((item, key) => (
               <li
-                key={item._id}
-                onClick={() => setCategory(item.title)}
+                key={key}
+                onClick={() => {
+                  setCategory(item)
+                  setShowAll(false)
+                }}
                 className="text-sm tracking-wide font-titleFont border-b-[1px] border-b-transparent hover:border-b-amazon-blue cursor-pointer duration-200"
               >
-                {item.title}
+                {item}
               </li>
             ))}
           </ul>
         </div>
       )}
-      {/* <select
-        onChange={(e) => setCategory(e.target.value)}
-        className="h-[100%] lg:max-w-[100px] p-2  bg-gray-300 border-r text-black  text-xs xl:text-sm rounded-l"
-      >
-        <option value="">All</option>
-        <option>Deals</option>
-        <option>Books</option>
-        <option>Mobiles fggfhfghfdfg dfg dfgdsert ghh</option>
-        <option>Amazon</option>
-        <option>Fashion</option>
-        <option>Computers</option>
-        <option>Home</option>
-        <option>Mobiles</option>
-      </select> */}
-      <div className="flex-grow">
+      <div className="flex-grow relative">
         <input
           className="h-full w-full  text-base text-amazon-blue outline-none border-none px-2"
           type="text"
-          placeholder="Search SPAapp"
+          placeholder="Search..."
           value={searchTerm}
           onChange={handleOnChange}
           onKeyDown={handleKeyDown}
         />
         {/* Render search results */}
-        <div className="bg-white w-fit text-black z-40 absolute">
-          {loading
-            ? "Loading..."
-            : filteredSearchResults.map((result) => (
-                <div
-                  key={result.id}
-                  className="flex border-b p-2"
-                  onClick={() => setSearchTerm(result.title)}
-                >
-                  <img
-                    src={result.img_small}
-                    alt={result.title}
-                    className="h-20 w-20 object-cover mr-4"
-                  />
-                  <div>
-                    <h3 className="font-bold">{result.title}</h3>
-                    {/* Additional product details can go here */}
-                  </div>
+        <div className=" bg-slate-50   w-full text-black z-40 absolute max-h-64 overflow-hidden overflow-y-scroll cursor-pointer ">
+          {!isLoading &&
+            searchResults?.payload.products.map((result) => (
+              <div
+                key={result._id}
+                className="flex border-b p-2 hover:bg-slate-100"
+                onClick={() => setSearchTerm(result.title)}
+              >
+                <img
+                  src={result.thumbnail[0]}
+                  alt={result.title}
+                  className="h-14 w-20 object-cover mr-4 rounded-md bg-slate-200"
+                />
+                <div>
+                  <h3 className="font-semibold ">
+                  {result.title.slice(0, truncateLengthTitle)}
+        {result.title.length > truncateLengthTitle && "..."}
+                  </h3>
+                  {/* Additional product details can go here */}
                 </div>
-              ))}
+              </div>
+            ))}
         </div>
       </div>
-      <span
+      {isError && (
+        <button className="  flex justify-center items-center p-1" onClick={() => {setSearchTerm("")
+        setEnableSearch(false)
+        }}>
+          <XMarkIcon className="w-4 stroke-red-600 stroke-2" />
+        </button>
+      )}
+      {isLoading && (
+        <div className="  flex justify-center items-center p-1">
+          <div className="animate-spin rounded-full h-4 w-4 border-b-[1px] border-gray-900"></div>
+        </div>
+      )}
+      <button
         onClick={onHandleSubmit}
         className="w-12 h-full flex items-center justify-center bg-amazon-yellow hover:bg-[#f3a847] duration-300 text-amazon-blue cursor-pointer rounded-tr-md rounded-br-md"
       >
         <MagnifyingGlassIcon className="h-[27px] m-auto stroke-slate-900" />
-      </span>
+      </button>
     </div>
   );
 };
