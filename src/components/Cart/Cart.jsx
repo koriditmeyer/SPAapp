@@ -83,17 +83,17 @@ const Cart = () => {
                       <div className="grid grid-cols-1 md:grid-cols-12 mx-4 ">
                         <div className="md:col-span-10 grid grid-cols-8  ">
                           <div className="col-span-4 md:col-span-2">
-                            <Link to={`/item/${item.properties._id}`}>
+                            <Link to={`/products/${item.properties._id}`}>
                               <img
                                 className="p-4 m-auto"
-                                src={item.properties.img_small}
+                                src={item.properties.thumbnail[0]}
                                 alt="Checkout product"
                               />
                             </Link>
                           </div>
                           <div className="col-span-4 md:col-span-6">
                             <div className="font-medium text-black mt-2">
-                              <Link to={`/item/${item.properties._id}`}>
+                              <Link to={`/products/${item.properties._id}`}>
                                 <ItemDetailInfo
                                   product={item.properties}
                                   ratings={false}

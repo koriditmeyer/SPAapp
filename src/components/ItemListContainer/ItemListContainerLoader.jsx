@@ -1,11 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAPI } from "../../services/API";
 import { ASSET_BASE_URL } from "../../services/config";
-import delay from "../../services/delay";
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 const ItemListContainerLoader = async (request) => {
   // query DB
@@ -14,10 +9,15 @@ const ItemListContainerLoader = async (request) => {
     response = await getAPI(`api/products/?${request}`, false);
     // await delay(5000);
     // console.log(response)
-    // Modify each product's thumbnail paths to include the base URL
+    // Modify each product's thumbnail paths to include the base URL IF URL has no HTTP
+
     const modifiedProducts = response.payload.products.map((product) => ({
       ...product,
-      thumbnail: product.thumbnail.map((imgPath) => ASSET_BASE_URL + imgPath),
+      thumbnail: product.thumbnail.map((imgPath) => {
+       return  imgPath.includes("https") ?
+          imgPath:
+          ASSET_BASE_URL + imgPath        
+      }),
     }));
     // Integrate the modified products back into the original response structure
     const modifiedResponse = {
@@ -40,13 +40,13 @@ const ItemListContainerLoader = async (request) => {
   }
 };
 
-const ItemListContainerQuery = (searchParams, throwOnError, enable=true) => {
-  let { category, page, limit, sort, searchTerm } = Object.fromEntries([
+const ItemListContainerQuery = (searchParams, throwOnError, enable = true) => {
+  let { category,subCategory, page, limit, sort, searchTerm, badge } = Object.fromEntries([
     ...searchParams,
   ]);
   // console.log(searchParams.toString(),category,searchTerm)
   return useQuery({
-    queryKey: ["SearchQuery", { category, page, limit, sort, searchTerm }],
+    queryKey: ["SearchQuery", { category,subCategory, page, limit, sort, searchTerm ,badge}],
     queryFn: async () => await ItemListContainerLoader(searchParams.toString()),
     enabled: enable, // Dependent Queries if need to query on a condition
     throwOnError: throwOnError,

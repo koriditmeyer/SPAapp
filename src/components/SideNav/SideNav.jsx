@@ -6,10 +6,71 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import useLogout from "../../services/handleLogout";
+import SearchFilterQuery from "../SearchFilter/SearchFilterLoader";
+import SearchCategoryFilterQuery from "../SearchFilter/SearchCategoryFilterLoader";
 
 const SideNav = ({ closeMenu }) => {
   // -------- Disable the side menu on clic outside
   const ref = useRef();
+
+  //******* GET DATA OF CATEGORIES */
+  // get data
+  const { data, isLoading } = SearchFilterQuery(false);
+  //  console.log(data)
+  // get categories unique
+  const {
+    data: dataCategory,
+    isLoading: isLoadingDataCategory,
+    isError,
+    error,
+  } = SearchCategoryFilterQuery(null, false);
+
+  // Iterate over each item in `dataCategory`
+  let results = [];
+  dataCategory?.payload?.forEach((item) => {
+    // Find the parent category for the current item's category
+    const parentCategory = data?.payload.find((category) =>
+      category.subcategories?.some(
+        (subcategory) => subcategory.id === item.category
+      )
+    );
+    // If a parent category is found, log the name of the parent category and the count
+    if (parentCategory) {
+      let result = {
+        category: parentCategory._id,
+        text: parentCategory.name,
+        active: true,
+        link: `/search?category=${parentCategory._id}`,
+        count: item.count,
+      };
+      results.push(result);
+    }
+  });
+  let categoryCounts = results?.reduce(
+    (acc, item) => {
+      const { category, count, text, active, link } = item;
+
+      // Initialize the category entry in the accumulator if it doesn't exist
+      if (!acc[category]) {
+        acc[category] = { text, active, link, count: 0 };
+      }
+    
+      // Safely increment the count since the category entry is guaranteed to exist
+      acc[category].count += count;
+    
+      return acc;
+    },
+    {}
+  );
+  // Convert the resulting object back into an array
+  const reducedData = Object.entries(categoryCounts).map(
+    ([category, details]) => ({
+      category,
+      ...details
+    })
+  );
+
+  //************************* */
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -68,32 +129,31 @@ const SideNav = ({ closeMenu }) => {
           </div>
 
           <SideNavContent
-            title="Digital Content & Devices"
-            one={{ text: "Amazon Music", link: "" }}
-            two={{ text: "Kindle E-readers & Books" }}
-            three={{ text: "Amazon Appstore" }}
-          />
-          <SideNavContent
             title="Shop By Department"
-            one={{ text: "Electronics" }}
-            two={{ text: "Computers" }}
-            three={{ text: "Smart Home" }}
+            data={reducedData}
           />
           <SideNavContent
             title="Programs & Features"
-            one={{ text: "Gift Cards" }}
-            two={{ text: "Amazon live" }}
-            three={{ text: "International Shopping" }}
+            data={[
+              { text: "Gift Cards", active: false },
+              { text: "Amazon live", active: false },
+              { text: "International Shopping", active: false },
+            ]}
           />
           <SideNavContent
             title="Help & Settings"
-            one={{ text: "Your Account", link: "/profile" }}
-            two={{ text: "Customer Service" }}
-            three={
+            data={[
+              { text: "Your Account", link: "/profile", active: true },
+              { text: "Customer Service", active: false },
               userInfo?.verified
-                ? { text: "Log out", link: "/", action: handleLogoutClick }
-                : { text: "Log in", link: "/login" }
-            }
+                ? {
+                    text: "Log out",
+                    link: "/",
+                    action: handleLogoutClick,
+                    active: true,
+                  }
+                : { text: "Log in", link: "/login", active: true },
+            ]}
           />
 
           <span

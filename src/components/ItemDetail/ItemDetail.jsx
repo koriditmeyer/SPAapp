@@ -44,7 +44,7 @@ const ItemDetail = () => {
       <div className=" max-w-constainer m-auto md:p-4">
         <div className="grid grid-cols-1 md:grid-cols-10 gap-1 md:gap-2 ">
           {/* LEFT */}
-          <div className="md:col-span-3 p-4 bg-white ">
+          <div className="md:col-span-3 p-4 bg-white md:rounded">
             {isLoading ? (
               <Skeleton className="h-80" />
             ) : (
@@ -62,8 +62,14 @@ const ItemDetail = () => {
                 />
               }
             </div>
-            <div className="text-base xl:text-lg mt-3">
-              {isLoading ? <Skeleton count={5} /> : product?.description}
+            <div className="text-sm xl:text-base mt-3 py-2 ">
+              {isLoading ? (
+                <Skeleton count={5} />
+              ) : (
+                product?.description.features.map((item, key) => (
+                  <li key={key}>{item}</li>
+                ))
+              )}
             </div>
           </div>
           {/* RIGHT */}
@@ -126,6 +132,62 @@ const ItemDetail = () => {
             )}
           </div>
         </div>
+        {product?.description.information && (
+          <div className=" p-4 mt-1 bg-white md:rounded">
+            <h3 className="text-xl xl:text-2xl font-medium mb-1 py-2">
+              Product information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2">
+              <div className="md:col-span-1 relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" className="px-6 py-3">
+                        Property
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Value
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(product.description.information).map(
+                      ([key, value]) => (
+                        <tr
+                          key={key}
+                          className="group odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                        >
+                          <td
+                            scope="row"
+                            className="group-hover:bg-amazon-yellow px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            {key}
+                          </td>
+                          <td className="group-hover:bg-amazon-yellow px-6 py-4">
+                            {value}
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              </div>
+              <div className="md:col-span-1">{/* Feedback */}</div>
+            </div>
+          </div>
+        )}
+        {product?.description.description.length > 0 && (
+          <div className=" p-4 mt-1 bg-white md:rounded">
+            <h3 className="text-xl xl:text-2xl font-medium mb-1 py-2">
+              Product Description
+            </h3>
+            <div className=" pl-10">
+              {product?.description.description.map((item, key) => (
+                <p key={key}>{item}</p>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </motion.article>
   );

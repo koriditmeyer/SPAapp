@@ -14,7 +14,7 @@ const ItemList = ({ list, isLoading }) => {
               <CardSkeleton cards={6} />
             ) : (
             list?.map((product, key) => (
-              <Item key={key} properties={product} />
+              <Item key={key} properties={product} isLoading={isLoading} />
             ))
           )
         }

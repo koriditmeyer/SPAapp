@@ -16,7 +16,7 @@ import {
   ChevronDownIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HandleIpGeoInfo from "../../services/handleIpGeoInfo";
 /*
  * COMPONENT
@@ -39,6 +39,7 @@ const Navbar = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
   // -------- Disable the side menu on clic outside
   const ref = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     function handleHoverOutside(event) {
@@ -57,7 +58,7 @@ const Navbar = () => {
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
   // console.log(userInfo);
   if (!userInfo){
-    HandleIpGeoInfo()
+    HandleIpGeoInfo(dispatch)
   }
 
   return (

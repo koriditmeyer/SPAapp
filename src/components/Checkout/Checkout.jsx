@@ -32,9 +32,9 @@ const Checkout = () => {
     country_code: "",
   });
 
-  const onAdd = (id, quantity) => {
+  const onAdd = (_id, quantity) => {
     // updateCart(id, quantity);
-    dispatch(updateCart({id,quantity}))
+    dispatch(updateCart({_id,quantity}))
   };
 
   const [orderId, setOrderId] = useState();
@@ -154,21 +154,21 @@ const Checkout = () => {
               </div>
               {cart.map((item) => {
                 return (
-                  <div key={item.properties.id}>
+                  <div key={item.properties._id}>
                     <div className="grid grid-cols-1 md:grid-cols-12 mr-4">
                       <div className="md:col-span-10 grid grid-cols-8">
                         <div className="col-span-3 md:col-span-2">
-                          <Link to={`/item/${item.properties.id}`}>
+                          <Link to={`/products/${item.properties._id}`}>
                             <img
                               className="p-4 m-auto"
-                              src={item.properties.img_small}
+                              src={item.properties.thumbnail[0]}
                               alt="Checkout product"
                             />
                           </Link>
                         </div>
                         <div className="col-span-5 md:col-span-6">
                           <div className="font-medium text-black mt-2">
-                            <Link to={`/item/${item.properties.id}`}>
+                            <Link to={`/products/${item.properties._id}`}>
                               <ItemDetailInfo
                                 product={item.properties}
                                 ratings={false}
@@ -176,7 +176,7 @@ const Checkout = () => {
                             </Link>
                           </div>
                           <ItemCount
-                            id={item.properties.id}
+                            id={item.properties._id}
                             min={0}
                             initial={item.quantity}
                             stock={item.properties.stock}

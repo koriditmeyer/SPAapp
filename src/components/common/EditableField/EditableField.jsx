@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
-import handleFieldUpdate from "../../../services/handleFieldUpdate";
+import { useDispatch } from "react-redux";
 
 const EditableField = ({ initialValue, fieldName, onUpdate }) => {
   //   const handleFieldUpdate = useFieldUpdate();
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
   const [originalValue, setOriginalValue] = useState(initialValue); // Keep track of the original value
+  const dispatch = useDispatch();
 
   const handleEdit = () => {
     setEditing(true);
@@ -23,7 +24,7 @@ const EditableField = ({ initialValue, fieldName, onUpdate }) => {
       return;
     }
     try {
-      await handleFieldUpdate(fieldName, value); // Trigger the update action
+      await onUpdate(dispatch,fieldName, value); // Trigger the update action
       setEditing(false);
     } catch (error) {
       setValue(originalValue);

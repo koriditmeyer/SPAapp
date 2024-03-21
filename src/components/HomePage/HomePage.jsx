@@ -14,46 +14,52 @@ const HomePage = () => {
       <div className=" max-w-constainer m-auto ">
         <Carousel />
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 -mt-80">
-          <HomePageCard
+          {/* <HomePageCard
             title={"We have a surprise for you"}
             img={"../images/home_grid_1.jpg"}
-            link={"see terms and conditions"}
-          />
+            text={"see terms and conditions"}
+          /> */}
           <HomePageCard
-            title={"Watch The Rings of Power"}
+            title={"Shop Games"}
             img={"../images/home_grid_2.jpg"}
-            link={"Start streaming now"}
+            text={"Start playing now"}
+            link={"336f8ecb-e105-4417-ac3c-d326784788e9"}
           />
           <HomePageCard
-            title={"Unlimited Streaming"}
+            title={"Electronics"}
             img={"../images/home_grid_3.jpg"}
-            link={"Find out more"}
+            text={"Find out more"}
+            link={"cfa0658e-f9ec-4e47-85d7-5d82de050245"}
           />
           <HomePageCard
-            title={"More titles to explore"}
+            title={"Clothing & more..."}
             img={"../images/home_grid_4.jpg"}
-            link={"Browse Kindle Unlimited"}
+            text={"Browse Kindle Unlimited"}
+            link={"6dbfb96f-5e44-41e3-9d4b-1c02fb00bb86"}
           />
           <HomePageCard
             title={"Shop Pet Supplies"}
             img={"../images/home_grid_5.jpg"}
-            link={"See more"}
+            text={"See more"}
+            link={"40ec8097-e040-4102-a451-92e6e79a6b80"}
           />
-          <HomePageCard
+          {/* <HomePageCard
             title={"Spring Sale"}
             img={"../images/home_grid_6.jpg"}
-            link={"See the deals"}
-          />
+            text={"See the deals"}
+          /> */}
           <HomePageCard
-            title={"Echo buds"}
+            title={"Suitcases"}
             img={"../images/home_grid_7.jpg"}
-            link={"See more"}
+            text={"See more"}
+            link={104}
+            subcategory={true}
           />
-          <HomePageCard
+          {/* <HomePageCard
             title={"Family Plan: 3 months free"}
             img={"../images/home_grid_8.jpg"}
-            link={"Learn more"}
-          />
+            text={"Learn more"}
+          /> */}
           <div className="m-3 pt-8 hidden sm:inline-block xl:hidden">
             <img className="" src="../images/banner_image_2.jpg" />
           </div>

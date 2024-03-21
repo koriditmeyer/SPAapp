@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { userSignOut } from "../redux/amazonSlice";
 import { toast } from "react-toastify";
-import { deleteAPI } from "../services/API";
+import { deleteAPI } from "./API";
 
 const useLogout = () => {
   const toastId = useRef(null);

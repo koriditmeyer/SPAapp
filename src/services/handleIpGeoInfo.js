@@ -1,10 +1,9 @@
 
-import { useDispatch } from "react-redux";
 import { updateUserInfo } from "../redux/amazonSlice";
 import axios from "axios";
 
-const HandleIpGeoInfo = async () => {
-  const dispatch = useDispatch();
+const HandleIpGeoInfo = async (dispatch) => {
+  
   try {
     const result = await axios.get("https://ipapi.co/json/");
     console.log(result)

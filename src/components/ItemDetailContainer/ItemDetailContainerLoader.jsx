@@ -16,12 +16,12 @@ const ItemDetailContainerLoader = async (id) => {
       ...response,
       payload: {
         ...response.payload,
-        thumbnail: response.payload.thumbnail.map(
-          (imgPath) => ASSET_BASE_URL + imgPath
-        ),
+        thumbnail: response.payload.thumbnail.map((imgPath) => {
+          return imgPath.includes("https") ? imgPath : ASSET_BASE_URL + imgPath;
+        }),
       },
     };
-    console.log(modifiedResponse);
+    // console.log(modifiedResponse);
     return modifiedResponse;
   } catch (error) {
     console.log(error);

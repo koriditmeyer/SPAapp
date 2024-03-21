@@ -4,7 +4,7 @@ import { ImageSlider, ItemDetailInfo } from "..";
 import { FR_CURRENCY } from "../../constants";
 
 
-const Item = ({ properties }) => {
+const Item = ({ properties,isLoading }) => {
  
   return (
       <Link to={`/products/${properties.id}`}>
@@ -18,7 +18,7 @@ const Item = ({ properties }) => {
             className="z-10 flex justify-left bg-white  border border-gray-100  hover:bg-gray-100 h-full "
           >
             <div className="font-medium text-black p-2">
-              <ItemDetailInfo product={properties} ratings={true} />
+              <ItemDetailInfo product={properties} ratings={true} isLoading={isLoading} />
               <div className="text-xl xl:text-2xl pt-1">
                 {properties.oldPrice ? (
                   <span className="text-red-700 mr-2">

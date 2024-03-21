@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { postAPI } from "../services/API";
+import { postAPI } from "./API";
 import { setUserInfo } from "../redux/amazonSlice";
 import {  useNavigate } from "react-router-dom";
 

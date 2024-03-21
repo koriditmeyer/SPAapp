@@ -43,8 +43,8 @@ const NavbarPopup = ({ closePopup }) => {
                   <span className=" font-semibold text-base">
                     {userInfo.first_name}
                   </span>
-                  <span className=" text-xs text-slate-500 font-semibold">
-                    {userInfo.roles}
+                  <span className=" py-1 uppercase">
+                    {userInfo.roles.map((r,key)=>(<span key={key} className="text-xs font-semibold p-1 mr-1  rounded-sm bg-[#177E8F] text-white">{r}</span>))}
                   </span>
                 </div>
               </div>
@@ -75,22 +75,22 @@ const NavbarPopup = ({ closePopup }) => {
           <span className="w-full h-[1px] inline-flex"></span>
         </div>
         <div className="flex flex-row gap-6 ">
-          <div className="whitespace-nowrap border-r border-zinc-300 p-2 min-w-[250px]">
-            <div className="font-bold py-2 border-gray-300">Your Lists</div>
+          <div className="whitespace-nowrap border-r border-zinc-300 px-2 min-w-[250px]">
+            <div className="font-bold py-2 border-gray-300 text-gray-200 cursor-default">Your Lists</div>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              className="text-gray-200 text-xs block py-1 cursor-default"
             >
               Create a List
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              className="text-gray-200 text-xs block py-1 cursor-default"
             >
               Find a List or Registry
             </a>
           </div>
-          <div className="p-2">
+          <div className="p-2 min-w-[200px]">
             <Link to={"/profile"} className="font-bold py-2 border-gray-300">
               Your Profile
             </Link>
@@ -100,63 +100,62 @@ const NavbarPopup = ({ closePopup }) => {
             >
               Account
             </Link>
-            <a
-              href="#"
+            <Link to={"/profile/orders"}
               className="text-xs block py-1 hover:text-orange-700 hover:underline"
             >
               Orders
-            </a>
+            </Link>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              className=" text-gray-200 text-xs block py-1 cursor-default"
             >
               Recommendations
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              className="text-gray-200 text-xs block py-1 cursor-default"
             >
               Browsing History
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              className="text-gray-200 text-xs block py-1 cursor-default"
             >
               Watchlist
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline  "
+              className="text-gray-200 text-xs block py-1 cursor-default  "
             >
               Video Purchases & Rentals
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline "
+              className="text-gray-200 text-xs block py-1 cursor-default"
             >
               Kindle Unlimited
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              className="text-gray-200 text-xs block py-1 cursor-default"
             >
               Content & Devices
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline"
+              className="text-gray-200 text-xs block py-1 cursor-default"
             >
               Subscribe & Save Items
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline whitespace-nowrap "
+              className="text-gray-200 text-xs block py-1 cursor-default "
             >
               Memberships & Subscriptions
             </a>
             <a
               href="#"
-              className="text-xs block py-1 hover:text-orange-700 hover:underline whitespace-nowrap"
+              className="text-gray-200 text-xs block py-1 cursor-default"
             >
               Music Library
             </a>

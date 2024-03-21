@@ -28,7 +28,7 @@ const ImageThumbsGallery = ({ images }) => {
             <div className="flex h-full w-full items-center justify-center">
               <img
                 src={image}
-                className="bloack h-full w-full object-cover"
+                className=" h-full w-full object-cover"
                 alt={`Slide ${index}`}
                 loading="lazy"
               />

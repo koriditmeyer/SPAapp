@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { getAPI } from "../../services/API";
 
 const ProfileAccountLoader = async () => {
@@ -5,8 +6,16 @@ const ProfileAccountLoader = async () => {
     const userDataDB = await getAPI("api/users/current:false");
     return userDataDB;
   } catch (error) {
-    return error.response.data.message
+    throw Error(error.response.data.message)
   }
 };
 
-export default ProfileAccountLoader;
+const ProfileAccountQuery = (throwOnError) => {
+  return useQuery({
+    queryKey: ["ProfileQuery"],
+    queryFn: async () => await ProfileAccountLoader(),
+    throwOnError: throwOnError,
+  });
+};
+
+export default ProfileAccountQuery;

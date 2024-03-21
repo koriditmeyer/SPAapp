@@ -35,7 +35,6 @@ import {
   ItemDetailContainerLoader,
   ScrollToTop,
   ItemListContainerLoader,
-  SearchResultsLoader,
   ItemList,
   SearchResultsError,
   Unauthorized,
@@ -91,19 +90,8 @@ function App() {
               />
             </Route>
             <Route
-              path="category"
-              element={<ItemListContainer />}
-            >
-              <Route
-                path=""
-                element={<ItemListQuery />}
-                errorElement={<SearchResultsError />}
-              />
-            </Route>
-            <Route
               path="products/:id"
               element={<ItemDetailContainer />}
-              // loader={ItemDetailContainerLoader}
             />
             <Route path="cart" element={<Cart />} />
             <Route element={<RequireAuth allowedRoles={["user"]} />}>
@@ -118,7 +106,7 @@ function App() {
               <Route
                 path="profile/account"
                 element={<ProfileAccount />}
-                loader={ProfileAccountLoader}
+                // loader={ProfileAccountLoader}
               />
             </Route>
             <Route element={<RequireAuth allowedRoles={["admin"]} />}>

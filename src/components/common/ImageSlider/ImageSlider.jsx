@@ -10,7 +10,7 @@ import { Pagination, Navigation, Autoplay, Zoom } from "swiper/modules";
 
 const ImageSlider = ({ images }) => {
   const [swiper, setSwiper] = useState(null);
-
+//  console.log(images)
   const cardslideStop = () => {
     swiper?.autoplay?.stop();
   };
@@ -29,9 +29,9 @@ const ImageSlider = ({ images }) => {
       spaceBetween={30}
       loop={false}
       modules={[Pagination, Autoplay]}
-      autoplay={{
-        delay:500
-      }}
+      // autoplay={{
+      //   delay:500
+      // }}
 
       // Add more Swiper configurations as needed
     >
@@ -39,7 +39,7 @@ const ImageSlider = ({ images }) => {
         <SwiperSlide key={index}>
           <img
             src={image}
-            className="m-auto"
+            className="m-auto max-h-96 "
             alt={`Slide ${index}`}
             loading="lazy"
             onMouseEnter={cardslideStart}

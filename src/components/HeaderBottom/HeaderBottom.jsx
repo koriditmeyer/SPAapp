@@ -13,10 +13,10 @@ const HeaderBottom = ({ sidebar, setSidebar}) => {
           All
         </li>
         <li className="headerHover">Today's Deals</li>
-        <li className="headerHover">Customer Service</li>
-        <li className="headerHover">Registry</li>
-        <li className="headerHover">Gift Cards</li>
-        <li className="headerHover">Sell</li>
+        <li className="text-gray-500">Customer Service</li>
+        <li className="text-gray-500">Registry</li>
+        <li className="text-gray-500">Gift Cards</li>
+        <li className="text-gray-500">Sell</li>
       </ul>
       {/* side Bar */}
       {sidebar && <SideNav closeMenu={() => setSidebar(false)}/>}

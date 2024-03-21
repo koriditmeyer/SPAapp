@@ -3,6 +3,7 @@ import { ItemBadge, ItemRating } from "..";
 import Skeleton from "react-loading-skeleton";
 
 const ItemDetailInfo = ({ product, ratings, isLoading }) => {
+  // console.log(product,isLoading)
   return (
     <div className="mb-1">
       <div className="text-xl xl:text-2xl font-medium mb-1 hover:text-amazon-yellow_dark">
@@ -19,7 +20,7 @@ const ItemDetailInfo = ({ product, ratings, isLoading }) => {
       {isLoading ? (
         <Skeleton className=" w-40" />
       ) : (
-        product?.ratings && (
+        product?.avgRating && (
           <div className="text-sm xl:text-base font-medium mb-1">
             <ItemRating
               avgRating={product.avgRating}

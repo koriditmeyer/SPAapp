@@ -10,18 +10,20 @@ import { ItemListContainerLoader } from "..";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const Search = () => {
-  const truncateLengthCategory = 12;
-  const truncateLengthTitle = 23;
-  const maxInputSearchResults = 5;
+  let truncateLengthCategory = 30;
+  let truncateLengthTitle = 150;
+
+  const maxInputSearchResults = 10;
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("All");
+  const [categoryId, setCategoryId] = useState("");
   const [EnableSearch, setEnableSearch] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
 
   // -------- Query category data
   const { data: categoriesData, isLoading: isLoadingCategories } =
-    SearchFilterQuery("category", false);
+    SearchFilterQuery(false);
 
   // -------- Automaticaly renew search term when typing
   const handleOnChange = (e) => {
@@ -36,18 +38,19 @@ const Search = () => {
       setEnableSearch(true);
     }
   };
+  // console.log(categoryId)
   const searchParams = createSearchParams({
-    category: `${category != "All" ? category: ""}`,
+    category: `${category != "All" ? categoryId : ""}`,
     searchTerm: `${searchTerm}`,
-    limit:`${maxInputSearchResults}`
-  })
+    limit: `${maxInputSearchResults}`,
+  });
   // console.log(EnableSearch)
   // console.log(searchParams.toString());
-  let { data: searchResults, isLoading, isError } = ItemListContainerLoader(
-    searchParams,
-    false,
-    EnableSearch
-  );
+  let {
+    data: searchResults,
+    isLoading,
+    isError,
+  } = ItemListContainerLoader(searchParams, false, EnableSearch);
 
   // console.log(searchResults)
   // -------- Set the search params and navitage to new search page
@@ -110,12 +113,13 @@ const Search = () => {
               <li
                 key={key}
                 onClick={() => {
-                  setCategory(item)
-                  setShowAll(false)
+                  setCategory(item.name);
+                  setCategoryId(item._id);
+                  setShowAll(false);
                 }}
                 className="text-sm tracking-wide font-titleFont border-b-[1px] border-b-transparent hover:border-b-amazon-blue cursor-pointer duration-200"
               >
-                {item}
+                {item.name}
               </li>
             ))}
           </ul>
@@ -146,8 +150,8 @@ const Search = () => {
                 />
                 <div>
                   <h3 className="font-semibold ">
-                  {result.title.slice(0, truncateLengthTitle)}
-        {result.title.length > truncateLengthTitle && "..."}
+                    {result.title.slice(0, truncateLengthTitle)}
+                    {result.title.length > truncateLengthTitle && "..."}
                   </h3>
                   {/* Additional product details can go here */}
                 </div>
@@ -156,9 +160,13 @@ const Search = () => {
         </div>
       </div>
       {isError && (
-        <button className="  flex justify-center items-center p-1" onClick={() => {setSearchTerm("")
-        setEnableSearch(false)
-        }}>
+        <button
+          className="  flex justify-center items-center p-1"
+          onClick={() => {
+            setSearchTerm("");
+            setEnableSearch(false);
+          }}
+        >
           <XMarkIcon className="w-4 stroke-red-600 stroke-2" />
         </button>
       )}

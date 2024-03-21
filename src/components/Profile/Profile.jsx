@@ -52,8 +52,8 @@ const Profile = () => {
           description={
             "Edit password"
           }
-        />
          
+        />
             <ProfileComponent
           link={"/contact"}
           image={contact}
@@ -61,8 +61,9 @@ const Profile = () => {
           description={
             "Browse self service options, help articles or contact us"
           }
+          active={false}
         />
-       {userInfo &&(   <ProfileComponent
+       {userInfo.roles.includes("admin") &&(   <ProfileComponent
           link={"/profile/addProduct"}
           image={addProduct}
           title={"Add Product"}
