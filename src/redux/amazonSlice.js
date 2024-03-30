@@ -1,5 +1,10 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import {
+  createSelector,
+  createSlice,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { syncCartWithBackend } from "./thunkFunctions";
 
 //create categories at initial state
 const initialState = {
@@ -15,7 +20,7 @@ export const amazonSlice = createSlice({
     // ============= Product Reducers here ===============
     // Add to cart
     addToCart: (state, action) => {
-      console.log(action.payload)
+      console.log(action.payload);
       //  state.products.push(action.payload)
       const item = state.products.find(
         (item) => item.properties._id === action.payload.properties._id
@@ -56,7 +61,7 @@ export const amazonSlice = createSlice({
     },
     // Update Cart
     updateCart: (state, action) => {
-      console.log(action.payload)
+      console.log(action.payload);
       //  state.products.push(action.payload)
       const item = state.products.find(
         (item) => item.properties._id === action.payload._id
@@ -94,6 +99,14 @@ export const amazonSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(syncCart.fulfilled, (state, action) => {
+      // Update the state based on the updated cart returned from the backend
+      // This is a simplified example; adjust according to your actual data structure
+      state.products = action.payload;
+    });
+    // Handle pending and rejected cases if necessary
+  },
 });
 
 const selectProducts = (state) => state.amazonReducer.products;
@@ -110,6 +123,18 @@ export const selectTotalPrice = createSelector(
 export const selectTotalQuantity = createSelector(
   [selectProducts],
   (products) => products.reduce((total, product) => total + product.quantity, 0)
+);
+
+// Define the thunk action for syncing the cart
+export const syncCart = createAsyncThunk(
+  "amazon/syncCart",
+  async (userId, { getState }) => {
+    const { products } = getState().amazon;
+    if (products.length > 0) {
+      const updatedCart = await syncCartWithBackend(products, userId);
+      return updatedCart;
+    }
+  }
 );
 
 // exports actions and reducers

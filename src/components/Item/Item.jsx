@@ -11,7 +11,7 @@ const Item = ({ properties,isLoading }) => {
         <article
           className="flex-col border rounded-md mt-1 mb-1 h-full overflow-hidden hover:shadow-testShadow hover:border-transparent duration-200"
         >
-          <div className=" bg-gray-200 ">
+          <div className="  ">
             <ImageSlider  images={properties.thumbnail} /> 
           </div>
           <div

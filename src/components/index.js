@@ -64,6 +64,7 @@ export { default as ScrollToTop } from "./common/ScrollRestauration/ScrollRestau
 export { default as Unauthorized } from "./common/Unauthorized/Unauthorized";
 export { default as Verify } from "./common/Verify/Verify";
 export { default as EditableField } from "./common/EditableField/EditableField";
+export { default as EditablePicture } from "./common/EditablePicture/EditablePicture";
 export { default as ImageSlider } from "./common/ImageSlider/ImageSlider";
 export { default as ImageThumbsGallery } from "./common/ImageThumbsGallery/ImageThumbsGallery";
 export { default as Pagination } from "./common/Pagination/Pagination";

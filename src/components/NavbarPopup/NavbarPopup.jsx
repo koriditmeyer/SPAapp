@@ -36,8 +36,8 @@ const NavbarPopup = ({ closePopup }) => {
               className="p-2 w-full bg-[#E7F4F5] rounded-md flex justify-between items-center"
             >
               <div className="flex items-center gap-2">
-                <div className=" rounded-full h-10 w-10">
-                  <img src={userInfo.profilePhoto}></img>
+                <div className="  h-10 w-10">
+                  <img src={userInfo.profilePhoto} className="rounded-full"></img>
                 </div>
                 <div className="flex flex-col">
                   <span className=" font-semibold text-base">

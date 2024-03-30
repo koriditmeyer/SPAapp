@@ -66,7 +66,7 @@ const ItemDetail = () => {
               {isLoading ? (
                 <Skeleton count={5} />
               ) : (
-                product?.description.features.map((item, key) => (
+                product?.description?.features?.map((item, key) => (
                   <li key={key}>{item}</li>
                 ))
               )}
@@ -176,7 +176,7 @@ const ItemDetail = () => {
             </div>
           </div>
         )}
-        {product?.description.description.length > 0 && (
+        {product?.description?.description?.length > 0 && (
           <div className=" p-4 mt-1 bg-white md:rounded">
             <h3 className="text-xl xl:text-2xl font-medium mb-1 py-2">
               Product Description

@@ -14,7 +14,7 @@ const SearchFilter = () => {
   let subcategory = parseInt(searchParams.get("subCategory"), 10) || 0;
 
   // get data
-  const { data, isLoading } = SearchFilterQuery(false);
+  const { data, isLoading, isError } = SearchFilterQuery(false);
   // get subcategories
   const subCategories = data?.payload.filter((el) =>
     el._id?.includes(category)
@@ -23,7 +23,7 @@ const SearchFilter = () => {
   // get categories unique
   const { data: dataCategory, isLoading: isLoadingDataCategory } =
     SearchCategoryFilterQuery(searchKeyWord, false);
-  console.log(dataCategory)
+  // console.log(dataCategory)
   // Iterate over each item in `dataCategory`
   let results = [];
   dataCategory?.payload?.forEach((item) => {
@@ -48,7 +48,7 @@ const SearchFilter = () => {
     category,
     count,
   }));
-  console.log(reducedData)
+  // console.log(reducedData)
 
   // console.log(reducedData);
 
@@ -112,7 +112,8 @@ const SearchFilter = () => {
         </motion.div>
       )}
       <h3 className=" font-bold py-2">Categories</h3>
-      <div className="w-full max-h-72 overflow-hidden overflow-y-scroll  bg-amazon-background rounded-md p-2 flex flex-wrap gap-2 ">
+      <div className=" min-h-[40px] w-full max-h-72 overflow-hidden overflow-y-scroll  bg-amazon-background rounded-md p-2 flex flex-wrap gap-2 ">
+        {isError && <p>Error</p>}
         {isLoading ? (
           <Skeleton className="w-12" />
         ) : (

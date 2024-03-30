@@ -6,8 +6,10 @@ const config={
 }
 let percentComplete
 const config2={
-    onDownloadProgress: function(progressEvent){
+    withCredentials: true,
+    onUploadProgress: function(progressEvent){
          percentComplete = Math.floor((progressEvent.loaded/progressEvent.total)*100)
+        //  console.log(percentComplete)
     }
 }
 
@@ -17,8 +19,8 @@ export const getAPI = async (resource, credentials=true) => {
         const result = await axios.get(`${BACK_END_URL}/${resource}`,config)
         data =result.data
     } else{
-        const result = await axios.get(`${BACK_END_URL}/${resource}`,config2)
-        data = {...result.data,percentage:percentComplete}
+        const result = await axios.get(`${BACK_END_URL}/${resource}`)
+        data = result// {...result.data,percentage:percentComplete}
     }
     return data
 }
@@ -29,7 +31,8 @@ export const postAPI = async (resource,formData) => {
 }
 
 export const putAPI = async (resource,formData) => {
-    const {data} = await axios.put(`${BACK_END_URL}/${resource}`,formData, config)
+    let result = await axios.put(`${BACK_END_URL}/${resource}`,formData, config2)
+    let data = {...result.data,percentage:percentComplete}
     return data
 }
 

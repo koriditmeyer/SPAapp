@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import BreadCrumbs from "../common/BreadCrumbs/BreadCrumbs";
-import { EditableField, ProgressBar } from "..";
+import { EditableField, EditablePicture, ProgressBar } from "..";
 import handleFieldUpdate from "../../services/handleFieldUpdate";
 import ProfileAccountQuery from "./ProfileAccountLoader";
 import Skeleton from "react-loading-skeleton";
+import handlePhotoUpdate from "../../services/handlePhotoUpdate";
 
 const ProfileAccount = () => {
   const { data: userInfoDB, isLoading } = ProfileAccountQuery(true);
@@ -16,10 +17,24 @@ const ProfileAccount = () => {
         <BreadCrumbs />
         <h3 className=" text-2xl font-semibold">Your Account Details</h3>
         <div className=" grid grid-cols-1  py-2 gap-4">
-          <div className="w-full border rounded-md p-2  bg-slate-200 bg-opacity-50">
+          <div className="flex items-center gap-2 w-full border rounded-md p-2  bg-slate-200 bg-opacity-50">
+            <div className=" w-20">
+              {/* <img src={userInfo.profilePhoto} className="rounded-full"></img> */}
+              {isLoading ? (
+              <Skeleton className="w-20 h-20 rounded-full" />
+            ) : (
+              <EditablePicture
+                initialValue={userInfo.profilePhoto}
+                fieldName="thumbnail"
+                onUpdate={handlePhotoUpdate}
+              />
+            )}
+            </div>
+            <div className="flex-col px-2">
             <div className="text-lg font-bold">{userInfo.first_name}</div>
             <div className="text-sm text-slate-500 font-bold">
               Account Holder
+            </div>
             </div>
           </div>
           <div className="w-full border rounded-md p-2">

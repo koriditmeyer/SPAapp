@@ -10,11 +10,11 @@ import { Pagination, Navigation, Autoplay, Zoom } from "swiper/modules";
 
 const ImageSlider = ({ images }) => {
   const [swiper, setSwiper] = useState(null);
-//  console.log(images)
+  //  console.log(images)
   const cardslideStop = () => {
     swiper?.autoplay?.stop();
   };
-  
+
   const cardslideStart = () => {
     swiper?.autoplay?.start();
   };
@@ -37,14 +37,16 @@ const ImageSlider = ({ images }) => {
     >
       {images.map((image, index) => (
         <SwiperSlide key={index}>
-          <img
-            src={image}
-            className="m-auto max-h-96 "
-            alt={`Slide ${index}`}
-            loading="lazy"
-            onMouseEnter={cardslideStart}
-            onMouseLeave={cardslideStop}
-          />
+          <div className="">
+            <img
+              src={image}
+              className="m-auto min-h-[250px] max-h-72 object-contain "
+              alt={`Slide ${index}`}
+              loading="lazy"
+              onMouseEnter={cardslideStart}
+              onMouseLeave={cardslideStop}
+            />
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>

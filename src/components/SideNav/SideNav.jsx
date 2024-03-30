@@ -106,8 +106,8 @@ const SideNav = ({ closeMenu }) => {
                 to={"/profile"}
                 className=" flex justify-left items-center gap-2 "
               >
-                <div className=" rounded-full h-10 w-10">
-                  <img src={userInfo.profilePhoto}></img>
+                <div className="  h-10 w-10">
+                  <img src={userInfo.profilePhoto} className="rounded-full"></img>
                 </div>
                 <div className="flex flex-col">
                   <span className=" font-semibold text-base">
