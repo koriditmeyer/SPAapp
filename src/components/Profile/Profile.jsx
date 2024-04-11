@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { account, addProduct, contact, order, security } from "../../assets";
+import { account, addProduct, contact, order, security, manageUsers } from "../../assets";
 import {  ProfileComponent } from "..";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
@@ -36,6 +36,7 @@ const Profile = () => {
           description={
             "Track, return, cancel an order, download invoice or buy again"
           }
+          active={false}
         />
          <ProfileComponent
           link={"/profile/account"}
@@ -52,6 +53,7 @@ const Profile = () => {
           description={
             "Edit password"
           }
+          active={false}
          
         />
             <ProfileComponent
@@ -63,12 +65,20 @@ const Profile = () => {
           }
           active={false}
         />
-       {userInfo.roles.includes("admin") &&(   <ProfileComponent
+       {(["premium","admin"].some(role =>userInfo.roles.includes(role))) &&(   <ProfileComponent
           link={"/profile/addProduct"}
           image={addProduct}
           title={"Add Product"}
           description={
-            "Add Product"
+            "Premium and Admin users can add products"
+          }
+        />)}
+          {(["admin"].some(role =>userInfo.roles.includes(role))) &&(   <ProfileComponent
+          link={"/profile/admin"}
+          image={manageUsers}
+          title={"Manage Users"}
+          description={
+            "Admin can see all users, modify their role and delete users"
           }
         />)}
       </div>

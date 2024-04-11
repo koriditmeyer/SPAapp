@@ -26,11 +26,12 @@ const Signin = () => {
   const [errPassword, setErrPassword] = useState("");
   const [errCPassword, setErrCPassword] = useState("");
   // const [errDB, setErrDB] = useState("");
-  //Handle Functions
-  const handleName = (e) => {
+
+  const handleClientName = (e) => {
     setClientName(e.target.value);
     setErrClientName("");
   };
+
   const handleLastName = (e) => {
     setLastName(e.target.value);
     setErrLastName("");
@@ -55,6 +56,12 @@ const Signin = () => {
       .toLowerCase()
       .match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/);
   };
+  // password validation
+  const passwordValidation = (password) => {
+    return String(password).match(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{7,}$/
+    );
+  };
 
   //submit button action
   const handleRegistrationClick = async (e) => {
@@ -73,8 +80,10 @@ const Signin = () => {
     }
     if (!password) {
       setErrPassword("Enter your password");
-    } else if (password.length < 6) {
-      setErrPassword("Password must be at least 6 characters");
+    } else if (!passwordValidation(password)) {
+      setErrPassword(
+        "Password must be at least 7 characters, contain one special character, one number, one uppercase, one lower case"
+      );
     }
     if (!cPassword) {
       setErrCPassword("Enter your confirmation password");
@@ -87,14 +96,10 @@ const Signin = () => {
       email &&
       emailValidation(email) &&
       password &&
-      password.length >= 6 &&
+      passwordValidation(password) &&
       cPassword &&
       cPassword === password
     ) {
-      // toastId.current = toast("Please wait...", {
-      //   type: "loading",
-      // });
-      // Collect form data
       const formData = {
         first_name: clientName,
         last_name: lastName,
@@ -102,29 +107,10 @@ const Signin = () => {
         password: password,
       };
       await handleRegistration({ formData });
-      // try {
-      //   // Register
-      //   const user = await postAPI("api/sessions/register", formData);
-      //   toast.update(toastId.current, {
-      //     render: "An Email was send to you to verify your address.",
-      //     type: "success",
-      //   });
-      //   dispatch(
-      //     setUserInfo(user.payload)
-      //   );
-      //   setTimeout(() => {
-      //     navigate("/verify");
-      //   }, 500);
       setClientName("");
       setEmail("");
       setPassword("");
       setCPassword("");
-      // } catch (error) {
-      //   toast.update(toastId.current, {
-      //     render: error.response.data.message,
-      //     type: "error",
-      //   });
-      // }
     }
   };
 
@@ -155,7 +141,7 @@ const Signin = () => {
                   autoComplete="first name"
                   value={clientName}
                   placeholder="First name"
-                  onChange={handleName}
+                  onChange={handleClientName}
                 />
                 {errClientName && (
                   <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
@@ -212,7 +198,7 @@ const Signin = () => {
                   autoComplete="new-password"
                   value={password}
                   onChange={handlePassword}
-                  placeholder="At least 6 characters"
+                  placeholder="Password"
                 />
                 {errPassword ? (
                   <p className="text-red-600 text-xs font-semibold tracking-wide flex items-center gap-2 -mt-1.5">
@@ -223,7 +209,7 @@ const Signin = () => {
                   </p>
                 ) : (
                   <p className="text-xs text-gray-600">
-                    Passwords must be at least 6 characters.
+                    Password must be at least 7 characters, contain one special character, one number, one uppercase, one lower case.
                   </p>
                 )}
               </div>

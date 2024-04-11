@@ -83,6 +83,7 @@ const SideNav = ({ closeMenu }) => {
   }, [ref]);
 
   const userInfo = useSelector((state) => state.amazonReducer.userInfo);
+  console.log(userInfo )
   //sign out
   const handleLogout = useLogout();
   const handleLogoutClick = () => {

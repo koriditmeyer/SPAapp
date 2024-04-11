@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: "/",
   server: {
-    host: '192.168.0.28' // Replace with your actual local network IP
+    host: '192.168.1.37' // Replace with your actual local network IP
   }
 });
 

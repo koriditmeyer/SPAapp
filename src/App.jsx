@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import ThemeProvider from "./context/ThemeProvider";
 import { CartProvider } from "./context/CartContext";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -41,6 +41,8 @@ import {
   Verify,
   ProfileAccountLoader,
   ItemListQuery,
+  ProfileAddProduct,
+  ProfileManageUsers,
 } from "./components";
 import RequireAuth from "./services/RequireAuth";
 import { SkeletonTheme } from "react-loading-skeleton";
@@ -106,11 +108,13 @@ function App() {
               <Route
                 path="profile/account"
                 element={<ProfileAccount />}
-                // loader={ProfileAccountLoader}
               />
             </Route>
+            <Route element={<RequireAuth allowedRoles={["premium","admin"]} />}>
+              <Route path="profile/addProduct" element={<ProfileAddProduct />} />
+            </Route>
             <Route element={<RequireAuth allowedRoles={["admin"]} />}>
-              <Route path="profile/addProducts" element={<Profile />} />
+              <Route path="profile/admin" element={<ProfileManageUsers />} />
             </Route>
             <Route path="unauthorized" element={<Unauthorized />} />
             <Route path="verify" element={<Verify />} />

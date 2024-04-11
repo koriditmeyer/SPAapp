@@ -30,7 +30,7 @@ const handlePhotoUpdate = async (dispatch, id, fieldName, value) => {
       },
     };
     dispatch(forceUpdateUserInfo(modifiedUser.payload));
-    console.log(modifiedUser)
+    // console.log(modifiedUser)
     toast.update(toastId, {
       render: `Field "${fieldName}" has been updated sucessfully 👌`,
       type: "success",
@@ -39,7 +39,7 @@ const handlePhotoUpdate = async (dispatch, id, fieldName, value) => {
     return modifiedUser
   } catch (error) {
     // Handle error (e.g., show error notification)
-    console.error("my error"+error);
+    // console.error("my error"+error);
     toast.update(toastId, {
       render: `${error.response.data.message} 🤯`,
       type: "error",

@@ -21,7 +21,7 @@ const EditablePicture = ({ initialValue, fieldName, onUpdate }) => {
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-    if (selectedFile // && ["image/jpeg", "image/png", "image/webp"].includes(selectedFile.type)
+    if (selectedFile && ["image/jpeg", "image/png", "image/webp"].includes(selectedFile.type)
     ) {
       setFiles([selectedFile]); // Set the files state to an array with just that one file
     } else{
@@ -32,7 +32,7 @@ const EditablePicture = ({ initialValue, fieldName, onUpdate }) => {
   const handleDrop = (event) => {
     event.preventDefault();
     const droppedFiles = event.dataTransfer.files;
-    if (droppedFiles.length > 0 //&& ["image/jpeg", "image/png", "image/webp"].includes(droppedFiles[0].type)
+    if (droppedFiles.length > 0 && ["image/jpeg", "image/png", "image/webp"].includes(droppedFiles[0].type)
     ) {
       const selectedFile = droppedFiles[0]; // Take the first file only
       setFiles([selectedFile]); // Set the files state to an array with just that one file

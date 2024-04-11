@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { getAPI } from "../../../services/API";
 import { setUserInfo } from "../../../redux/amazonSlice";
-import useRunOnce from "../../../hooks/useRunOnce";
+import { ASSET_BASE_URL } from "../../../services/config";
+
 const Verify = () => {
   document.title = `Amazon.com | Verification`;
 
@@ -20,29 +21,39 @@ const Verify = () => {
   const navigate = useNavigate();
 
   const id = useRef(null);
-  const handleVerification = Verification(email, token);
 
   useEffect(() => {
     const asyncfunction = async () => {
       ++id.current;
-      console.log("inside");
-      if (email && token){
+      //console.log("inside");
+      if (email && token) {
         toastId.current = toast("Please wait...", {
           type: "loading",
         });
       }
       if (email && token && id.current === 1) {
         //  handleVerification();
-        console.log("more inside");
+        //console.log("more inside");
         try {
           const user = await getAPI(
             `api/sessions/verify?email=${email}&token=${token}`
           );
+          const modifiedUser = {
+            ...user,
+            payload: {
+              ...user.payload,
+              profilePhoto: user.payload.profilePhoto.map((imgPath) => {
+                return imgPath.includes("https")
+                  ? imgPath
+                  : ASSET_BASE_URL + imgPath;
+              }),
+            },
+          };
           toast.update(toastId.current, {
             render: "😁 You are successfully registered !",
             type: "success",
           });
-          dispatch(setUserInfo(user.payload));
+          dispatch(setUserInfo(modifiedUser.payload));
           // Navigate to the previous page or home if not available
           const from = location.state?.from?.pathname || "/";
           setTimeout(() => {

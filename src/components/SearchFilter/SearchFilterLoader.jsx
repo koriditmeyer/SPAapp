@@ -13,8 +13,8 @@ const SearchFilterLoader = async () => {
     // console.log(request)
     // response = await getAPI(`api/products/distinct/${request}`, false);
     response = await getAPI(`api/category/`, false);
-
-    const modifiedProducts = response.payload.map((category) => ({
+    // console.log(response)
+    const modifiedProducts = response?.payload?.map((category) => ({
       ...category,
       // Assuming thumbnail is an array of strings; adjust if it's differently structured
       thumbnail: category?.thumbnail?.includes("https") ? category.thumbnail : ASSET_BASE_URL + category.thumbnail

@@ -20,7 +20,7 @@ export const getAPI = async (resource, credentials=true) => {
         data =result.data
     } else{
         const result = await axios.get(`${BACK_END_URL}/${resource}`)
-        data = result// {...result.data,percentage:percentComplete}
+        data = result.data// {...result.data,percentage:percentComplete}
     }
     return data
 }

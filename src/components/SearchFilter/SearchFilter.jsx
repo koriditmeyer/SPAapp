@@ -118,7 +118,7 @@ const SearchFilter = () => {
           <Skeleton className="w-12" />
         ) : (
           data?.payload.map((item, index) => (
-            reducedData?.some((c)=>c.category==item._id) && (
+            (reducedData?.some((c)=>c.category==item._id) || item._id=="0")&& (
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

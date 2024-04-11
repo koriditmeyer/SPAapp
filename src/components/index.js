@@ -55,7 +55,11 @@ export { default as ProfileComponent } from "./ProfileComponent/ProfileComponent
 
 export { default as ProfileAccount } from "./ProfileAccount/ProfileAccount";
 export { default as ProfileAccountLoader } from "./ProfileAccount/ProfileAccountLoader";
+export { default as ProfileManageUsers } from "./ProfileManageUsers/ProfileManageUsers";
+export { default as ProfileManageUsersLoader } from "./ProfileManageUsers/ProfileManageUsersLoader";
+export { default as ProfileManageTable } from "./ProfileManageTable/ProfileManageTable";
 
+export { default as ProfileAddProduct} from "./ProfileAddProduct/ProfileAddProduct";
 // Common
 export { default as BreadCrumbs } from "./common/BreadCrumbs/BreadCrumbs";
 export { default as GlobalSpinner } from "./common/GlobalSpinner/GlobalSpinner";
@@ -71,6 +75,8 @@ export { default as Pagination } from "./common/Pagination/Pagination";
 export { default as SelectComponent } from "./common/SelectComponent/SelectComponent";
 export { default as SortComponent } from "./common/SortComponent/SortComponent";
 export { default as ProgressBar } from "./common/ProgressBar/ProgressBar";
+export { default as DragAndDropZone } from "./common/DragAndDropZone/DragAndDropZone";
+export { default as MultiSelectDropDown } from "./common/MultiSelectDropDown/MultiSelectDropDown";
 
 // Skeleton
 export { default as CardSkeleton } from "./common/CardSkeleton/CardSkeleton";

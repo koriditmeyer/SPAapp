@@ -8,3 +8,6 @@ export { default as order } from "./order.png";
 export { default as security } from "./security.png";
 export { default as contact } from "./contact_us.png";
 export { default as addProduct } from "./addProduct.png";
+export { default as manageUsers } from "./manageUsers.png";
+
+

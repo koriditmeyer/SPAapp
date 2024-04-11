@@ -23,13 +23,15 @@ const useLogin = () => {
 
       const modifiedUser = {
         ...user,
-        payload:{
+        payload: {
           ...user.payload,
-            profilePhoto: user.payload.profilePhoto.map((imgPath) => {
-              return imgPath.includes("https") ? imgPath : ASSET_BASE_URL + imgPath;
-          })
-      }
-    }
+          profilePhoto: user.payload.profilePhoto.map((imgPath) => {
+            return imgPath.includes("https")
+              ? imgPath
+              : ASSET_BASE_URL + imgPath;
+          }),
+        },
+      };
 
       dispatch(setUserInfo(modifiedUser.payload));
       // Navigate to the previous page or home if not available
@@ -39,7 +41,7 @@ const useLogin = () => {
         navigate(from);
       }, 500);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.update(toastId.current, {
         render: error.response.data.message,
         type: "error",
