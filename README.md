@@ -78,9 +78,9 @@ Future implementations (v1)
 
 Future implementations (v2)
 - ~~Use Redux to implement the context~~
-- Use Axios to fetch API and loading bar
-- Use Mongo DB as DB and fetch API from Mongo DB
-- Use Node and Mongo DB to manage users and log in
-- Create a filter bar for queries
+- ~~Use Axios to fetch API and loading bar~~
+- ~~Use Mongo DB as DB and fetch API from Mongo DB~~
+- ~~Use Node and Mongo DB to manage users and log in~~
+- ~~Create a filter bar for queries~~
 - ~~ Add gallery to products ~~
 - Add stripe connectivity
