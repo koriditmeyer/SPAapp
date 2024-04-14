@@ -80,7 +80,7 @@ const CarouselCategory = () => {
           },
           [breakpoints.md]: {
             slidesPerView: 5,
-            spaceBetween: 30,
+            spaceBetween: 40,
           },
         }}
         className="px-3"
@@ -103,12 +103,12 @@ const CarouselCategory = () => {
                   key={index}
                   className="cursor-pointer"
                 >
-                  <div className="  flex flex-col items-center text-center p-2 font-medium">
+                  <div className="  flex flex-col items-center text-center p-2 font-medium gap-2">
                     <img 
                     src={item.thumbnail} 
-                    className="h-56 object-cover scale-125 filter grayscale-[70%]"
+                    className="h-56 object-cover  filter grayscale-[70%]"
                     />
-                    <p>{item.name}</p>
+                    <p className="text-black">{item.name}</p>
                     <p className="  bg-amazon-yellow text-white px-1">
                       {reducedData?.find((c) => c.category == item._id)?.count}{" "}
                       Products
