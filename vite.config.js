@@ -7,6 +7,9 @@ export default defineConfig({
   base: "/",
   server: {
     host: '192.168.1.37' // Replace with your actual local network IP
+  },
+  build: {
+    outDir: 'build',  // Change this line to match the expected directory
   }
 });
 
