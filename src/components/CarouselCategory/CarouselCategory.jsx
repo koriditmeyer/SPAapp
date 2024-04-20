@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -9,17 +9,19 @@ import SearchFilterQuery from "../SearchFilter/SearchFilterLoader";
 import SearchCategoryFilterQuery from "../SearchFilter/SearchCategoryFilterLoader";
 import Skeleton from "react-loading-skeleton";
 import ErrorComponentFlex from "../common/ErrorComponentFlex/ErrorComponentFlex";
+import { toast } from "react-toastify";
 
 const CarouselCategory = () => {
+  const toastId = useRef(null);
   const navigate = useNavigate();
   const breakpoints = useTailwindBreakpoints();
 
   //******* GET DATA OF CATEGORIES */
   // get data
-  const { data, isLoading } = SearchFilterQuery(false);
+  const { data, isLoading, } = SearchFilterQuery(false);
   //  console.log(data)
   // get categories unique
-  const { data: dataCategory, isLoading: isLoadingDataCategory, isError, error } =
+  const { data: dataCategory, isLoading: isLoadingDataCategory, isError, error, isSuccess } =
     SearchCategoryFilterQuery(null, false);
 
   // Iterate over each item in `dataCategory`
@@ -48,6 +50,24 @@ const CarouselCategory = () => {
       count,
     })
   );
+
+  useEffect(() => {
+    toastId.current = toast("As this is a demo version, please wait for the Backend to start...", {
+      type: "loading",
+    })
+    if (isSuccess) {
+      toast.update(toastId.current, {
+        render: `Backend has loaded sucessfully 👌`,
+        type: "success",
+      });
+    } 
+    if (isError) {
+      toast.update(toastId.current, {
+        render: `${error} 🤯`,
+        type: "error",
+      });
+    }
+  }, [isError,isSuccess]); 
   //************************* */
 
   const searchCategory = (category) => {
@@ -118,43 +138,6 @@ const CarouselCategory = () => {
               )
           )
         )}
-
-        {/* <SwiperSlide
-            onClick={() => searchCategory("Deals")}
-            className="cursor-pointer"
-          >
-            <img src={"../images/category_0.jpg"} />
-          </SwiperSlide>
-          <SwiperSlide
-            onClick={() => searchCategory("Amazon")}
-            className="cursor-pointer"
-          >
-            <img src={"../images/category_1.jpg"} />
-          </SwiperSlide>
-          <SwiperSlide
-            onClick={() => searchCategory("Books")}
-            className="cursor-pointer"
-          >
-            <img src={"../images/category_2.jpg"} />
-          </SwiperSlide>
-          <SwiperSlide
-            onClick={() => searchCategory("Computers")}
-            className="cursor-pointer"
-          >
-            <img src={"../images/category_3.jpg"} />
-          </SwiperSlide>
-          <SwiperSlide
-            onClick={() => searchCategory("Home")}
-            className="cursor-pointer"
-          >
-            <img src={"../images/category_4.jpg"} />
-          </SwiperSlide>
-          <SwiperSlide
-            onClick={() => searchCategory("Mobiles")}
-            className="cursor-pointer"
-          >
-            <img src={"../images/category_5.jpg"} />
-          </SwiperSlide> */}
       </Swiper>
       <div className="h-[50%] bg-gradient-to-b from-stone-900 to-amazon-background" />
     </div>

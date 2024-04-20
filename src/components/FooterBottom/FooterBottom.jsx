@@ -229,11 +229,11 @@ const FooterBottom = () => {
         <div className="flex gap-2 flex-wrap">
           <div className="flex flex-col">
             <SiGit size={60} />
-            <span className="text-center font-thin italic">JavaScript</span>
+            <span className="text-center font-thin italic">Git</span>
           </div>
           <div className="flex flex-col">
             <SiGithub size={60} />
-            <span className="text-center font-thin italic">Node Js</span>
+            <span className="text-center font-thin italic">GitHub</span>
           </div>
         </div>
       </div>
