@@ -1,9 +1,14 @@
 <h3 align="center">
-Welcome to the SPA app
+Welcome to the SPA app [FRONTEND]
 </h3>
 
+For the [BACKEND] project go here: https://github.com/koriditmeyer/ecommerceBackendMVC
+
 ## 🌐 Live version
-https://amazon-oyczusm57-koriditmeyers-projects.vercel.app/
+https://spaapp-4fdk.onrender.com/
+
+(with more than +170 000 amazon products)
+
 
 ## 💻 Technologies Used
 
@@ -18,17 +23,28 @@ https://amazon-oyczusm57-koriditmeyers-projects.vercel.app/
 ![React Redux Persist](https://img.shields.io/badge/Redux_Persist-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
 ![swiper](https://img.shields.io/badge/swiper-Swiper-brightgreen?logo=swiper&logoColor=6332F6&label=%20&labelColor=black&color=6332F6)
 ![heroicons](https://img.shields.io/badge/Heroicons-brightgreen?logo=hero&logoColor=6332F6&label=%20&labelColor=black&color=black)
+![React Icons](https://img.shields.io/badge/React_Icons-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
 ![React Scroll](https://img.shields.io/badge/React_Scroll-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
 ![Framer Motion](https://img.shields.io/badge/framer-Framer_Motion-brightgreen?logo=framer&logoColor=0055FF&label=%20&labelColor=black&color=0055FF)
 ![React Toastify](https://img.shields.io/badge/React_Toastify-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
-
-![firebase](https://img.shields.io/badge/firebase-Firebase-brightgreen?logo=firebase&logoColor=FFCA28&label=%20&labelColor=black&color=FFCA28)
-
+![React Loading Skeleton](https://img.shields.io/badge/React_Loading_Skeleton-brightgreen?logo&logoColor=6332F6&label=%20&labelColor=black&color=black)
+![React Query](https://img.shields.io/badge/React_Query-brightgreen?logo=reactquery&logoColor=FF4154&label=%20&labelColor=black&color=FF4154)
+![Axios](https://img.shields.io/badge/Axios-brightgreen?logo=axios&logoColor=5A29E4&label=%20&labelColor=black&color=5A29E4)
 
 ![Git](https://img.shields.io/badge/git-Git-brightgreen?logo=git&logoColor=F05032&label=%20&labelColor=black&color=F05032)
 ![GitHub](https://img.shields.io/badge/github-GitHub-brightgreen?logo=github&logoColor=white&label=%20&labelColor=black&color=181717)
 
 ## 💼 Technical Elements
+
+18/04/24
+- Migrate from Firebase to ![Mongo DB](https://img.shields.io/badge/nodedotjs-MongoDb-brightgreen?logo=mongodb&logoColor=47A248&label=%20&labelColor=black&color=47A248) database with a backend build with ![Node JS](https://img.shields.io/badge/nodedotjs-Node_Js-brightgreen?logo=nodedotjs&logoColor=339933&label=%20&labelColor=black&color=339933) to manage users, products, carts...
+- Use of ![React Query](https://img.shields.io/badge/React_Query-brightgreen?logo=reactquery&logoColor=FF4154&label=%20&labelColor=black&color=FF4154) to handle queries to optimise cache and get loading and error states. Use of ![Axios](https://img.shields.io/badge/Axios-brightgreen?logo=axios&logoColor=5A29E4&label=%20&labelColor=black&color=5A29E4) to fetch the data. 
+- Implement loading skeleton with react-loading-skeletons. 
+- Add a product pagination
+- Add a category filter to products search
+- Add admin panel
+- Add a gallery to products
+- Add a custom made progress bar with the use of a reciprocal function with time steps adjustments for smoother progress -> It allows to have a smooth progress bar even if the loading time is unknown (the backend does not send the data by chunks)
 
 23/01/24
 - Refactor the router to use React-Router-DOM v6.4. For each route who need it: Implement the data fetch with loader function / Implment the error component in case of incorrect fetch or other errors.
@@ -73,7 +89,7 @@ Future implementations (v1)
 - ~~Create left side menu~~
 - ~~Create login and registration page~~
 - Modify checkout page
-- ~~ Create a user page ~~ and order page
+- ~~Create a user page~~ and order page
 - add favorite
 
 Future implementations (v2)
@@ -82,5 +98,6 @@ Future implementations (v2)
 - ~~Use Mongo DB as DB and fetch API from Mongo DB~~
 - ~~Use Node and Mongo DB to manage users and log in~~
 - ~~Create a filter bar for queries~~
-- ~~ Add gallery to products ~~
+- ~~Add gallery to products~~
 - Add stripe connectivity
+- Connect react redux to backend

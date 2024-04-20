@@ -183,9 +183,9 @@ const ProfileAccount = () => {
                 userInfoDB?.payload.date
               )}
             </div>
-            <h5 className="text-sm  font-bold pt-3">Your Hashed Password</h5>
+            <h5 className="text-sm  font-bold pt-3 break-words">Your Hashed Password</h5>
             <div className="text-sm  pt-1">
-              {isLoading ? (
+              {isLoading ? ( 
                 <Skeleton className="w-36" />
               ) : (
                 userInfoDB?.payload.password
