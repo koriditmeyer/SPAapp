@@ -5,7 +5,7 @@ Welcome to the SPA app [FRONTEND]
 For the [BACKEND] project go here: https://github.com/koriditmeyer/ecommerceBackendMVC
 
 ## 🌐 Live version
-https://spaapp-4fdk.onrender.com/
+https://amazon.ditmeyer.com/
 
 (with more than +170 000 amazon products)
 
