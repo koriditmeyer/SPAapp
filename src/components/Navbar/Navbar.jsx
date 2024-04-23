@@ -125,9 +125,9 @@ const Navbar = () => {
             <CartWidget />
           </NavLink>
         </div>
-        <div className="hidden lg:flex">
+        {/* <div className="hidden lg:flex">
           <ThemeWidget />
-        </div>
+        </div> */}
       </div>
       <div className=" md:hidden p-2">
         <Search />
